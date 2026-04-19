@@ -1,0 +1,23 @@
+[
+  {
+    "id": "t1_01",
+    "text": "If it rains, we ___ at home.",
+    "solution": "will stay",
+    "options": ["will stay", "would stay", "would have stayed"],
+    "explanation": "Type 1 (Real Life): Das Ereignis ist in der Zukunft möglich. If + Simple Present -> will-Future."
+  },
+  {
+    "id": "t2_01",
+    "text": "If I won the lottery, I ___ the world.",
+    "solution": "would travel",
+    "options": ["will travel", "would travel", "would have traveled"],
+    "explanation": "Type 2 (Dreams): Irrealis der Gegenwart. If + Simple Past -> would + Infinitiv."
+  },
+  {
+    "id": "t3_01",
+    "text": "If you had studied, you ___ the exam.",
+    "solution": "would have passed",
+    "options": ["will pass", "would pass", "would have passed"],
+    "explanation": "Type 3 (Regrets): Irrealis der Vergangenheit. If + Past Perfect -> would have + Past Participle."
+  }
+]

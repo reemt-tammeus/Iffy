@@ -1,0 +1,12 @@
+[
+  {
+    "id": "t1_01_ap",
+    "text": "If it rains, we ___ (stay) at home.",
+    "base_word": "stay",
+    "solution": ["will stay", "can stay", "must stay"],
+    "specific_feedback": {
+      "would stay": "Achtung: Type 1! Nutze 'will', nicht 'would', wenn die Bedingung real möglich ist.",
+      "stay": "Du hast das Hilfsverb vergessen (will/can/must)."
+    }
+  }
+]
