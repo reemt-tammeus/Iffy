@@ -8,7 +8,7 @@ let state = {
     apInputText: ""
 };
 
-// Start Game
+// --- INIT & FLOW ---
 async function startGame(selectedMode) {
     state.mode = selectedMode;
     state.lives = 3;
@@ -16,7 +16,7 @@ async function startGame(selectedMode) {
     state.currentIndex = 0;
     updateStats();
 
-    // Mock Fetch (Ersetze dies durch echten fetch('data_quickie.json') in Produktion)
+    // Lädt temporäre Mock-Daten (Später durch fetch('datei.json') ersetzen)
     state.data = state.mode === 'quickie' ? await mockFetchQuickie() : await mockFetchAP();
 
     document.getElementById('start-screen').classList.add('hidden');
@@ -28,7 +28,12 @@ async function startGame(selectedMode) {
 }
 
 function loadQuestion() {
-    if (state.currentIndex >= state.data.length) return alert("Training beendet!");
+    if (state.currentIndex >= state.data.length) {
+        alert("Training beendet! Alle Sätze geschafft.");
+        location.reload();
+        return;
+    }
+    
     state.jokerUsed = false;
     document.getElementById('next-btn').classList.add('hidden');
     
@@ -46,12 +51,12 @@ function loadQuestion() {
     }
 }
 
-// --- QUICKIE MODE LOGIK ---
+// --- QUICKIE MODE ---
 function renderQuickieButtons(q) {
     const container = document.getElementById('quickie-controls');
     container.innerHTML = '';
     
-    // Fisher-Yates Shuffle
+    // Fisher-Yates Shuffle der Options
     let options = [...q.options];
     for (let i = options.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -68,6 +73,7 @@ function renderQuickieButtons(q) {
 
 function handleQuickieAnswer(selected, btnElement) {
     const q = state.data[state.currentIndex];
+    
     if (selected === q.solution) {
         showFlash("Korrekt!", "flash-green");
         state.streak++;
@@ -78,24 +84,27 @@ function handleQuickieAnswer(selected, btnElement) {
         if (!state.jokerUsed) {
             state.jokerUsed = true;
             btnElement.classList.add('disabled-btn');
-            showFlash("Fehler! Joker aktiv. " + q.explanation, "flash-orange");
+            showFlash("Fehler! Joker aktiv. " + q.explanation, "flash-orange", 2000);
         } else {
             loseLife();
-            document.getElementById('quickie-controls').innerHTML = ''; // Hide buttons
-            showFlash("Falsch! Richtig: " + q.solution, "flash-red", 2000);
+            document.getElementById('quickie-controls').innerHTML = '';
+            showFlash("Falsch! Richtig: " + q.solution, "flash-red", 2500);
             document.getElementById('next-btn').classList.remove('hidden');
         }
     }
     updateStats();
 }
 
-// --- AP MODE LOGIK ---
+// --- AP MODE ---
 function renderKeyboard() {
     state.apInputText = "";
     document.getElementById('ap-input-display').textContent = "";
+    document.getElementById('ap-input-display').style.color = "var(--text-color)";
+    
     const kb = document.getElementById('keyboard');
     kb.innerHTML = '';
     const letters = "abcdefghijklmnopqrstuvwxyz ".split("");
+    
     letters.forEach(l => {
         const key = document.createElement('div');
         key.className = 'key';
@@ -106,9 +115,10 @@ function renderKeyboard() {
         };
         kb.appendChild(key);
     });
-    // Backspace
+    
     const del = document.createElement('div');
-    del.className = 'key'; del.textContent = "DEL";
+    del.className = 'key'; 
+    del.textContent = "DEL";
     del.onclick = () => {
         state.apInputText = state.apInputText.slice(0, -1);
         document.getElementById('ap-input-display').textContent = state.apInputText;
@@ -125,16 +135,21 @@ function checkAPAnswer() {
 
     if (isCorrect) {
         showFlash("Perfekt!", "flash-green");
+        state.streak++;
+        if (state.streak % 3 === 0) triggerFireworks();
         setTimeout(loadNext, 1000);
-    } else if (distance <= 1 && !state.jokerUsed) {
+    } else if (distance <= 1 && !state.jokerUsed && input.length > 2) {
         state.jokerUsed = true;
-        showFlash("Tippfehler korrigiert (Joker)!", "flash-orange");
-        document.getElementById('ap-input-display').style.color = "orange";
+        state.streak = 0;
+        showFlash("Tippfehler korrigiert (Joker)!", "flash-orange", 2000);
+        document.getElementById('ap-input-display').style.color = "var(--orange)";
         setTimeout(loadNext, 1500);
     } else {
-        if (!state.jokerUsed && q.specific_feedback[input]) {
+        state.streak = 0;
+        // Spezifisches Feedback prüfen
+        if (!state.jokerUsed && q.specific_feedback && q.specific_feedback[input]) {
             state.jokerUsed = true;
-            showFlash(q.specific_feedback[input], "flash-orange", 2000);
+            showFlash(q.specific_feedback[input], "flash-orange", 2500);
         } else {
             loseLife();
             showFlash("Falsch! Lösung: " + q.solution[0], "flash-red", 2500);
@@ -142,9 +157,10 @@ function checkAPAnswer() {
             document.getElementById('next-btn').classList.remove('hidden');
         }
     }
+    updateStats();
 }
 
-// --- GLOBALE SYSTEME ---
+// --- HELPER & SYSTEM ---
 function loadNext() {
     state.currentIndex++;
     loadQuestion();
@@ -160,7 +176,7 @@ function loseLife() {
             state.lives = 3;
             state.streak = 0;
             updateStats();
-            loadQuestion(); // Reset text
+            loadQuestion(); // Text reset
         }, 3000);
     }
 }
@@ -174,12 +190,15 @@ function showFlash(msg, colorClass, duration = 1500) {
     const flash = document.getElementById('feedback-flash');
     flash.textContent = msg;
     flash.className = colorClass;
+    flash.classList.remove('hidden');
     setTimeout(() => flash.classList.add('hidden'), duration);
 }
 
-function triggerFireworks() { console.log("🎆 FEUERWERK ANIMATION HIER 🎆"); }
+function triggerFireworks() { 
+    console.log("🎆 FEUERWERK ANIMATION HIER 🎆"); 
+}
 
-// Levenshtein Helper (Tippfehler-Toleranz)
+// Levenshtein-Distanz für Tippfehler-Toleranz
 function levenshtein(a, b) {
     if(a.length == 0) return b.length; 
     if(b.length == 0) return a.length; 
@@ -195,6 +214,16 @@ function levenshtein(a, b) {
     return matrix[b.length][a.length];
 }
 
-// Dummies für lokales Testen ohne Server
-async function mockFetchQuickie() { return [{id: "1", text: "If it rains, we ___ at home.", solution: "will stay", options: ["will stay", "would stay", "would have stayed"], explanation: "Type 1: If + Present -> will-Future."}]; }
-async function mockFetchAP() { return [{id: "1", text: "If it rains, we ___ (stay) at home.", solution: ["will stay"], specific_feedback: {"would stay": "Kein 'would' im Type 1!"}}]; }
+// --- TEMPORÄRE MOCK DATEN (Für lokalen Test ohne Server) ---
+async function mockFetchQuickie() { 
+    return [
+        {id: "t1_01", text: "If it rains, we ___ at home.", solution: "will stay", options: ["will stay", "would stay", "would have stayed"], explanation: "Type 1: If + Present -> will-Future."},
+        {id: "t2_01", text: "If I won the lottery, I ___ the world.", solution: "would travel", options: ["will travel", "would travel", "would have traveled"], explanation: "Type 2: If + Past -> would + Infinitiv."}
+    ]; 
+}
+
+async function mockFetchAP() { 
+    return [
+        {id: "t1_01_ap", text: "If it rains, we ___ (stay) at home.", base_word: "stay", solution: ["will stay"], specific_feedback: {"would stay": "Kein 'would' im Type 1!"}}
+    ]; 
+}
