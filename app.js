@@ -46,6 +46,7 @@ function loadQuestion() {
 function renderQuickieButtons(q) {
     const container = document.getElementById('quickie-controls');
     container.innerHTML = '';
+    // Fisher-Yates Logik
     let opts = [...q.options].sort(() => Math.random() - 0.5);
     opts.forEach(opt => {
         const btn = document.createElement('button');
@@ -58,8 +59,7 @@ function renderQuickieButtons(q) {
             } else {
                 if (!state.jokerUsed) {
                     state.jokerUsed = true;
-                    btn.style.opacity = "0.3";
-                    btn.style.pointerEvents = "none";
+                    btn.classList.add('disabled-btn');
                     showFlash("Joker! " + q.explanation, "flash-orange", 2500);
                 } else {
                     loseLife(q.solution);
@@ -70,34 +70,63 @@ function renderQuickieButtons(q) {
     });
 }
 
+// --- AP MODE LOGIK & QWERTY ---
 function renderKeyboard() {
     state.apInputText = "";
     document.getElementById('ap-input-display').textContent = "";
+    document.getElementById('ap-input-display').style.color = "var(--text-color)";
+    
     const kb = document.getElementById('keyboard');
     kb.innerHTML = '';
-    "abcdefghijklmnopqrstuvwxyz ".split("").forEach(l => {
-        const key = document.createElement('div');
-        key.className = 'key';
-        key.textContent = l === " " ? "SPACE" : l;
-        key.onclick = () => {
-            state.apInputText += l;
-            document.getElementById('ap-input-display').textContent = state.apInputText;
-        };
-        kb.appendChild(key);
+    
+    // Die QWERTY-Matrix
+    const rows = [
+        ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
+        ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
+        ['z', 'x', 'c', 'v', 'b', 'n', 'm', "'"],
+        ['SPACE', 'DEL']
+    ];
+    
+    rows.forEach(rowKeys => {
+        const rowDiv = document.createElement('div');
+        rowDiv.className = 'keyboard-row';
+        
+        rowKeys.forEach(l => {
+            const key = document.createElement('div');
+            key.className = 'key' + (l === 'SPACE' ? ' key-space' : '') + (l === 'DEL' ? ' key-del' : '');
+            key.textContent = l === 'DEL' ? '⌫' : l;
+            
+            key.onclick = () => {
+                if (l === 'SPACE') {
+                    state.apInputText += ' ';
+                } else if (l === 'DEL') {
+                    state.apInputText = state.apInputText.slice(0, -1);
+                } else {
+                    state.apInputText += l;
+                }
+                document.getElementById('ap-input-display').textContent = state.apInputText;
+            };
+            rowDiv.appendChild(key);
+        });
+        
+        kb.appendChild(rowDiv);
     });
 }
 
 function checkAPAnswer() {
     const q = state.data[state.currentIndex];
     const input = state.apInputText.trim().toLowerCase();
+    
     if (q.solution.includes(input)) {
         showFlash("Korrekt!", "flash-green");
+        state.streak++;
         setTimeout(loadNext, 1000);
     } else {
         loseLife(q.solution[0]);
     }
 }
 
+// --- SYSTEM HELPER ---
 function loseLife(correct) {
     state.lives--;
     updateStats();
@@ -111,17 +140,19 @@ function loseLife(correct) {
 }
 
 function loadNext() { state.currentIndex++; loadQuestion(); }
+
 function updateStats() {
     document.getElementById('lives').textContent = "❤️".repeat(state.lives);
     document.getElementById('streak').textContent = "🔥 " + state.streak;
 }
+
 function showFlash(m, c, d = 1000) {
     const f = document.getElementById('feedback-flash');
     f.textContent = m; f.className = c; f.classList.remove('hidden');
     setTimeout(() => f.classList.add('hidden'), d);
 }
 
-// Beispiel-Daten
+// --- MOCK DATEN ---
 function getQuickieData() {
     return [{text: "If it rains, we ___ at home.", solution: "will stay", options: ["will stay", "would stay", "would have stayed"], explanation: "Type 1: If + Present -> will-Future."}];
 }
