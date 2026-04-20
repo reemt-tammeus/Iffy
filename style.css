@@ -9,7 +9,12 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
 
-body { background-color: var(--bg-color); color: var(--text-color); display: flex; justify-content: center; }
+body { 
+    background-color: var(--bg-color); 
+    color: var(--text-color); 
+    display: flex; 
+    justify-content: center; 
+}
 
 #app-container {
     width: 100%;
@@ -28,21 +33,85 @@ body { background-color: var(--bg-color); color: var(--text-color); display: fle
     justify-content: space-between;
     padding: 15px;
     font-size: 1.2rem;
+    z-index: 10;
 }
 
 #content-area {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
+    position: relative;
+}
+
+/* --- START SCREEN: ZONEN-ARCHITEKTUR --- */
+#start-screen {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg-color);
+}
+
+.start-ui-zone {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    z-index: 2;
+}
+
+.start-ui-zone h1 {
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.mode-selection { 
+    width: 100%; 
+    max-width: 300px; 
+}
+
+.start-image-zone {
+    width: 100%;
+    max-height: 45vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+#logo {
+    width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    object-position: bottom center;
+}
+
+/* Media Query für Desktop/Tablet */
+@media (min-width: 601px) {
+    #start-screen { justify-content: center; padding: 40px; }
+    .start-ui-zone { flex: none; order: 2; margin-top: 30px; }
+    .start-image-zone { order: 1; max-height: 50vh; align-items: center; }
+    #logo { object-fit: contain; object-position: center; }
+}
+
+/* --- GAME UI --- */
+#game-screen {
+    flex-grow: 1;
+    display: flex;
     align-items: center;
     justify-content: center;
     padding: 20px;
     text-align: center;
 }
 
-#text-display { font-size: 1.5rem; line-height: 1.5; margin-bottom: 20px; }
+#text-display { 
+    font-size: 1.5rem; 
+    line-height: 1.5; 
+}
 
-/* Thumb Zone Controls */
+/* --- THUMB ZONE (Daumen-Bereich) --- */
 #thumb-zone {
     padding: 15px;
     background: var(--bg-color);
@@ -50,7 +119,7 @@ body { background-color: var(--bg-color); color: var(--text-color); display: fle
     padding-bottom: max(15px, env(safe-area-inset-bottom));
 }
 
-.mode-selection button, #quickie-controls button, #next-btn, #ap-submit {
+button {
     width: 100%;
     padding: 15px;
     margin-bottom: 10px;
@@ -64,7 +133,10 @@ body { background-color: var(--bg-color); color: var(--text-color); display: fle
     transition: 0.2s;
 }
 
-#quickie-controls button:active { background: var(--text-color); color: var(--bg-color); }
+button:active { 
+    background: var(--text-color); 
+    color: var(--bg-color); 
+}
 
 .disabled-btn {
     opacity: 0.3;
@@ -72,7 +144,7 @@ body { background-color: var(--bg-color); color: var(--text-color); display: fle
     border-color: var(--red) !important;
 }
 
-/* Feedback Flash */
+/* --- FEEDBACK FLASH --- */
 #feedback-flash {
     position: absolute;
     top: 50%;
@@ -90,9 +162,55 @@ body { background-color: var(--bg-color); color: var(--text-color); display: fle
 .flash-green { background: rgba(40, 167, 69, 0.9); color: white; }
 .flash-orange { background: rgba(253, 126, 20, 0.9); color: white; }
 
-/* Keyboard (AP Mode) */
-#keyboard { display: flex; flex-wrap: wrap; justify-content: center; gap: 5px; margin-bottom: 10px;}
-.key { padding: 10px; border: 1px solid #555; border-radius: 5px; background: #222; color: white; flex: 1 1 8%; text-align: center;}
-#ap-input-display { font-size: 1.5rem; border-bottom: 2px solid white; min-height: 40px; margin-bottom: 15px; letter-spacing: 2px;}
+/* --- AP MODE TASTATUR --- */
+#keyboard { 
+    display: flex; 
+    flex-wrap: wrap; 
+    justify-content: center; 
+    gap: 5px; 
+    margin-bottom: 10px;
+}
 
-#game-over-screen img { width: 100%; height: 100vh; object-fit: cover; position: absolute; top:0; left:0; z-index: 999; }
+.key { 
+    padding: 10px; 
+    border: 1px solid #555; 
+    border-radius: 5px; 
+    background: #222; 
+    color: white; 
+    flex: 1 1 8%; 
+    text-align: center; 
+    cursor: pointer; 
+    user-select: none; 
+}
+
+.key:active { background: #555; }
+
+#ap-input-display { 
+    font-size: 1.5rem; 
+    border-bottom: 2px solid white; 
+    min-height: 40px; 
+    margin-bottom: 15px; 
+    letter-spacing: 2px; 
+    text-align: center; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    word-break: break-all;
+}
+
+/* --- GAME OVER SCREEN --- */
+#game-over-screen { 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    z-index: 999; 
+    background: black;
+}
+
+#game-over-screen img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+}
