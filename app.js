@@ -16,7 +16,7 @@ async function startGame(selectedMode) {
     state.currentIndex = 0;
     updateStats();
 
-    // Lädt temporäre Mock-Daten (Später durch fetch('datei.json') ersetzen)
+    // Lädt temporäre Mock-Daten (Später durch fetch() ersetzen, wenn JSONs fertig sind)
     state.data = state.mode === 'quickie' ? await mockFetchQuickie() : await mockFetchAP();
 
     document.getElementById('start-screen').classList.add('hidden');
