@@ -83,12 +83,68 @@ button {
 }
 
 button:active { background: var(--text-color); color: var(--bg-color); }
+.disabled-btn { opacity: 0.3; pointer-events: none; border-color: var(--red) !important; }
 
-/* --- TASTATUR & FEEDBACK --- */
-#keyboard { display: flex; flex-wrap: wrap; justify-content: center; gap: 5px; }
-.key { padding: 12px; border: 1px solid #555; border-radius: 5px; background: #222; flex: 1 1 8%; text-align: center; cursor: pointer; }
-#ap-input-display { font-size: 1.6rem; border-bottom: 2px solid white; min-height: 50px; margin-bottom: 15px; text-align: center; }
+/* --- AP MODE TASTATUR (QWERTY) --- */
+#keyboard { 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center;
+    gap: 8px; 
+    margin-bottom: 15px;
+    width: 100%;
+}
 
+.keyboard-row {
+    display: flex;
+    justify-content: center;
+    gap: 6px; 
+    width: 100%;
+}
+
+.key { 
+    padding: 14px 0; 
+    border: 1px solid #555; 
+    border-radius: 8px; 
+    background: #333; 
+    color: white; 
+    flex: 1; 
+    max-width: 45px; 
+    text-align: center; 
+    cursor: pointer; 
+    user-select: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+    box-shadow: 0 4px 0 #111; 
+    transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.key:active { 
+    background: #555; 
+    transform: translateY(4px); 
+    box-shadow: 0 0 0 #111;
+}
+
+.key-space {
+    flex: 4; 
+    max-width: 200px;
+}
+
+.key-del {
+    flex: 1.5; 
+    max-width: 80px;
+    background: #5a2a2a; 
+}
+
+#ap-input-display { 
+    font-size: 1.6rem; 
+    border-bottom: 2px solid white; 
+    min-height: 50px; 
+    margin-bottom: 15px; 
+    text-align: center; 
+}
+
+/* --- FEEDBACK & OVERLAY --- */
 #feedback-flash { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: 20px; border-radius: 15px; font-weight: bold; z-index: 100; text-align: center; width: 80%; }
 .flash-red { background: var(--red); }
 .flash-green { background: var(--green); }
