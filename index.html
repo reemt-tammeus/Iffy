@@ -15,11 +15,15 @@
 
         <main id="content-area">
             <div id="start-screen">
-                <img src="logo.jpg" alt="Iffy Logo" id="logo" onerror="this.style.display='none'">
-                <h1>The Ultimate Conditional Trainer</h1>
-                <div class="mode-selection">
-                    <button onclick="startGame('quickie')">Quickie-Mode (MC)</button>
-                    <button onclick="startGame('ap')">AP-Mode (Tippen)</button>
+                <div class="start-ui-zone">
+                    <h1>The Ultimate Conditional Trainer</h1>
+                    <div class="mode-selection">
+                        <button onclick="startGame('quickie')">Quickie-Mode (MC)</button>
+                        <button onclick="startGame('ap')">AP-Mode (Tippen)</button>
+                    </div>
+                </div>
+                <div class="start-image-zone">
+                    <img src="logo.jpg" alt="Iffy Logo" id="logo" onerror="this.style.display='none'">
                 </div>
             </div>
 
@@ -30,10 +34,13 @@
 
         <footer id="thumb-zone" class="hidden">
             <div id="quickie-controls" class="hidden"></div>
+            
             <div id="ap-controls" class="hidden">
                 <div id="ap-input-display"></div>
-                <div id="keyboard"></div> <button id="ap-submit" onclick="checkAPAnswer()">Prüfen</button>
+                <div id="keyboard"></div>
+                <button id="ap-submit" onclick="checkAPAnswer()">Prüfen</button>
             </div>
+            
             <button id="next-btn" class="hidden" onclick="loadNext()">WEITER</button>
         </footer>
 
