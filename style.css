@@ -1,7 +1,6 @@
 :root {
     --bg-color: #000000;
     --text-color: #ffffff;
-    --accent: #1a1a1a;
     --green: #28a745;
     --orange: #fd7e14;
     --red: #dc3545;
@@ -14,192 +13,86 @@ body {
     color: var(--text-color); 
     display: flex; 
     justify-content: center; 
+    overflow: hidden;
 }
 
 #app-container {
     width: 100%;
     max-width: 800px;
-    height: 100dvh; /* Nutzt dynamische Höhe für iOS Adressleiste */
+    height: 100dvh;
     display: flex;
     flex-direction: column;
     position: relative;
-    overflow: hidden;
 }
 
 .hidden { display: none !important; }
 
-#stats-bar {
-    display: flex;
-    justify-content: space-between;
-    padding: 15px;
-    font-size: 1.2rem;
-    z-index: 10;
-}
-
-#content-area {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    overflow: hidden; /* Wichtig, damit Inhalte nicht ausbrechen */
-}
-
-/* --- START SCREEN: HERO & GLASSMORPHISM --- */
+/* --- START SCREEN HINTERGRUND --- */
 #start-screen {
     width: 100%;
     height: 100dvh;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end; /* Schiebt die Glas-Box nach unten */
+    justify-content: flex-end; 
     align-items: center;
-    padding-bottom: 15vh; /* Abstand zum unteren Rand */
-    
-    /* Das Bild als Vollbild-Tapete */
-    background-image: url('logo.jpg');
-    background-size: cover; /* Füllt immer den ganzen Screen ohne zu verzerren */
-    background-position: center; /* Zentriert das Graffiti */
-    background-repeat: no-repeat;
+    padding-bottom: 12vh;
     background-color: var(--bg-color);
+    background-repeat: no-repeat;
+}
+
+/* PC/Tablet: Volle Höhe, Zentriert */
+@media (min-width: 601px) {
+    #start-screen {
+        background-image: url('logo.jpg');
+        background-size: contain;
+        background-position: center center;
+    }
+}
+
+/* iPhone: Volle Breite, Unten angedockt */
+@media (max-width: 600px) {
+    #start-screen {
+        background-image: url('logo.jpg');
+        background-size: 100% auto;
+        background-position: bottom center;
+    }
 }
 
 .start-ui-zone {
-    width: 90%;
-    max-width: 400px;
-    padding: 30px;
-    
-    /* Der Magic Glassmorphism Effekt */
-    background: rgba(0, 0, 0, 0.65); /* Leicht transparentes Schwarz */
-    backdrop-filter: blur(10px); /* Der Unschärfe-Effekt */
-    -webkit-backdrop-filter: blur(10px); /* Wichtig für iPhones/Safari! */
-    border: 1px solid rgba(255, 255, 255, 0.15); /* Leichter Rahmen */
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    width: 85%;
+    max-width: 380px;
+    padding: 25px;
+    background: rgba(0, 0, 0, 0.7); 
+    backdrop-filter: blur(12px); 
+    -webkit-backdrop-filter: blur(12px); 
+    border: 1px solid rgba(255, 255, 255, 0.2); 
+    border-radius: 24px;
     z-index: 10;
 }
 
-.mode-selection {
-    width: 100%;
-}
-
 /* --- GAME UI --- */
-#game-screen {
-    flex-grow: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    text-align: center;
-}
-
-#text-display { 
-    font-size: 1.5rem; 
-    line-height: 1.5; 
-}
-
-/* --- THUMB ZONE (Daumen-Bereich) --- */
-#thumb-zone {
-    padding: 15px;
-    background: var(--bg-color);
-    border-top: 1px solid #333;
-    padding-bottom: max(15px, env(safe-area-inset-bottom)); /* iPhone X+ Support */
-}
+#stats-bar { display: flex; justify-content: space-between; padding: 15px; font-size: 1.2rem; }
+#content-area { flex-grow: 1; display: flex; flex-direction: column; position: relative; }
+#game-screen { flex-grow: 1; display: flex; align-items: center; justify-content: center; padding: 20px; text-align: center; }
+#text-display { font-size: 1.5rem; line-height: 1.5; }
+#thumb-zone { padding: 15px; background: var(--bg-color); border-top: 1px solid #333; padding-bottom: max(15px, env(safe-area-inset-bottom)); }
 
 button {
-    width: 100%;
-    padding: 15px;
-    margin-bottom: 10px;
-    font-size: 1.1rem;
-    font-weight: bold;
-    border-radius: 12px;
-    border: 2px solid var(--text-color);
-    background: var(--bg-color);
-    color: var(--text-color);
-    cursor: pointer;
-    transition: 0.2s;
+    width: 100%; padding: 18px; margin-bottom: 12px; font-size: 1.1rem; font-weight: bold;
+    border-radius: 14px; border: 2px solid var(--text-color); background: var(--bg-color); color: var(--text-color);
 }
 
-button:active { 
-    background: var(--text-color); 
-    color: var(--bg-color); 
-}
+button:active { background: var(--text-color); color: var(--bg-color); }
 
-.disabled-btn {
-    opacity: 0.3;
-    pointer-events: none;
-    border-color: var(--red) !important;
-}
+/* --- TASTATUR & FEEDBACK --- */
+#keyboard { display: flex; flex-wrap: wrap; justify-content: center; gap: 5px; }
+.key { padding: 12px; border: 1px solid #555; border-radius: 5px; background: #222; flex: 1 1 8%; text-align: center; cursor: pointer; }
+#ap-input-display { font-size: 1.6rem; border-bottom: 2px solid white; min-height: 50px; margin-bottom: 15px; text-align: center; }
 
-/* --- FEEDBACK FLASH --- */
-#feedback-flash {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 20px;
-    border-radius: 10px;
-    font-weight: bold;
-    text-align: center;
-    width: 90%;
-    z-index: 100;
-}
+#feedback-flash { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: 20px; border-radius: 15px; font-weight: bold; z-index: 100; text-align: center; width: 80%; }
+.flash-red { background: var(--red); }
+.flash-green { background: var(--green); }
+.flash-orange { background: var(--orange); }
 
-.flash-red { background: rgba(220, 53, 69, 0.9); color: white; }
-.flash-green { background: rgba(40, 167, 69, 0.9); color: white; }
-.flash-orange { background: rgba(253, 126, 20, 0.9); color: white; }
-
-/* --- AP MODE TASTATUR --- */
-#keyboard { 
-    display: flex; 
-    flex-wrap: wrap; 
-    justify-content: center; 
-    gap: 5px; 
-    margin-bottom: 10px;
-}
-
-.key { 
-    padding: 10px; 
-    border: 1px solid #555; 
-    border-radius: 5px; 
-    background: #222; 
-    color: white; 
-    flex: 1 1 8%; 
-    text-align: center; 
-    cursor: pointer; 
-    user-select: none; 
-}
-
-.key:active { background: #555; }
-
-#ap-input-display { 
-    font-size: 1.5rem; 
-    border-bottom: 2px solid white; 
-    min-height: 40px; 
-    margin-bottom: 15px; 
-    letter-spacing: 2px; 
-    text-align: center; 
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    word-break: break-all;
-}
-
-/* --- GAME OVER SCREEN --- */
-#game-over-screen { 
-    position: absolute; 
-    top: 0; 
-    left: 0; 
-    width: 100%; 
-    height: 100%; 
-    z-index: 999; 
-    background: black;
-}
-
-#game-over-screen img { 
-    width: 100%; 
-    height: 100%; 
-    object-fit: cover; 
-}
+#game-over-screen { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 999; }
+#game-over-screen img { width: 100%; height: 100%; object-fit: cover; }
