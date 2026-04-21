@@ -1,302 +1,1490 @@
 [
-  { "id": "ap_0", "type": 1, "text": "If it rains, we ___ (stay) at home.", "solutions": ["will stay", "can stay", "must stay"] },
-  { "id": "ap_1", "type": 1, "text": "If you study hard, you ___ (pass) the exam.", "solutions": ["will pass", "can pass"] },
-  { "id": "ap_2", "type": 1, "text": "If she ___ (arrive) late, the teacher will be angry.", "solutions": ["arrives"] },
-  { "id": "ap_3", "type": 1, "text": "I will help you if you ___ (ask) me.", "solutions": ["ask"] },
-  { "id": "ap_4", "type": 1, "text": "If they don't hurry, they ___ (miss) the train.", "solutions": ["will miss", "might miss"] },
-  { "id": "ap_5", "type": 1, "text": "If I find your key, I ___ (tell) you.", "solutions": ["will tell", "can tell"] },
-  { "id": "ap_6", "type": 1, "text": "If he ___ (have) enough money, he will buy a car.", "solutions": ["has"] },
-  { "id": "ap_7", "type": 1, "text": "The chocolate ___ (melt) if you leave it in the sun.", "solutions": ["will melt", "can melt"] },
-  { "id": "ap_8", "type": 1, "text": "If you ___ (eat) too much, you will feel sick.", "solutions": ["eat"] },
-  { "id": "ap_9", "type": 1, "text": "If we ___ (not/leave) now, we'll be late.", "solutions": ["do not leave", "don't leave"] },
-  { "id": "ap_10", "type": 1, "text": "She will be happy if you ___ (call) her.", "solutions": ["call"] },
-  { "id": "ap_11", "type": 1, "text": "If the sun shines, we ___ (go) for a walk.", "solutions": ["will go", "can go"] },
-  { "id": "ap_12", "type": 1, "text": "If you help me, I ___ (finish) sooner.", "solutions": ["will finish", "can finish"] },
-  { "id": "ap_13", "type": 1, "text": "If it ___ (be) cold, I will wear a coat.", "solutions": ["is"] },
-  { "id": "ap_14", "type": 1, "text": "They will play football if they ___ (find) a ball.", "solutions": ["find"] },
-  { "id": "ap_15", "type": 1, "text": "If I ___ (not/see) him, I will call him.", "solutions": ["do not see", "don't see"] },
-  { "id": "ap_16", "type": 1, "text": "If you drink this, you ___ (feel) better.", "solutions": ["will feel", "should feel"] },
-  { "id": "ap_17", "type": 1, "text": "If she ___ (forget) her umbrella, she'll get wet.", "solutions": ["forgets"] },
-  { "id": "ap_18", "type": 1, "text": "I ___ (buy) some milk if I go to the shop.", "solutions": ["will buy", "can buy"] },
-  { "id": "ap_19", "type": 1, "text": "If we win, we ___ (celebrate).", "solutions": ["will celebrate", "can celebrate"] },
-  { "id": "ap_20", "type": 1, "text": "If you ___ (not/go) to bed, you'll be tired.", "solutions": ["do not go", "don't go"] },
-  { "id": "ap_21", "type": 1, "text": "If he ___ (cook) dinner, I'll do the dishes.", "solutions": ["cooks"] },
-  { "id": "ap_22", "type": 1, "text": "The dog will bark if someone ___ (knock).", "solutions": ["knocks"] },
-  { "id": "ap_23", "type": 1, "text": "If you ___ (touch) that, you'll get hurt.", "solutions": ["touch"] },
-  { "id": "ap_24", "type": 1, "text": "If I have time, I ___ (visit) you.", "solutions": ["will visit", "can visit"] },
-  { "id": "ap_25", "type": 1, "text": "If the bus ___ (not/come), we'll walk.", "solutions": ["does not come", "doesn't come"] },
-  { "id": "ap_26", "type": 1, "text": "You ___ (get) a prize if you win.", "solutions": ["will get"] },
-  { "id": "ap_27", "type": 1, "text": "If she ___ (practice), she will improve.", "solutions": ["practices"] },
-  { "id": "ap_28", "type": 1, "text": "If it ___ (snow), we will build a snowman.", "solutions": ["snows"] },
-  { "id": "ap_29", "type": 1, "text": "I will lend you the book if you ___ (promise) to return it.", "solutions": ["promise"] },
-  { "id": "ap_30", "type": 1, "text": "If the boss ___ (approve), we will start the project.", "solutions": ["approves"] },
-  { "id": "ap_31", "type": 1, "text": "The cake ___ (taste) better if you add sugar.", "solutions": ["will taste"] },
-  { "id": "ap_32", "type": 1, "text": "If you ___ (wear) a hat, you won't get sunburnt.", "solutions": ["wear"] },
-  { "id": "ap_33", "type": 1, "text": "I ___ (bring) some snacks if you want.", "solutions": ["will bring"] },
-  { "id": "ap_34", "type": 1, "text": "If the alarm ___ (go) off, leave the building.", "solutions": ["goes"] },
-  { "id": "ap_35", "type": 1, "text": "You ___ (miss) the flight if you don't leave now.", "solutions": ["will miss"] },
-  { "id": "ap_36", "type": 1, "text": "If the weather ___ (stay) good, we will go camping.", "solutions": ["stays"] },
-  { "id": "ap_37", "type": 1, "text": "The car ___ (not/start) if the battery is dead.", "solutions": ["will not start", "won't start"] },
-  { "id": "ap_38", "type": 1, "text": "If she ___ (finish) her work, she will join us.", "solutions": ["finishes"] },
-  { "id": "ap_39", "type": 1, "text": "I ___ (send) you a postcard if I have your address.", "solutions": ["will send"] },
-  { "id": "ap_40", "type": 1, "text": "If you ___ (heat) ice, it melts.", "solutions": ["heat"] },
-  { "id": "ap_41", "type": 1, "text": "The police ___ (arrest) him if they find proof.", "solutions": ["will arrest"] },
-  { "id": "ap_42", "type": 1, "text": "If we ___ (book) early, we will get a discount.", "solutions": ["book"] },
-  { "id": "ap_43", "type": 1, "text": "You ___ (feel) dizzy if you don't eat something.", "solutions": ["will feel"] },
-  { "id": "ap_44", "type": 1, "text": "If it ___ (be) too hot, I'll turn on the AC.", "solutions": ["is"] },
-  { "id": "ap_45", "type": 1, "text": "The kids ___ (be) happy if we go to the zoo.", "solutions": ["will be"] },
-  { "id": "ap_46", "type": 1, "text": "If you ___ (not/be) careful, you will trip.", "solutions": ["are not", "aren't"] },
-  { "id": "ap_47", "type": 1, "text": "I ___ (tell) her the news if I see her.", "solutions": ["will tell"] },
-  { "id": "ap_48", "type": 1, "text": "If the wifi ___ (fail), we will use mobile data.", "solutions": ["fails"] },
-  { "id": "ap_49", "type": 1, "text": "You ___ (get) wet if you don't take an umbrella.", "solutions": ["will get"] },
-  { "id": "ap_50", "type": 1, "text": "If he ___ (exercise) daily, he will get fit.", "solutions": ["exercises"] },
-  { "id": "ap_51", "type": 1, "text": "The store ___ (close) if we don't hurry.", "solutions": ["will close"] },
-  { "id": "ap_52", "type": 1, "text": "If you ___ (click) here, the video starts.", "solutions": ["click"] },
-  { "id": "ap_53", "type": 1, "text": "We ___ (order) pizza if we get hungry.", "solutions": ["will order"] },
-  { "id": "ap_54", "type": 1, "text": "If the price ___ (drop), I'll buy that phone.", "solutions": ["drops"] },
-  { "id": "ap_55", "type": 1, "text": "You ___ (understand) if you listen closely.", "solutions": ["will understand"] },
-  { "id": "ap_56", "type": 1, "text": "If she ___ (win), she will get a trophy.", "solutions": ["wins"] },
-  { "id": "ap_57", "type": 1, "text": "I ___ (help) you if you are stuck.", "solutions": ["will help"] },
-  { "id": "ap_58", "type": 1, "text": "If they ___ (arrive) on time, we can start.", "solutions": ["arrive"] },
-  { "id": "ap_59", "type": 1, "text": "The garden ___ (look) great if it rains.", "solutions": ["will look"] },
-  { "id": "ap_60", "type": 1, "text": "If I ___ (am) free, I'll call you.", "solutions": ["am"] },
-  { "id": "ap_61", "type": 1, "text": "If the bank ___ (is) open, I'll get some cash.", "solutions": ["is"] },
-  { "id": "ap_62", "type": 1, "text": "You ___ (lose) weight if you stop eating junk.", "solutions": ["will lose"] },
-  { "id": "ap_63", "type": 1, "text": "If he ___ (forgets), I will remind him.", "solutions": ["forgets"] },
-  { "id": "ap_64", "type": 1, "text": "The team ___ (win) if they play well.", "solutions": ["will win"] },
-  { "id": "ap_65", "type": 1, "text": "If we ___ (hurry), we will catch the bus.", "solutions": ["hurry"] },
-  { "id": "ap_66", "type": 1, "text": "You ___ (find) it if you look under the bed.", "solutions": ["will find"] },
-  { "id": "ap_67", "type": 1, "text": "If the cat ___ (is) hungry, it will meow.", "solutions": ["is"] },
-  { "id": "ap_68", "type": 1, "text": "I ___ (stay) longer if you want.", "solutions": ["will stay"] },
-  { "id": "ap_69", "type": 1, "text": "If it ___ (gets) dark, we'll go inside.", "solutions": ["gets"] },
-  { "id": "ap_70", "type": 1, "text": "If the customer ___ (complains), we will fix it.", "solutions": ["complains"] },
-  { "id": "ap_71", "type": 1, "text": "We ___ (miss) the beginning if the taxi is slow.", "solutions": ["will miss"] },
-  { "id": "ap_72", "type": 1, "text": "If the server ___ (crashes), the website goes down.", "solutions": ["crashes"] },
-  { "id": "ap_73", "type": 1, "text": "You ___ (succeed) if you never give up.", "solutions": ["will succeed"] },
-  { "id": "ap_74", "type": 1, "text": "If she ___ (fails) the exam, she will repeat it.", "solutions": ["fails"] },
-  { "id": "ap_75", "type": 1, "text": "The ocean ___ (rise) if the ice melts.", "solutions": ["will rise"] },
-  { "id": "ap_76", "type": 1, "text": "If you ___ (press) the button, the light turns on.", "solutions": ["press"] },
-  { "id": "ap_77", "type": 1, "text": "I ___ (bring) my guitar if we have a bonfire.", "solutions": ["will bring"] },
-  { "id": "ap_78", "type": 1, "text": "If he ___ (not/call) soon, I will be worried.", "solutions": ["does not call", "doesn't call"] },
-  { "id": "ap_79", "type": 1, "text": "They ___ (cancel) the match if it snows.", "solutions": ["will cancel"] },
-  { "id": "ap_80", "type": 1, "text": "If you ___ (mix) red and blue, you get purple.", "solutions": ["mix"] },
-  { "id": "ap_81", "type": 1, "text": "The coffee ___ (be) cold if you don't drink it.", "solutions": ["will be"] },
-  { "id": "ap_82", "type": 1, "text": "If we ___ (lose) the map, we'll be in trouble.", "solutions": ["lose"] },
-  { "id": "ap_83", "type": 1, "text": "I ___ (pay) for dinner if you pay for the cinema.", "solutions": ["will pay"] },
-  { "id": "ap_84", "type": 1, "text": "If she ___ (ignores) him, he will be sad.", "solutions": ["ignores"] },
-  { "id": "ap_85", "type": 1, "text": "You ___ (get) a headache if you shout like that.", "solutions": ["will get"] },
-  { "id": "ap_86", "type": 1, "text": "If the plants ___ (get) water, they will grow.", "solutions": ["get"] },
-  { "id": "ap_87", "type": 1, "text": "The mirror ___ (break) if you hit it.", "solutions": ["will break"] },
-  { "id": "ap_88", "type": 1, "text": "If you ___ (drink) too much coffee, you won't sleep.", "solutions": ["drink"] },
-  { "id": "ap_89", "type": 1, "text": "The police ___ (help) you if you call them.", "solutions": ["will help"] },
-  { "id": "ap_90", "type": 1, "text": "If the window ___ (is) open, it will be cold.", "solutions": ["is"] },
-  { "id": "ap_91", "type": 1, "text": "We ___ (eat) outside if there are no wasps.", "solutions": ["will eat"] },
-  { "id": "ap_92", "type": 1, "text": "If you ___ (not/wear) shoes, your feet will hurt.", "solutions": ["do not wear", "don't wear"] },
-  { "id": "ap_93", "type": 1, "text": "The computer ___ (restart) if you click 'okay'.", "solutions": ["will restart"] },
-  { "id": "ap_94", "type": 1, "text": "If she ___ (practices) every day, she will be a pro.", "solutions": ["practices"] },
-  { "id": "ap_95", "type": 1, "text": "You ___ (get) an answer if you ask a question.", "solutions": ["will get"] },
-  { "id": "ap_96", "type": 1, "text": "If the fire ___ (burns), it will be warm.", "solutions": ["burns"] },
-  { "id": "ap_97", "type": 1, "text": "I ___ (buy) it if I like the color.", "solutions": ["will buy"] },
-  { "id": "ap_98", "type": 1, "text": "If the taxi ___ (arrives), we'll be on time.", "solutions": ["arrives"] },
-  { "id": "ap_99", "type": 1, "text": "You ___ (pass) the test if you study.", "solutions": ["will pass"] },
-  { "id": "ap_100", "type": 2, "text": "If I ___ (be) you, I would go home.", "solutions": ["were", "was"] },
-  { "id": "ap_101", "type": 2, "text": "If I won the lottery, I ___ (travel) the world.", "solutions": ["would travel", "could travel", "might travel"] },
-  { "id": "ap_102", "type": 2, "text": "If she ___ (have) more time, she would learn Spanish.", "solutions": ["had"] },
-  { "id": "ap_103", "type": 2, "text": "We ___ (buy) a house if we were rich.", "solutions": ["would buy", "could buy"] },
-  { "id": "ap_104", "type": 2, "text": "If it ___ (snow) in summer, I would be surprised.", "solutions": ["snowed"] },
-  { "id": "ap_105", "type": 2, "text": "I would help you if I ___ (can).", "solutions": ["could"] },
-  { "id": "ap_106", "type": 2, "text": "If they ___ (live) in France, they would speak French.", "solutions": ["lived"] },
-  { "id": "ap_107", "type": 2, "text": "If he ___ (be) taller, he ___ (play) basketball.", "solutions": ["would play", "could play"] },
-  { "id": "ap_108", "type": 2, "text": "I ___ (not/do) that if I were you.", "solutions": ["would not do", "wouldn't do"] },
-  { "id": "ap_109", "type": 2, "text": "If we ___ (have) a garden, we would have a dog.", "solutions": ["had"] },
-  { "id": "ap_110", "type": 2, "text": "If she ___ (know) his name, she would tell you.", "solutions": ["knew"] },
-  { "id": "ap_111", "type": 2, "text": "If I ___ (be) a bird, I would fly to Africa.", "solutions": ["were", "was"] },
-  { "id": "ap_112", "type": 2, "text": "You ___ (feel) better if you exercised more.", "solutions": ["would feel", "might feel"] },
-  { "id": "ap_113", "type": 2, "text": "If he ___ (ask) her, she would say yes.", "solutions": ["asked"] },
-  { "id": "ap_114", "type": 2, "text": "If I ___ (not/have) to work, I would go to the beach.", "solutions": ["did not have", "didn't have"] },
-  { "id": "ap_115", "type": 2, "text": "They ___ (be) happy if you visited them.", "solutions": ["would be", "could be"] },
-  { "id": "ap_116", "type": 2, "text": "If it ___ (be) warmer, we would swim.", "solutions": ["were", "was"] },
-  { "id": "ap_117", "type": 2, "text": "If she ___ (see) a ghost, she would scream.", "solutions": ["saw"] },
-  { "id": "ap_118", "type": 2, "text": "I ___ (call) him if I had his number.", "solutions": ["would call", "might call"] },
-  { "id": "ap_119", "type": 2, "text": "If we ___ (lose) the game, we would be sad.", "solutions": ["lost"] },
-  { "id": "ap_120", "type": 2, "text": "If I ___ (find) a wallet, I ___ (take) it to the police.", "solutions": ["would take", "could take"] },
-  { "id": "ap_121", "type": 2, "text": "If you ___ (speak) louder, I could hear you.", "solutions": ["spoke"] },
-  { "id": "ap_122", "type": 2, "text": "If she ___ (need) help, she would ask.", "solutions": ["needed"] },
-  { "id": "ap_123", "type": 2, "text": "We ___ (go) out if it didn't rain.", "solutions": ["would go", "could go"] },
-  { "id": "ap_124", "type": 2, "text": "If I ___ (own) a company, I would hire you.", "solutions": ["owned"] },
-  { "id": "ap_125", "type": 2, "text": "If you ___ (stop) smoking, you would be healthier.", "solutions": ["stopped"] },
-  { "id": "ap_126", "type": 2, "text": "If he ___ (study) more, he would get better grades.", "solutions": ["studied"] },
-  { "id": "ap_127", "type": 2, "text": "I ___ (tell) you the truth if I knew it.", "solutions": ["would tell", "could tell"] },
-  { "id": "ap_128", "type": 2, "text": "If they ___ (have) wings, they would fly.", "solutions": ["had"] },
-  { "id": "ap_129", "type": 2, "text": "If she ___ (be) my sister, I would tell her.", "solutions": ["were", "was"] },
-  { "id": "ap_130", "type": 2, "text": "If I ___ (get) the job, I would celebrate.", "solutions": ["got"] },
-  { "id": "ap_131", "type": 2, "text": "If we ___ (win), we would be famous.", "solutions": ["won"] },
-  { "id": "ap_132", "type": 2, "text": "If it ___ (be) easy, everyone would do it.", "solutions": ["were", "was"] },
-  { "id": "ap_133", "type": 2, "text": "If you ___ (paint) the room blue, it would look better.", "solutions": ["painted"] },
-  { "id": "ap_134", "type": 2, "text": "If I ___ (know) how to cook, I would make dinner.", "solutions": ["knew"] },
-  { "id": "ap_135", "type": 2, "text": "If she ___ (wear) that dress, she would look great.", "solutions": ["wore"] },
-  { "id": "ap_136", "type": 2, "text": "If they ___ (arrive) early, they would wait.", "solutions": ["arrived"] },
-  { "id": "ap_137", "type": 2, "text": "If he ___ (be) here, he would know what to do.", "solutions": ["were", "was"] },
-  { "id": "ap_138", "type": 2, "text": "If I ___ (see) him, I would say hello.", "solutions": ["saw"] },
-  { "id": "ap_139", "type": 2, "text": "If you ___ (want) to learn, you would listen.", "solutions": ["wanted"] },
-  { "id": "ap_140", "type": 2, "text": "If I ___ (be) an astronaut, I ___ (take) photos of Mars.", "solutions": ["would take", "could take"] },
-  { "id": "ap_141", "type": 2, "text": "If dinosaurs ___ (exist) today, life ___ (be) dangerous.", "solutions": ["would be", "could be"] },
-  { "id": "ap_142", "type": 2, "text": "If I ___ (not/need) sleep, I would read all night.", "solutions": ["did not need", "didn't need"] },
-  { "id": "ap_143", "type": 2, "text": "She ___ (be) a great singer if she ___ (practice) more.", "solutions": ["would be", "could be"] },
-  { "id": "ap_144", "type": 2, "text": "If you ___ (discover) a new planet, how ___ (you/name) it?", "solutions": ["would you name", "could you name"] },
-  { "id": "ap_145", "type": 2, "text": "If I ___ (can) talk to animals, I would ask the cat its name.", "solutions": ["could"] },
-  { "id": "ap_146", "type": 2, "text": "If gravity ___ (not/exist), everything ___ (float) away.", "solutions": ["would float", "could float"] },
-  { "id": "ap_147", "type": 2, "text": "I ___ (travel) to the future if I ___ (have) a time machine.", "solutions": ["would travel", "could travel"] },
-  { "id": "ap_148", "type": 2, "text": "If he ___ (be) a wizard, he ___ (fix) his car with magic.", "solutions": ["would fix", "could fix"] },
-  { "id": "ap_149", "type": 2, "text": "If we ___ (be) ghosts, we ___ (haunt) the school.", "solutions": ["would haunt", "could haunt"] },
-  { "id": "ap_150", "type": 2, "text": "If I ___ (find) a lamp with a genie, I ___ (wish) for more wishes.", "solutions": ["would wish", "could wish"] },
-  { "id": "ap_151", "type": 2, "text": "The world ___ (be) quiet if humans ___ (not/speak).", "solutions": ["would be", "could be"] },
-  { "id": "ap_152", "type": 2, "text": "If you ___ (be) a superhero, what power ___ (you/have)?", "solutions": ["would you have", "could you have"] },
-  { "id": "ap_153", "type": 2, "text": "If I ___ (become) invisible, I ___ (play) tricks on my friends.", "solutions": ["would play", "could play"] },
-  { "id": "ap_154", "type": 2, "text": "If money ___ (grow) on trees, it ___ (not/be) valuable.", "solutions": ["would not be", "wouldn't be"] },
-  { "id": "ap_155", "type": 2, "text": "If I ___ (be) the President, I ___ (change) the laws.", "solutions": ["would change", "could change"] },
-  { "id": "ap_156", "type": 2, "text": "If people ___ (have) tails, they ___ (wag) them when happy.", "solutions": ["would wag", "could wag"] },
-  { "id": "ap_157", "type": 2, "text": "I ___ (give) you a million euros if I ___ (be) a billionaire.", "solutions": ["would give", "could give"] },
-  { "id": "ap_158", "type": 2, "text": "If she ___ (know) the future, she ___ (not/worry) so much.", "solutions": ["would not worry", "wouldn't worry"] },
-  { "id": "ap_159", "type": 2, "text": "If cats ___ (have) thumbs, they ___ (rule) the world.", "solutions": ["would rule", "could rule"] },
-  { "id": "ap_160", "type": 2, "text": "If I ___ (not/be) so shy, I ___ (invite) her to dance.", "solutions": ["would invite", "could invite"] },
-  { "id": "ap_161", "type": 2, "text": "The city ___ (look) different if all buildings ___ (be) pink.", "solutions": ["were", "was"] },
-  { "id": "ap_162", "type": 2, "text": "If you ___ (get) lost in the jungle, what ___ (you/do)?", "solutions": ["would you do"] },
-  { "id": "ap_163", "type": 2, "text": "If I ___ (not/have) a phone, I ___ (write) letters.", "solutions": ["would write", "could write"] },
-  { "id": "ap_164", "type": 2, "text": "If she ___ (be) an actress, she ___ (live) in Hollywood.", "solutions": ["would live", "could live"] },
-  { "id": "ap_165", "type": 2, "text": "If we ___ (meet) an alien, I ___ (take) a selfie.", "solutions": ["would take", "could take"] },
-  { "id": "ap_166", "type": 2, "text": "If I ___ (be) a shark, I ___ (swim) all day.", "solutions": ["would swim", "could swim"] },
-  { "id": "ap_167", "type": 2, "text": "If cars ___ (could/fly), there ___ (be) no traffic jams.", "solutions": ["would be", "could be"] },
-  { "id": "ap_168", "type": 2, "text": "If you ___ (see) a dragon, ___ (you/run) away?", "solutions": ["would you run"] },
-  { "id": "ap_169", "type": 2, "text": "If I ___ (be) a tree, I ___ (want) to be an oak.", "solutions": ["would want", "could want"] },
-  { "id": "ap_170", "type": 2, "text": "If the sun ___ (never/set), we ___ (be) very tired.", "solutions": ["would be", "could be"] },
-  { "id": "ap_171", "type": 2, "text": "If I ___ (speak) every language, I ___ (be) a translator.", "solutions": ["would be", "could be"] },
-  { "id": "ap_172", "type": 2, "text": "If it ___ (be) always Christmas, it ___ (not/be) special.", "solutions": ["would not be", "wouldn't be"] },
-  { "id": "ap_173", "type": 2, "text": "If he ___ (not/have) a beard, he ___ (look) much younger.", "solutions": ["would look", "could look"] },
-  { "id": "ap_174", "type": 2, "text": "If I ___ (win) an Oscar, I ___ (thank) my cat.", "solutions": ["would thank", "could thank"] },
-  { "id": "ap_175", "type": 2, "text": "If you ___ (be) an animal, which one ___ (you/be)?", "solutions": ["would you be"] },
-  { "id": "ap_176", "type": 2, "text": "If I ___ (not/be) here, I ___ (be) at the beach.", "solutions": ["would be", "could be"] },
-  { "id": "ap_177", "type": 2, "text": "If she ___ (have) a boat, she ___ (sail) across the ocean.", "solutions": ["would sail", "could sail"] },
-  { "id": "ap_178", "type": 2, "text": "If the internet ___ (stop) working, we ___ (be) lost.", "solutions": ["would be", "could be"] },
-  { "id": "ap_179", "type": 2, "text": "If I ___ (could/paint) like Picasso, I ___ (be) rich.", "solutions": ["would be", "could be"] },
-  { "id": "ap_180", "type": 2, "text": "If I ___ (be) you, I wouldn't go.", "solutions": ["were", "was"] },
-  { "id": "ap_181", "type": 2, "text": "If he ___ (run) faster, he would win.", "solutions": ["ran"] },
-  { "id": "ap_182", "type": 2, "text": "I ___ (help) you if I wasn't so busy.", "solutions": ["would help", "could help"] },
-  { "id": "ap_183", "type": 2, "text": "If she ___ (ask) nicely, I would say yes.", "solutions": ["asked"] },
-  { "id": "ap_184", "type": 2, "text": "If we ___ (not/go) to school, we would play all day.", "solutions": ["did not go", "didn't go"] },
-  { "id": "ap_185", "type": 2, "text": "If I ___ (know) his address, I would visit him.", "solutions": ["knew"] },
-  { "id": "ap_186", "type": 2, "text": "He ___ (not/be) so tired if he went to bed early.", "solutions": ["would not be", "wouldn't be"] },
-  { "id": "ap_187", "type": 2, "text": "If they ___ (sell) their house, they would be rich.", "solutions": ["sold"] },
-  { "id": "ap_188", "type": 2, "text": "If you ___ (eat) a lemon, your face would look funny.", "solutions": ["ate"] },
-  { "id": "ap_189", "type": 2, "text": "If I ___ (be) a chef, I would make great pizza.", "solutions": ["were", "was"] },
-  { "id": "ap_190", "type": 2, "text": "She would travel more if she ___ (not/be) afraid of flying.", "solutions": ["were not", "weren't"] },
-  { "id": "ap_191", "type": 2, "text": "If we ___ (have) a map, we wouldn't be lost.", "solutions": ["had"] },
-  { "id": "ap_192", "type": 2, "text": "If he ___ (play) the guitar, he would be in a band.", "solutions": ["played"] },
-  { "id": "ap_193", "type": 2, "text": "If it ___ (not/rain), we would have a picnic.", "solutions": ["did not rain", "didn't rain"] },
-  { "id": "ap_194", "type": 2, "text": "I ___ (lend) you my phone if I didn't need it.", "solutions": ["would lend"] },
-  { "id": "ap_195", "type": 2, "text": "If they ___ (invite) me, I would go.", "solutions": ["invited"] },
-  { "id": "ap_196", "type": 2, "text": "If you ___ (exercise) more, you'd be fit.", "solutions": ["exercised"] },
-  { "id": "ap_197", "type": 2, "text": "If she ___ (practice) more, she would be a pro.", "solutions": ["practiced"] },
-  { "id": "ap_198", "type": 2, "text": "If I ___ (see) him tomorrow, I'd be surprised.", "solutions": ["saw"] },
-  { "id": "ap_199", "type": 2, "text": "We ___ (stay) longer if we had time.", "solutions": ["would stay", "could stay"] },
-  { "id": "ap_200", "type": 3, "text": "If you had studied, you ___ (pass) the exam.", "solutions": ["would have passed", "could have passed"] },
-  { "id": "ap_201", "type": 3, "text": "If I ___ (see) him, I would have told him.", "solutions": ["had seen"] },
-  { "id": "ap_202", "type": 3, "text": "We would have arrived on time if we ___ (had taken) the bus.", "solutions": ["had taken"] },
-  { "id": "ap_203", "type": 3, "text": "If she ___ (ask) me, I would have helped her.", "solutions": ["had asked"] },
-  { "id": "ap_204", "type": 3, "text": "If they had known, they ___ (not/come).", "solutions": ["would not have come", "wouldn't have come"] },
-  { "id": "ap_205", "type": 3, "text": "I ___ (buy) that car if I had had enough money.", "solutions": ["would have bought", "could have bought"] },
-  { "id": "ap_206", "type": 3, "text": "If it ___ (not/rain), we would have gone out.", "solutions": ["had not rained", "hadn't rained"] },
-  { "id": "ap_207", "type": 3, "text": "If he ___ (be) careful, he wouldn't have fallen.", "solutions": ["had been"] },
-  { "id": "ap_208", "type": 3, "text": "She would have won if she ___ (run) faster.", "solutions": ["had run"] },
-  { "id": "ap_209", "type": 3, "text": "If we ___ (leave) earlier, we wouldn't have missed the flight.", "solutions": ["had left"] },
-  { "id": "ap_210", "type": 3, "text": "If the Titanic ___ (see) the iceberg earlier, it ___ (not/sink).", "solutions": ["would not have sunk", "wouldn't have sunk"] },
-  { "id": "ap_211", "type": 3, "text": "I ___ (say) sorry if I ___ (know) it was your cake.", "solutions": ["had known"] },
-  { "id": "ap_212", "type": 3, "text": "If Napoleon ___ (not/invade) Russia, he ___ (not/lose) his army.", "solutions": ["would not have lost", "wouldn't have lost"] },
-  { "id": "ap_213", "type": 3, "text": "She ___ (succeed) if she ___ (not/give) up.", "solutions": ["had not given", "hadn't given"] },
-  { "id": "ap_214", "type": 3, "text": "If I ___ (wake) up earlier, I ___ (not/miss) the bus.", "solutions": ["would not have missed", "wouldn't have missed"] },
-  { "id": "ap_215", "type": 3, "text": "If the car ___ (have) enough fuel, we ___ (arrive) on time.", "solutions": ["would have arrived", "could have arrived"] },
-  { "id": "ap_216", "type": 3, "text": "They ___ (win) if the referee ___ (be) fair.", "solutions": ["had been"] },
-  { "id": "ap_217", "type": 3, "text": "If you ___ (tell) me the truth, I ___ (not/be) so angry.", "solutions": ["would not have been", "wouldn't have been"] },
-  { "id": "ap_218", "type": 3, "text": "I ___ (help) you if you ___ (ask) me.", "solutions": ["had asked"] },
-  { "id": "ap_219", "type": 3, "text": "If it ___ (not/snow), we ___ (climb) the mountain.", "solutions": ["would have climbed", "could have climbed"] },
-  { "id": "ap_220", "type": 3, "text": "If I ___ (see) the sign, I ___ (not/park) there.", "solutions": ["would not have parked", "wouldn't have parked"] },
-  { "id": "ap_221", "type": 3, "text": "She ___ (get) the job if she ___ (not/be) late for the interview.", "solutions": ["had not been", "hadn't been"] },
-  { "id": "ap_222", "type": 3, "text": "If the phone ___ (ring), I ___ (answer) it.", "solutions": ["would have answered", "could have answered"] },
-  { "id": "ap_223", "type": 3, "text": "If we ___ (study) the map, we ___ (not/get) lost.", "solutions": ["would not have gotten", "wouldn't have gotten"] },
-  { "id": "ap_224", "type": 3, "text": "They ___ (stay) at home if they ___ (know) about the storm.", "solutions": ["had known"] },
-  { "id": "ap_225", "type": 3, "text": "If I ___ (buy) the ticket, I ___ (win) a million.", "solutions": ["would have won", "could have won"] },
-  { "id": "ap_226", "type": 3, "text": "If the dog ___ (bark), the thief ___ (run) away.", "solutions": ["would have run", "could have run"] },
-  { "id": "ap_227", "type": 3, "text": "She ___ (smile) if you ___ (give) her the flowers.", "solutions": ["had given"] },
-  { "id": "ap_228", "type": 3, "text": "If I ___ (not/forget) the keys, we ___ (be) inside now.", "solutions": ["had not forgotten", "hadn't forgotten"] },
-  { "id": "ap_229", "type": 3, "text": "If the team ___ (play) better, they ___ (not/lose) the final.", "solutions": ["would not have lost", "wouldn't have lost"] },
-  { "id": "ap_230", "type": 3, "text": "If I ___ (have) enough money, I ___ (buy) that house.", "solutions": ["would have bought", "could have bought"] },
-  { "id": "ap_231", "type": 3, "text": "If he ___ (tell) me earlier, I ___ (help) him.", "solutions": ["would have helped", "could have helped"] },
-  { "id": "ap_232", "type": 3, "text": "If you ___ (not/shout), I ___ (not/be) so scared.", "solutions": ["would not have been", "wouldn't have been"] },
-  { "id": "ap_233", "type": 3, "text": "She ___ (come) to the party if she ___ (not/be) sick.", "solutions": ["had not been", "hadn't been"] },
-  { "id": "ap_234", "type": 3, "text": "If we ___ (book) the flight, we ___ (be) in Paris now.", "solutions": ["had booked"] },
-  { "id": "ap_235", "type": 3, "text": "If I ___ (not/eat) that fish, I ___ (not/feel) sick.", "solutions": ["would not have felt", "wouldn't have felt"] },
-  { "id": "ap_236", "type": 3, "text": "If they ___ (arrive) 5 minutes later, they ___ (miss) the train.", "solutions": ["would have missed", "could have missed"] },
-  { "id": "ap_237", "type": 3, "text": "If I ___ (bring) my umbrella, I ___ (not/get) wet.", "solutions": ["would not have gotten", "wouldn't have gotten"] },
-  { "id": "ap_238", "type": 3, "text": "If she ___ (practice) more, she ___ (pass) the test.", "solutions": ["would have passed", "could have passed"] },
-  { "id": "ap_239", "type": 3, "text": "If you ___ (ask) me, I ___ (tell) you the truth.", "solutions": ["would have told", "could have told"] },
-  { "id": "ap_240", "type": 3, "text": "If the weather ___ (be) better, we ___ (stay) longer.", "solutions": ["would have stayed", "could have stayed"] },
-  { "id": "ap_241", "type": 3, "text": "I ___ (not/buy) that dress if I ___ (see) the price.", "solutions": ["had seen"] },
-  { "id": "ap_242", "type": 3, "text": "If he ___ (speak) to me, I ___ (forgive) him.", "solutions": ["would have forgiven", "could have forgiven"] },
-  { "id": "ap_243", "type": 3, "text": "If she ___ (not/leave) the door open, the cat ___ (not/escape).", "solutions": ["would not have escaped", "wouldn't have escaped"] },
-  { "id": "ap_244", "type": 3, "text": "If we ___ (arrive) 5 minutes earlier, we ___ (see) him.", "solutions": ["would have seen", "could have seen"] },
-  { "id": "ap_245", "type": 3, "text": "They ___ (be) surprised if you ___ (tell) them.", "solutions": ["had told"] },
-  { "id": "ap_246", "type": 3, "text": "If I ___ (not/be) so tired, I ___ (come) to the party.", "solutions": ["would have come", "could have come"] },
-  { "id": "ap_247", "type": 3, "text": "If he ___ (show) me the way, I ___ (found) it.", "solutions": ["would have found", "could have found"] },
-  { "id": "ap_248", "type": 3, "text": "If you ___ (warn) us, we ___ (not/go) there.", "solutions": ["would not have gone", "wouldn't have gone"] },
-  { "id": "ap_249", "type": 3, "text": "I ___ (finish) the report if my computer ___ (not/crash).", "solutions": ["had not crashed", "hadn't crashed"] },
-  { "id": "ap_250", "type": 3, "text": "If she ___ (know) about the meeting, she ___ (attend).", "solutions": ["would have attended", "could have attended"] },
-  { "id": "ap_251", "type": 3, "text": "If they ___ (buy) the house, they ___ (be) happy.", "solutions": ["would have been", "could have been"] },
-  { "id": "ap_252", "type": 3, "text": "If we ___ (not/lose) our keys, we ___ (not/wait) outside.", "solutions": ["would not have waited", "wouldn't have waited"] },
-  { "id": "ap_253", "type": 3, "text": "If it ___ (not/be) for you, I ___ (fail).", "solutions": ["would have failed", "wouldn't have failed"] },
-  { "id": "ap_254", "type": 3, "text": "If he ___ (bring) his guitar, he ___ (play).", "solutions": ["would have played", "could have played"] },
-  { "id": "ap_255", "type": 3, "text": "If you ___ (ask) the waiter, he ___ (help) you.", "solutions": ["would have helped", "could have helped"] },
-  { "id": "ap_256", "type": 3, "text": "I ___ (go) to the concert if I ___ (have) a ticket.", "solutions": ["had had"] },
-  { "id": "ap_257", "type": 3, "text": "If she ___ (take) the medicine, she ___ (feel) better.", "solutions": ["would have felt", "could have felt"] },
-  { "id": "ap_258", "type": 3, "text": "If they ___ (see) the sign, they ___ (not/enter).", "solutions": ["would not have entered", "wouldn't have entered"] },
-  { "id": "ap_259", "type": 3, "text": "If the team ___ (play) better, they ___ (won) the cup.", "solutions": ["would have won", "could have won"] },
-  { "id": "ap_260", "type": 3, "text": "If I ___ (have) your number, I ___ (call) you.", "solutions": ["would have called", "could have called"] },
-  { "id": "ap_261", "type": 3, "text": "If he ___ (not/fall), he ___ (won) the race.", "solutions": ["would have won", "could have won"] },
-  { "id": "ap_262", "type": 3, "text": "If we ___ (save) more, we ___ (buy) a car.", "solutions": ["would have bought", "could have bought"] },
-  { "id": "ap_263", "type": 3, "text": "If she ___ (not/be) so busy, she ___ (call).", "solutions": ["would have called", "could have called"] },
-  { "id": "ap_264", "type": 3, "text": "If you ___ (tell) me earlier, I ___ (be) there.", "solutions": ["would have been", "could have been"] },
-  { "id": "ap_265", "type": 3, "text": "If I ___ (win), I ___ (be) so happy.", "solutions": ["would have been", "could have been"] },
-  { "id": "ap_266", "type": 3, "text": "If they ___ (listen), they ___ (know) what to do.", "solutions": ["would have known", "could have known"] },
-  { "id": "ap_267", "type": 3, "text": "If it ___ (be) colder, it ___ (snowed).", "solutions": ["would have snowed", "could have snowed"] },
-  { "id": "ap_268", "type": 3, "text": "If you ___ (not/forget) the map, we ___ (not/be) lost.", "solutions": ["would not have been", "wouldn't have been"] },
-  { "id": "ap_269", "type": 3, "text": "If he ___ (ask) for help, I ___ (helped).", "solutions": ["would have helped", "could have helped"] },
-  { "id": "ap_270", "type": 3, "text": "If you ___ (tell) me, I would have understood.", "solutions": ["had told"] },
-  { "id": "ap_271", "type": 3, "text": "If I ___ (know) you were coming, I would have baked a cake.", "solutions": ["had known"] },
-  { "id": "ap_272", "type": 3, "text": "They would have stayed if it ___ (be) warmer.", "solutions": ["had been"] },
-  { "id": "ap_273", "type": 3, "text": "If he ___ (not/forget) his passport, he could have traveled.", "solutions": ["had not forgotten", "hadn't forgotten"] },
-  { "id": "ap_274", "type": 3, "text": "If she ___ (study) harder, she would have succeeded.", "solutions": ["had studied"] },
-  { "id": "ap_275", "type": 3, "text": "I ___ (call) you if I hadn't lost my phone.", "solutions": ["would have called", "might have called"] },
-  { "id": "ap_276", "type": 3, "text": "If we ___ (pay) attention, we would have learned more.", "solutions": ["had paid"] },
-  { "id": "ap_277", "type": 3, "text": "If the driver ___ (stop), the accident wouldn't have happened.", "solutions": ["had stopped"] },
-  { "id": "ap_278", "type": 3, "text": "If you ___ (listen) to me, you wouldn't have made that mistake.", "solutions": ["had listened"] },
-  { "id": "ap_279", "type": 3, "text": "She ___ (be) happy if you had remembered her birthday.", "solutions": ["would have been"] },
-  { "id": "ap_280", "type": 3, "text": "If I ___ (find) the book, I would have given it to you.", "solutions": ["had found"] },
-  { "id": "ap_281", "type": 3, "text": "If they ___ (play) better, they would have won.", "solutions": ["had played"] },
-  { "id": "ap_282", "type": 3, "text": "We ___ (not/get) lost if we had used a map.", "solutions": ["would not have gotten", "wouldn't have gotten"] },
-  { "id": "ap_283", "type": 3, "text": "If he ___ (work) harder, he would have been promoted.", "solutions": ["had worked"] },
-  { "id": "ap_284", "type": 3, "text": "If you ___ (not/eat) so much, you wouldn't have felt sick.", "solutions": ["had not eaten", "hadn't eaten"] },
-  { "id": "ap_285", "type": 3, "text": "If she ___ (go) to bed earlier, she wouldn't have been tired.", "solutions": ["had gone"] },
-  { "id": "ap_286", "type": 3, "text": "I ___ (visit) you if I had known you were in the hospital.", "solutions": ["had visited"] },
-  { "id": "ap_287", "type": 3, "text": "If we ___ (had had) more time, we would have finished.", "solutions": ["had had"] },
-  { "id": "ap_288", "type": 3, "text": "If they ___ (invite) us, we would have gone.", "solutions": ["had invited"] },
-  { "id": "ap_289", "type": 3, "text": "If it ___ (be) sunny, we would have gone to the park.", "solutions": ["had been"] },
-  { "id": "ap_290", "type": 3, "text": "If he ___ (tell) the truth, he wouldn't have been punished.", "solutions": ["had told"] },
-  { "id": "ap_291", "type": 3, "text": "If I ___ (not/break) my leg, I would have played.", "solutions": ["had not broken", "hadn't broken"] },
-  { "id": "ap_292", "type": 3, "text": "If she ___ (call) earlier, I would have answered.", "solutions": ["had called"] },
-  { "id": "ap_293", "type": 3, "text": "If you ___ (be) there, you would have seen it.", "solutions": ["had been"] },
-  { "id": "ap_294", "type": 3, "text": "If they ___ (wait), they would have met him.", "solutions": ["had waited"] },
-  { "id": "ap_295", "type": 3, "text": "If I ___ (study) medicine, I would have been a doctor.", "solutions": ["had studied"] },
-  { "id": "ap_296", "type": 3, "text": "If we ___ (book) earlier, the tickets would have been cheaper.", "solutions": ["had booked"] },
-  { "id": "ap_297", "type": 3, "text": "If he ___ (not/miss) the bus, he would have been on time.", "solutions": ["had not missed", "hadn't missed"] },
-  { "id": "ap_298", "type": 3, "text": "If she ___ (try) harder, she would have won.", "solutions": ["had tried"] },
-  { "id": "ap_299", "type": 3, "text": "If you ___ (ask), I would have told you.", "solutions": ["had asked"] }
+  {
+    "id": "ap_2_10_main",
+    "type": 2,
+    "text": "If my friends visited London, Sarah ___ (take).",
+    "solutions": ["would take", "could take"]
+  },
+  {
+    "id": "ap_1_41_if",
+    "type": 1,
+    "text": "If he ___ (clean), Sarah will clean the truth.",
+    "solutions": ["cleans"]
+  },
+  {
+    "id": "ap_3_44_main",
+    "type": 3,
+    "text": "If Sarah had cleaned English, my friends ___ (buy).",
+    "solutions": ["would have bought", "could have bought"]
+  },
+  {
+    "id": "ap_3_21_if",
+    "type": 3,
+    "text": "If she ___ (read), Tom would have tell the answer.",
+    "solutions": ["had read"]
+  },
+  {
+    "id": "ap_1_37_main",
+    "type": 1,
+    "text": "If Sarah cleans the answer, we ___ (study).",
+    "solutions": ["will study", "can study"]
+  },
+  {
+    "id": "ap_2_3_main",
+    "type": 2,
+    "text": "If the teacher bought an apple, my friends ___ (make).",
+    "solutions": ["would make", "could make"]
+  },
+  {
+    "id": "ap_1_4_if",
+    "type": 1,
+    "text": "If the teacher ___ (study), Tom will tell a cake.",
+    "solutions": ["studies"]
+  },
+  {
+    "id": "ap_1_48_main",
+    "type": 1,
+    "text": "If my friends visit a letter, I ___ (clean).",
+    "solutions": ["will clean", "can clean"]
+  },
+  {
+    "id": "ap_1_18_if",
+    "type": 1,
+    "text": "If Sarah ___ (tell), Tom will tell a cake.",
+    "solutions": ["tells"]
+  },
+  {
+    "id": "ap_3_26_main",
+    "type": 3,
+    "text": "If he had cleaned to London, the teacher ___ (speak).",
+    "solutions": ["would have spoken", "could have spoken"]
+  },
+  {
+    "id": "ap_1_21_main",
+    "type": 1,
+    "text": "If I study English, Sarah ___ (go).",
+    "solutions": ["will go", "can go"]
+  },
+  {
+    "id": "ap_3_47_if",
+    "type": 3,
+    "text": "If the teacher ___ (clean), Sarah would have tell my parents.",
+    "solutions": ["had cleaned"]
+  },
+  {
+    "id": "ap_1_46_main",
+    "type": 1,
+    "text": "If he drinks English, I ___ (take).",
+    "solutions": ["will take", "can take"]
+  },
+  {
+    "id": "ap_3_48_main",
+    "type": 3,
+    "text": "If the teacher had read a cake, we ___ (buy).",
+    "solutions": ["would have bought", "could have bought"]
+  },
+  {
+    "id": "ap_3_23_if",
+    "type": 3,
+    "text": "If you ___ (clean), he would have find homework.",
+    "solutions": ["had cleaned"]
+  },
+  {
+    "id": "ap_1_0_if",
+    "type": 1,
+    "text": "If Tom ___ (find), he will clean some water.",
+    "solutions": ["finds"]
+  },
+  {
+    "id": "ap_2_22_main",
+    "type": 2,
+    "text": "If she lost the answer, we ___ (watch).",
+    "solutions": ["would watch", "could watch"]
+  },
+  {
+    "id": "ap_1_11_if",
+    "type": 1,
+    "text": "If Sarah ___ (clean), Tom will tell a book.",
+    "solutions": ["cleans"]
+  },
+  {
+    "id": "ap_1_29_if",
+    "type": 1,
+    "text": "If Sarah ___ (make), he will study a letter.",
+    "solutions": ["makes"]
+  },
+  {
+    "id": "ap_3_43_main",
+    "type": 3,
+    "text": "If you had visited some water, she ___ (go).",
+    "solutions": ["would have gone", "could have gone"]
+  },
+  {
+    "id": "ap_2_36_main",
+    "type": 2,
+    "text": "If he found to the cinema, you ___ (do).",
+    "solutions": ["would do", "could do"]
+  },
+  {
+    "id": "ap_3_3_main",
+    "type": 3,
+    "text": "If my friends had made the game, Tom ___ (lose).",
+    "solutions": ["would have lost", "could have lost"]
+  },
+  {
+    "id": "ap_3_18_if",
+    "type": 3,
+    "text": "If the teacher ___ (study), she would have do English.",
+    "solutions": ["had studied"]
+  },
+  {
+    "id": "ap_1_34_main",
+    "type": 1,
+    "text": "If my friends watch English, he ___ (do).",
+    "solutions": ["will do", "can do"]
+  },
+  {
+    "id": "ap_3_43_if",
+    "type": 3,
+    "text": "If the teacher ___ (study), Sarah would have read some water.",
+    "solutions": ["had studied"]
+  },
+  {
+    "id": "ap_3_35_main",
+    "type": 3,
+    "text": "If we had studied to London, Sarah ___ (take).",
+    "solutions": ["would have taken", "could have taken"]
+  },
+  {
+    "id": "ap_1_36_main",
+    "type": 1,
+    "text": "If Tom cleans a letter, the teacher ___ (speak).",
+    "solutions": ["will speak", "can speak"]
+  },
+  {
+    "id": "ap_1_16_if",
+    "type": 1,
+    "text": "If she ___ (read), Tom will find the answer.",
+    "solutions": ["reads"]
+  },
+  {
+    "id": "ap_2_18_main",
+    "type": 2,
+    "text": "If Tom won to the cinema, my friends ___ (make).",
+    "solutions": ["would make", "could make"]
+  },
+  {
+    "id": "ap_3_31_if",
+    "type": 3,
+    "text": "If I ___ (do), we would have meet some water.",
+    "solutions": ["had done"]
+  },
+  {
+    "id": "ap_2_47_if",
+    "type": 2,
+    "text": "If she ___ (buy), the teacher would watch homework.",
+    "solutions": ["bought"]
+  },
+  {
+    "id": "ap_2_0_main",
+    "type": 2,
+    "text": "If she played the keys, Sarah ___ (do).",
+    "solutions": ["would do", "could do"]
+  },
+  {
+    "id": "ap_3_10_main",
+    "type": 3,
+    "text": "If he had cleaned to the cinema, Sarah ___ (do).",
+    "solutions": ["would have done", "could have done"]
+  },
+  {
+    "id": "ap_3_30_main",
+    "type": 3,
+    "text": "If Tom had cleaned a new car, my friends ___ (make).",
+    "solutions": ["would have made", "could have made"]
+  },
+  {
+    "id": "ap_2_26_main",
+    "type": 2,
+    "text": "If I went photos, the teacher ___ (make).",
+    "solutions": ["would make", "could make"]
+  },
+  {
+    "id": "ap_2_5_if",
+    "type": 2,
+    "text": "If we ___ (study), Tom would read to London.",
+    "solutions": ["studied"]
+  },
+  {
+    "id": "ap_2_46_main",
+    "type": 2,
+    "text": "If she cleaned my parents, I ___ (take).",
+    "solutions": ["would take", "could take"]
+  },
+  {
+    "id": "ap_3_22_if",
+    "type": 3,
+    "text": "If my friends ___ (read), Tom would have call a cake.",
+    "solutions": ["had read"]
+  },
+  {
+    "id": "ap_2_40_main",
+    "type": 2,
+    "text": "If you read photos, Sarah ___ (take).",
+    "solutions": ["would take", "could take"]
+  },
+  {
+    "id": "ap_1_35_if",
+    "type": 1,
+    "text": "If she ___ (study), the teacher will make English.",
+    "solutions": ["studies"]
+  },
+  {
+    "id": "ap_2_17_if",
+    "type": 2,
+    "text": "If you ___ (read), Tom would make the truth.",
+    "solutions": ["read"]
+  },
+  {
+    "id": "ap_1_47_if",
+    "type": 1,
+    "text": "If Sarah ___ (take), the teacher will call to London.",
+    "solutions": ["takes"]
+  },
+  {
+    "id": "ap_2_15_main",
+    "type": 2,
+    "text": "If the teacher studied to the cinema, my friends ___ (make).",
+    "solutions": ["would make", "could make"]
+  },
+  {
+    "id": "ap_2_2_if",
+    "type": 2,
+    "text": "If Sarah ___ (see), Tom would write the match.",
+    "solutions": ["saw"]
+  },
+  {
+    "id": "ap_3_0_main",
+    "type": 3,
+    "text": "If she had took to London, Sarah ___ (make).",
+    "solutions": ["would have made", "could have made"]
+  },
+  {
+    "id": "ap_3_40_main",
+    "type": 3,
+    "text": "If my friends had read to London, Sarah ___ (do).",
+    "solutions": ["would have done", "could have done"]
+  },
+  {
+    "id": "ap_1_25_main",
+    "type": 1,
+    "text": "If the teacher studies English, Tom ___ (take).",
+    "solutions": ["will take", "can take"]
+  },
+  {
+    "id": "ap_1_2_if",
+    "type": 1,
+    "text": "If the teacher ___ (call), Tom will watch a book.",
+    "solutions": ["calls"]
+  },
+  {
+    "id": "ap_1_45_if",
+    "type": 1,
+    "text": "If you ___ (buy), Sarah will write English.",
+    "solutions": ["buy"]
+  },
+  {
+    "id": "ap_3_48_if",
+    "type": 3,
+    "text": "If Sarah ___ (study), you would have tell English.",
+    "solutions": ["had studied"]
+  },
+  {
+    "id": "ap_1_46_if",
+    "type": 1,
+    "text": "If Sarah ___ (study), Tom will buy English.",
+    "solutions": ["studies"]
+  },
+  {
+    "id": "ap_1_23_if",
+    "type": 1,
+    "text": "If he ___ (take), Sarah will speak the truth.",
+    "solutions": ["takes"]
+  },
+  {
+    "id": "ap_1_42_if",
+    "type": 1,
+    "text": "If the teacher ___ (study), Sarah will visit a cake.",
+    "solutions": ["studies"]
+  },
+  {
+    "id": "ap_2_23_if",
+    "type": 2,
+    "text": "If Tom ___ (clean), she would make a cake.",
+    "solutions": ["cleaned"]
+  },
+  {
+    "id": "ap_1_6_if",
+    "type": 1,
+    "text": "If he ___ (study), Sarah will study photos.",
+    "solutions": ["studies"]
+  },
+  {
+    "id": "ap_3_1_main",
+    "type": 3,
+    "text": "If Sarah had made homework, we ___ (visit).",
+    "solutions": ["would have visited", "could have visited"]
+  },
+  {
+    "id": "ap_3_13_if",
+    "type": 3,
+    "text": "If he ___ (tell), she would have do photos.",
+    "solutions": ["had told"]
+  },
+  {
+    "id": "ap_2_30_main",
+    "type": 2,
+    "text": "If Sarah cleaned a cake, the teacher ___ (take).",
+    "solutions": ["would take", "could take"]
+  },
+  {
+    "id": "ap_2_10_if",
+    "type": 2,
+    "text": "If Tom ___ (read), Sarah would speak to London.",
+    "solutions": ["read"]
+  },
+  {
+    "id": "ap_3_4_if",
+    "type": 3,
+    "text": "If I ___ (speak), Sarah would have take English.",
+    "solutions": ["had spoken"]
+  },
+  {
+    "id": "ap_3_21_main",
+    "type": 3,
+    "text": "If she had tell to the cinema, he ___ (clean).",
+    "solutions": ["would have cleaned", "could have cleaned"]
+  },
+  {
+    "id": "ap_3_12_main",
+    "type": 3,
+    "text": "If my friends had visit English, she ___ (speak).",
+    "solutions": ["would have spoken", "could have spoken"]
+  },
+  {
+    "id": "ap_3_14_main",
+    "type": 3,
+    "text": "If the teacher had take a cake, Sarah ___ (go).",
+    "solutions": ["would have gone", "could have gone"]
+  },
+  {
+    "id": "ap_2_20_if",
+    "type": 2,
+    "text": "If she ___ (read), my friends would read the game.",
+    "solutions": ["read"]
+  },
+  {
+    "id": "ap_2_12_main",
+    "type": 2,
+    "text": "If he made English, we ___ (take).",
+    "solutions": ["would take", "could take"]
+  },
+  {
+    "id": "ap_3_44_if",
+    "type": 3,
+    "text": "If Sarah ___ (clean), he would have make English.",
+    "solutions": ["had cleaned"]
+  },
+  {
+    "id": "ap_2_27_main",
+    "type": 2,
+    "text": "If we made to the cinema, Tom ___ (find).",
+    "solutions": ["would find", "could find"]
+  },
+  {
+    "id": "ap_3_13_main",
+    "type": 3,
+    "text": "If Tom had visited a cake, she ___ (read).",
+    "solutions": ["would have read", "could have read"]
+  },
+  {
+    "id": "ap_2_17_main",
+    "type": 2,
+    "text": "If he study a letter, she ___ (speak).",
+    "solutions": ["would speak", "could speak"]
+  },
+  {
+    "id": "ap_1_41_main",
+    "type": 1,
+    "text": "If you play photos, Sarah ___ (take).",
+    "solutions": ["will take", "can take"]
+  },
+  {
+    "id": "ap_2_34_main",
+    "type": 2,
+    "text": "If she played the answers, Tom ___ (speak).",
+    "solutions": ["would speak", "could speak"]
+  },
+  {
+    "id": "ap_1_15_if",
+    "type": 1,
+    "text": "If Sarah ___ (make), he will study a letter.",
+    "solutions": ["makes"]
+  },
+  {
+    "id": "ap_2_43_if",
+    "type": 2,
+    "text": "If my friends ___ (watch), he would read a cake.",
+    "solutions": ["watched"]
+  },
+  {
+    "id": "ap_2_1_main",
+    "type": 2,
+    "text": "If he bought a letter, Sarah ___ (do).",
+    "solutions": ["would do", "could do"]
+  },
+  {
+    "id": "ap_2_42_main",
+    "type": 2,
+    "text": "If Sarah studied to London, we ___ (clean).",
+    "solutions": ["would clean", "could clean"]
+  },
+  {
+    "id": "ap_2_48_if",
+    "type": 2,
+    "text": "If Sarah ___ (tell), Tom would watch a book.",
+    "solutions": ["told"]
+  },
+  {
+    "id": "ap_1_19_if",
+    "type": 1,
+    "text": "If she ___ (read), Tom will find the answer.",
+    "solutions": ["reads"]
+  },
+  {
+    "id": "ap_1_37_if",
+    "type": 1,
+    "text": "If he ___ (take), Sarah will speak the truth.",
+    "solutions": ["takes"]
+  },
+  {
+    "id": "ap_1_0_main",
+    "type": 1,
+    "text": "If she studies a book, the teacher ___ (call).",
+    "solutions": ["will call", "can call"]
+  },
+  {
+    "id": "ap_2_11_main",
+    "type": 2,
+    "text": "If Tom read homework, the teacher ___ (study).",
+    "solutions": ["would study", "could study"]
+  },
+  {
+    "id": "ap_3_4_main",
+    "type": 3,
+    "text": "If he had cleaned homework, Sarah ___ (do).",
+    "solutions": ["would have done", "could have done"]
+  },
+  {
+    "id": "ap_2_31_main",
+    "type": 2,
+    "text": "If Tom played English, she ___ (clean).",
+    "solutions": ["would clean", "could clean"]
+  },
+  {
+    "id": "ap_2_34_if",
+    "type": 2,
+    "text": "If she ___ (study), Tom would make homework.",
+    "solutions": ["studied"]
+  },
+  {
+    "id": "ap_2_44_main",
+    "type": 2,
+    "text": "If she bought English, Sarah ___ (do).",
+    "solutions": ["would do", "could do"]
+  },
+  {
+    "id": "ap_3_47_main",
+    "type": 3,
+    "text": "If the teacher had visited a book, she ___ (go).",
+    "solutions": ["would have gone", "could have gone"]
+  },
+  {
+    "id": "ap_1_48_if",
+    "type": 1,
+    "text": "If you ___ (study), the teacher will call to London.",
+    "solutions": ["study"]
+  },
+  {
+    "id": "ap_3_33_main",
+    "type": 3,
+    "text": "If the teacher had tell English, we ___ (visit).",
+    "solutions": ["would have visited", "could have visited"]
+  },
+  {
+    "id": "ap_1_13_if",
+    "type": 1,
+    "text": "If the teacher ___ (read), Tom will find the truth.",
+    "solutions": ["reads"]
+  },
+  {
+    "id": "ap_3_41_main",
+    "type": 3,
+    "text": "If Sarah had cleaned homework, my friends ___ (make).",
+    "solutions": ["would have made", "could have made"]
+  },
+  {
+    "id": "ap_3_39_main",
+    "type": 3,
+    "text": "If Sarah had visit to London, we ___ (make).",
+    "solutions": ["would have made", "could have made"]
+  },
+  {
+    "id": "ap_2_33_if",
+    "type": 2,
+    "text": "If she ___ (read), he would study a book.",
+    "solutions": ["read"]
+  },
+  {
+    "id": "ap_1_21_if",
+    "type": 1,
+    "text": "If my friends ___ (clean), he will speak photos.",
+    "solutions": ["clean"]
+  },
+  {
+    "id": "ap_1_44_if",
+    "type": 1,
+    "text": "If you ___ (clean), she will make to the cinema.",
+    "solutions": ["clean"]
+  },
+  {
+    "id": "ap_1_1_if",
+    "type": 1,
+    "text": "If she ___ (read), he will study a letter.",
+    "solutions": ["reads"]
+  },
+  {
+    "id": "ap_1_30_main",
+    "type": 1,
+    "text": "If he cleans English, we ___ (take).",
+    "solutions": ["will take", "can take"]
+  },
+  {
+    "id": "ap_3_34_main",
+    "type": 3,
+    "text": "If she had find to London, Tom ___ (lose).",
+    "solutions": ["would have lost", "could have lost"]
+  },
+  {
+    "id": "ap_3_17_if",
+    "type": 3,
+    "text": "If she ___ (visit), we would have meet the truth.",
+    "solutions": ["had visited"]
+  },
+  {
+    "id": "ap_2_32_if",
+    "type": 2,
+    "text": "If the teacher ___ (study), my friends would write English.",
+    "solutions": ["studied"]
+  },
+  {
+    "id": "ap_3_17_main",
+    "type": 3,
+    "text": "If Sarah had cleaned homework, my friends ___ (speak).",
+    "solutions": ["would have spoken", "could have spoken"]
+  },
+  {
+    "id": "ap_3_27_main",
+    "type": 3,
+    "text": "If Sarah had take English, Tom ___ (make).",
+    "solutions": ["would have made", "could have made"]
+  },
+  {
+    "id": "ap_1_14_if",
+    "type": 1,
+    "text": "If Sarah ___ (make), he will study a letter.",
+    "solutions": ["makes"]
+  },
+  {
+    "id": "ap_3_2_if",
+    "type": 3,
+    "text": "If she ___ (tell), Tom would have call photos.",
+    "solutions": ["had told"]
+  },
+  {
+    "id": "ap_2_43_main",
+    "type": 2,
+    "text": "If the teacher made to London, my friends ___ (go).",
+    "solutions": ["would go", "could go"]
+  },
+  {
+    "id": "ap_3_36_if",
+    "type": 3,
+    "text": "If she ___ (take), the teacher would have find English.",
+    "solutions": ["had taken"]
+  },
+  {
+    "id": "ap_2_29_main",
+    "type": 2,
+    "text": "If he bought English, I ___ (take).",
+    "solutions": ["would take", "could take"]
+  },
+  {
+    "id": "ap_1_47_main",
+    "type": 1,
+    "text": "If Tom plays a book, Sarah ___ (take).",
+    "solutions": ["will take", "can take"]
+  },
+  {
+    "id": "ap_1_17_if",
+    "type": 1,
+    "text": "If she ___ (read), Tom will find the answer.",
+    "solutions": ["reads"]
+  },
+  {
+    "id": "ap_1_20_if",
+    "type": 1,
+    "text": "If he ___ (take), Sarah will speak the truth.",
+    "solutions": ["takes"]
+  },
+  {
+    "id": "ap_2_23_main",
+    "type": 2,
+    "text": "If I went photos, the teacher ___ (study).",
+    "solutions": ["would study", "could study"]
+  },
+  {
+    "id": "ap_1_25_if",
+    "type": 1,
+    "text": "If she ___ (study), Tom will find the match.",
+    "solutions": ["studies"]
+  },
+  {
+    "id": "ap_1_43_if",
+    "type": 1,
+    "text": "If the teacher ___ (tell), she will write a book.",
+    "solutions": ["tells"]
+  },
+  {
+    "id": "ap_3_23_main",
+    "type": 3,
+    "text": "If Tom had tell homework, she ___ (read).",
+    "solutions": ["would have read", "could have read"]
+  },
+  {
+    "id": "ap_3_15_if",
+    "type": 3,
+    "text": "If you ___ (read), Tom would have tell the answer.",
+    "solutions": ["had read"]
+  },
+  {
+    "id": "ap_2_19_if",
+    "type": 2,
+    "text": "If Tom ___ (read), she would make a cake.",
+    "solutions": ["read"]
+  },
+  {
+    "id": "ap_2_6_main",
+    "type": 2,
+    "text": "If Sarah made English, my friends ___ (make).",
+    "solutions": ["would make", "could make"]
+  },
+  {
+    "id": "ap_1_4_main",
+    "type": 1,
+    "text": "If he drinks English, I ___ (take).",
+    "solutions": ["will take", "can take"]
+  },
+  {
+    "id": "ap_3_11_main",
+    "type": 3,
+    "text": "If she had visit photos, Tom ___ (make).",
+    "solutions": ["would have made", "could have made"]
+  },
+  {
+    "id": "ap_1_32_if",
+    "type": 1,
+    "text": "If she ___ (study), Sarah will visit a cake.",
+    "solutions": ["studies"]
+  },
+  {
+    "id": "ap_2_41_if",
+    "type": 2,
+    "text": "If Sarah ___ (clean), he would have make English.",
+    "solutions": ["cleaned"]
+  },
+  {
+    "id": "ap_1_42_main",
+    "type": 1,
+    "text": "If the teacher cleans the truth, we ___ (make).",
+    "solutions": ["will make", "can make"]
+  },
+  {
+    "id": "ap_2_4_if",
+    "type": 2,
+    "text": "If Tom ___ (read), she would speak to London.",
+    "solutions": ["read"]
+  },
+  {
+    "id": "ap_3_35_if",
+    "type": 3,
+    "text": "If you ___ (do), we would have meet some water.",
+    "solutions": ["had done"]
+  },
+  {
+    "id": "ap_1_40_main",
+    "type": 1,
+    "text": "If I study English, Sarah ___ (go).",
+    "solutions": ["will go", "can go"]
+  },
+  {
+    "id": "ap_2_15_if",
+    "type": 2,
+    "text": "If Tom ___ (clean), she would make a cake.",
+    "solutions": ["cleaned"]
+  },
+  {
+    "id": "ap_3_27_if",
+    "type": 3,
+    "text": "If Sarah ___ (study), you would have tell English.",
+    "solutions": ["had studied"]
+  },
+  {
+    "id": "ap_3_29_main",
+    "type": 3,
+    "text": "If she had cleaned a letter, Tom ___ (do).",
+    "solutions": ["would have done", "could have done"]
+  },
+  {
+    "id": "ap_1_31_if",
+    "type": 1,
+    "text": "If Tom ___ (find), he will clean some water.",
+    "solutions": ["finds"]
+  },
+  {
+    "id": "ap_1_22_if",
+    "type": 1,
+    "text": "If Tom ___ (clean), Sarah will clean the truth.",
+    "solutions": ["cleans"]
+  },
+  {
+    "id": "ap_3_37_if",
+    "type": 3,
+    "text": "If you ___ (buy), the teacher would watch homework.",
+    "solutions": ["had bought"]
+  },
+  {
+    "id": "ap_3_37_main",
+    "type": 3,
+    "text": "If the teacher had visited a book, she ___ (go).",
+    "solutions": ["would have gone", "could have gone"]
+  },
+  {
+    "id": "ap_3_22_main",
+    "type": 3,
+    "text": "If she had tell to London, we ___ (make).",
+    "solutions": ["would have made", "could have made"]
+  },
+  {
+    "id": "ap_2_39_main",
+    "type": 2,
+    "text": "If Sarah cleaned English, my friends ___ (make).",
+    "solutions": ["would make", "could make"]
+  },
+  {
+    "id": "ap_2_1_if",
+    "type": 2,
+    "text": "If Tom ___ (clean), she would make a cake.",
+    "solutions": ["cleaned"]
+  },
+  {
+    "id": "ap_2_30_if",
+    "type": 2,
+    "text": "If I ___ (do), we would have meet some water.",
+    "solutions": ["did"]
+  },
+  {
+    "id": "ap_3_38_if",
+    "type": 3,
+    "text": "If Sarah ___ (take), the teacher would have find English.",
+    "solutions": ["had taken"]
+  },
+  {
+    "id": "ap_3_46_main",
+    "type": 3,
+    "text": "If the teacher had read a cake, my friends ___ (go).",
+    "solutions": ["would have gone", "could have gone"]
+  },
+  {
+    "id": "ap_3_32_main",
+    "type": 3,
+    "text": "If she had tell to the cinema, my friends ___ (buy).",
+    "solutions": ["would have bought", "could have bought"]
+  },
+  {
+    "id": "ap_2_14_main",
+    "type": 2,
+    "text": "If the teacher had read English, I ___ (take).",
+    "solutions": ["would take", "could take"]
+  },
+  {
+    "id": "ap_3_18_main",
+    "type": 3,
+    "text": "If she had tell the match, the teacher ___ (do).",
+    "solutions": ["would have done", "could have done"]
+  },
+{
+    "id": "ap_1_45_main",
+    "type": 1,
+    "text": "If he drinks English, I ___ (take).",
+    "solutions": ["will take", "can take"]
+  },
+  {
+    "id": "ap_2_37_if",
+    "type": 2,
+    "text": "If Tom ___ (read), she would make a cake.",
+    "solutions": ["read"]
+  },
+  {
+    "id": "ap_3_5_if",
+    "type": 3,
+    "text": "If he ___ (tell), she would have do photos.",
+    "solutions": ["had told"]
+  },
+  {
+    "id": "ap_2_12_if",
+    "type": 2,
+    "text": "If the teacher ___ (study), my friends would write English.",
+    "solutions": ["studied"]
+  },
+  {
+    "id": "ap_1_40_if",
+    "type": 1,
+    "text": "If he ___ (clean), Sarah will clean the truth.",
+    "solutions": ["cleans"]
+  },
+  {
+    "id": "ap_2_35_if",
+    "type": 2,
+    "text": "If you ___ (read), Tom would make the truth.",
+    "solutions": ["read"]
+  },
+  {
+    "id": "ap_1_12_main",
+    "type": 1,
+    "text": "If I study English, Sarah ___ (go).",
+    "solutions": ["will go", "can go"]
+  },
+  {
+    "id": "ap_3_19_main",
+    "type": 3,
+    "text": "If my friends had made the game, Tom ___ (lose).",
+    "solutions": ["would have lost", "could have lost"]
+  },
+  {
+    "id": "ap_1_27_if",
+    "type": 1,
+    "text": "If she ___ (read), he will study a letter.",
+    "solutions": ["reads"]
+  },
+  {
+    "id": "ap_2_49_main",
+    "type": 2,
+    "text": "If Sarah cleaned English, my friends ___ (make).",
+    "solutions": ["would make", "could make"]
+  },
+  {
+    "id": "ap_2_7_main",
+    "type": 2,
+    "text": "If Tom read homework, the teacher ___ (study).",
+    "solutions": ["would study", "could study"]
+  },
+  {
+    "id": "ap_1_32_main",
+    "type": 1,
+    "text": "If I study English, Sarah ___ (go).",
+    "solutions": ["will go", "can go"]
+  },
+  {
+    "id": "ap_1_38_main",
+    "type": 1,
+    "text": "If Tom cleans a letter, the teacher ___ (speak).",
+    "solutions": ["will speak", "can speak"]
+  },
+  {
+    "id": "ap_1_33_if",
+    "type": 1,
+    "text": "If Tom ___ (find), he will clean some water.",
+    "solutions": ["finds"]
+  },
+  {
+    "id": "ap_1_8_if",
+    "type": 1,
+    "text": "If he ___ (study), Sarah will study photos.",
+    "solutions": ["studies"]
+  },
+  {
+    "id": "ap_2_19_main",
+    "type": 2,
+    "text": "If Tom read homework, the teacher ___ (study).",
+    "solutions": ["would study", "could study"]
+  },
+  {
+    "id": "ap_1_24_main",
+    "type": 1,
+    "text": "If Sarah cleans the answer, we ___ (study).",
+    "solutions": ["will study", "can study"]
+  },
+  {
+    "id": "ap_1_9_if",
+    "type": 1,
+    "text": "If Sarah ___ (tell), Tom will tell a cake.",
+    "solutions": ["tells"]
+  },
+  {
+    "id": "ap_3_6_if",
+    "type": 3,
+    "text": "If the teacher ___ (study), she would have do English.",
+    "solutions": ["had studied"]
+  },
+  {
+    "id": "ap_3_45_if",
+    "type": 3,
+    "text": "If I ___ (speak), Sarah would have take English.",
+    "solutions": ["had spoken"]
+  },
+  {
+    "id": "ap_2_28_main",
+    "type": 2,
+    "text": "If he found to the cinema, you ___ (do).",
+    "solutions": ["would do", "could do"]
+  },
+  {
+    "id": "ap_2_4_main",
+    "type": 2,
+    "text": "If Sarah made English, my friends ___ (make).",
+    "solutions": ["would make", "could make"]
+  },
+  {
+    "id": "ap_2_11_if",
+    "type": 2,
+    "text": "If we ___ (study), Tom would read to London.",
+    "solutions": ["studied"]
+  },
+  {
+    "id": "ap_2_21_if",
+    "type": 2,
+    "text": "If she ___ (study), Tom would make homework.",
+    "solutions": ["studied"]
+  },
+  {
+    "id": "ap_1_10_main",
+    "type": 1,
+    "text": "If Tom cleans a letter, the teacher ___ (speak).",
+    "solutions": ["will speak", "can speak"]
+  },
+  {
+    "id": "ap_3_15_main",
+    "type": 3,
+    "text": "If the teacher had take a cake, Sarah ___ (go).",
+    "solutions": ["would have gone", "could have gone"]
+  },
+  {
+    "id": "ap_3_28_main",
+    "type": 3,
+    "text": "If she had take to London, Sarah ___ (make).",
+    "solutions": ["would have made", "could have made"]
+  },
+  {
+    "id": "ap_1_43_main",
+    "type": 1,
+    "text": "If Tom plays a book, Sarah ___ (take).",
+    "solutions": ["will take", "can take"]
+  },
+  {
+    "id": "ap_2_20_main",
+    "type": 2,
+    "text": "If he made English, we ___ (take).",
+    "solutions": ["would take", "could take"]
+  },
+  {
+    "id": "ap_3_11_if",
+    "type": 3,
+    "text": "If you ___ (read), Tom would have tell the answer.",
+    "solutions": ["had read"]
+  },
+  {
+    "id": "ap_1_11_main",
+    "type": 1,
+    "text": "If Tom cleans a letter, the teacher ___ (speak).",
+    "solutions": ["will speak", "can speak"]
+  },
+  {
+    "id": "ap_2_9_if",
+    "type": 2,
+    "text": "If Tom ___ (read), Sarah would speak to London.",
+    "solutions": ["read"]
+  },
+  {
+    "id": "ap_1_14_main",
+    "type": 1,
+    "text": "If Tom cleans a letter, the teacher ___ (speak).",
+    "solutions": ["will speak", "can speak"]
+  },
+  {
+    "id": "ap_3_29_if",
+    "type": 3,
+    "text": "If the teacher ___ (study), Sarah would have read some water.",
+    "solutions": ["had studied"]
+  },
+  {
+    "id": "ap_3_24_if",
+    "type": 3,
+    "text": "If my friends ___ (read), Tom would have call a cake.",
+    "solutions": ["had read"]
+  },
+  {
+    "id": "ap_2_18_if",
+    "type": 2,
+    "text": "If you ___ (read), Tom would make the truth.",
+    "solutions": ["read"]
+  },
+  {
+    "id": "ap_2_35_main",
+    "type": 2,
+    "text": "If he study a letter, she ___ (speak).",
+    "solutions": ["would speak", "could speak"]
+  },
+  {
+    "id": "ap_1_33_main",
+    "type": 1,
+    "text": "If he cleans English, we ___ (take).",
+    "solutions": ["will take", "can take"]
+  },
+  {
+    "id": "ap_3_20_if",
+    "type": 3,
+    "text": "If you ___ (clean), he would have find homework.",
+    "solutions": ["had cleaned"]
+  },
+  {
+    "id": "ap_2_33_main",
+    "type": 2,
+    "text": "If Sarah cleaned a cake, the teacher ___ (take).",
+    "solutions": ["would take", "could take"]
+  },
+  {
+    "id": "ap_2_38_if",
+    "type": 2,
+    "text": "If I ___ (do), we would have meet some water.",
+    "solutions": ["did"]
+  },
+  {
+    "id": "ap_2_8_if",
+    "type": 2,
+    "text": "If Tom ___ (read), Sarah would speak to London.",
+    "solutions": ["read"]
+  },
+  {
+    "id": "ap_2_49_if",
+    "type": 2,
+    "text": "If Sarah ___ (tell), Tom would watch a book.",
+    "solutions": ["told"]
+  },
+  {
+    "id": "ap_1_35_main",
+    "type": 1,
+    "text": "If he cleans English, we ___ (take).",
+    "solutions": ["will take", "can take"]
+  },
+  {
+    "id": "ap_3_38_main",
+    "type": 3,
+    "text": "If the teacher had read a cake, we ___ (buy).",
+    "solutions": ["would have bought", "could have bought"]
+  },
+  {
+    "id": "ap_2_22_if",
+    "type": 2,
+    "text": "If she ___ (study), Tom would make homework.",
+    "solutions": ["studied"]
+  },
+  {
+    "id": "ap_3_33_if",
+    "type": 3,
+    "text": "If the teacher ___ (clean), Sarah would have tell my parents.",
+    "solutions": ["had cleaned"]
+  },
+  {
+    "id": "ap_3_32_if",
+    "type": 3,
+    "text": "If she ___ (take), the teacher would have find English.",
+    "solutions": ["had taken"]
+  },
+  {
+    "id": "ap_2_27_if",
+    "type": 2,
+    "text": "If my friends ___ (watch), he would read a cake.",
+    "solutions": ["watched"]
+  },
+  {
+    "id": "ap_3_1_if",
+    "type": 3,
+    "text": "If he ___ (tell), she would have do photos.",
+    "solutions": ["had told"]
+  },
+  {
+    "id": "ap_2_45_if",
+    "type": 2,
+    "text": "If Sarah ___ (clean), he would have make English.",
+    "solutions": ["cleaned"]
+  },
+  {
+    "id": "ap_3_49_main",
+    "type": 3,
+    "text": "If he had cleaned to London, the teacher ___ (speak).",
+    "solutions": ["would have spoken", "could have spoken"]
+  },
+  {
+    "id": "ap_3_45_main",
+    "type": 3,
+    "text": "If the teacher had read a cake, my friends ___ (go).",
+    "solutions": ["would have gone", "could have gone"]
+  },
+  {
+    "id": "ap_1_34_if",
+    "type": 1,
+    "text": "If he ___ (study), Sarah will study photos.",
+    "solutions": ["studies"]
+  },
+  {
+    "id": "ap_1_3_if",
+    "type": 1,
+    "text": "If Sarah ___ (make), he will study a letter.",
+    "solutions": ["makes"]
+  },
+  {
+    "id": "ap_2_32_main",
+    "type": 2,
+    "text": "If she study a letter, she ___ (speak).",
+    "solutions": ["would speak", "could speak"]
+  },
+  {
+    "id": "ap_2_13_main",
+    "type": 2,
+    "text": "If the teacher had read English, I ___ (take).",
+    "solutions": ["would take", "could take"]
+  },
+  {
+    "id": "ap_3_25_main",
+    "type": 3,
+    "text": "If she had tell the match, the teacher ___ (do).",
+    "solutions": ["would have done", "could have done"]
+  },
+  {
+    "id": "ap_1_44_main",
+    "type": 1,
+    "text": "If my friends watch English, he ___ (do).",
+    "solutions": ["will do", "can do"]
+  },
+  {
+    "id": "ap_1_17_main",
+    "type": 1,
+    "text": "If he drinks English, I ___ (take).",
+    "solutions": ["will take", "can take"]
+  },
+  {
+    "id": "ap_3_24_main",
+    "type": 3,
+    "text": "If she had tell to the cinema, we ___ (buy).",
+    "solutions": ["would have bought", "could have bought"]
+  },
+  {
+    "id": "ap_2_2_main",
+    "type": 2,
+    "text": "If Sarah made English, my friends ___ (make).",
+    "solutions": ["would make", "could make"]
+  },
+  {
+    "id": "ap_2_36_if",
+    "type": 2,
+    "text": "If Tom ___ (read), Sarah would speak to London.",
+    "solutions": ["read"]
+  },
+  {
+    "id": "ap_2_42_if",
+    "type": 2,
+    "text": "If the teacher ___ (study), my friends would write English.",
+    "solutions": ["studied"]
+  },
+  {
+    "id": "ap_2_6_if",
+    "type": 2,
+    "text": "If we ___ (study), Tom would read to London.",
+    "solutions": ["studied"]
+  },
+  {
+    "id": "ap_2_14_if",
+    "type": 2,
+    "text": "If I ___ (do), we would have meet some water.",
+    "solutions": ["did"]
+  },
+  {
+    "id": "ap_3_12_if",
+    "type": 3,
+    "text": "If you ___ (read), Tom would have tell the answer.",
+    "solutions": ["had read"]
+  },
+  {
+    "id": "ap_3_26_if",
+    "type": 3,
+    "text": "If he ___ (tell), she would have do photos.",
+    "solutions": ["had told"]
+  },
+  {
+    "id": "ap_3_42_if",
+    "type": 3,
+    "text": "If Sarah ___ (study), you would have tell English.",
+    "solutions": ["had studied"]
+  },
+  {
+    "id": "ap_3_34_if",
+    "type": 3,
+    "text": "If he ___ (tell), she would have do photos.",
+    "solutions": ["had told"]
+  },
+  {
+    "id": "ap_1_27_main",
+    "type": 1,
+    "text": "If he cleans English, we ___ (take).",
+    "solutions": ["will take", "can take"]
+  },
+  {
+    "id": "ap_3_41_if",
+    "type": 3,
+    "text": "If I ___ (speak), Sarah would have take English.",
+    "solutions": ["had spoken"]
+  },
+  {
+    "id": "ap_1_24_if",
+    "type": 1,
+    "text": "If the teacher ___ (call), Tom will watch a book.",
+    "solutions": ["calls"]
+  },
+  {
+    "id": "ap_3_8_main",
+    "type": 3,
+    "text": "If he had cleaned homework, Sarah ___ (do).",
+    "solutions": ["would have done", "could have done"]
+  },
+  {
+    "id": "ap_3_16_if",
+    "type": 3,
+    "text": "If she ___ (visit), we would have meet the truth.",
+    "solutions": ["had visited"]
+  },
+  {
+    "id": "ap_1_12_if",
+    "type": 1,
+    "text": "If the teacher ___ (read), Tom will find the truth.",
+    "solutions": ["reads"]
+  },
+  {
+    "id": "ap_1_19_main",
+    "type": 1,
+    "text": "If Tom cleans a letter, the teacher ___ (speak).",
+    "solutions": ["will speak", "can speak"]
+  },
+  {
+    "id": "ap_1_3_main",
+    "type": 1,
+    "text": "If Tom cleans a letter, the teacher ___ (speak).",
+    "solutions": ["will speak", "can speak"]
+  },
+  {
+    "id": "ap_1_8_main",
+    "type": 1,
+    "text": "If I study English, Sarah ___ (go).",
+    "solutions": ["will go", "can go"]
+  },
+  {
+    "id": "ap_2_37_main",
+    "type": 2,
+    "text": "If Tom played English, she ___ (clean).",
+    "solutions": ["would clean", "could clean"]
+  },
+  {
+    "id": "ap_3_49_if",
+    "type": 3,
+    "text": "If you ___ (do), we would have meet some water.",
+    "solutions": ["had done"]
+  },
+  {
+    "id": "ap_2_16_main",
+    "type": 2,
+    "text": "If he made English, we ___ (take).",
+    "solutions": ["would take", "could take"]
+  },
+  {
+    "id": "ap_1_13_main",
+    "type": 1,
+    "text": "If I study English, Sarah ___ (go).",
+    "solutions": ["will go", "can go"]
+  },
+  {
+    "id": "ap_3_20_main",
+    "type": 3,
+    "text": "If Tom had cleaned a new car, my friends ___ (make).",
+    "solutions": ["would have made", "could have made"]
+  },
+  {
+    "id": "ap_1_30_if",
+    "type": 1,
+    "text": "If she ___ (study), Sarah will find the match.",
+    "solutions": ["studies"]
+  },
+  {
+    "id": "ap_2_13_if",
+    "type": 2,
+    "text": "If you ___ (read), Tom would make the truth.",
+    "solutions": ["read"]
+  },
+  {
+    "id": "ap_1_28_if",
+    "type": 1,
+    "text": "If Sarah ___ (tell), Tom will tell a cake.",
+    "solutions": ["tells"]
+  },
+  {
+    "id": "ap_3_10_if",
+    "type": 3,
+    "text": "If she ___ (visit), we would have meet the truth.",
+    "solutions": ["had visited"]
+  },
+  {
+    "id": "ap_3_36_main",
+    "type": 3,
+    "text": "If she had tell the match, the teacher ___ (do).",
+    "solutions": ["would have done", "could have done"]
+  },
+  {
+    "id": "ap_2_44_if",
+    "type": 2,
+    "text": "If Sarah ___ (tell), Tom would watch a book.",
+    "solutions": ["told"]
+  },
+  {
+    "id": "ap_2_39_if",
+    "type": 2,
+    "text": "If she ___ (study), Tom would make homework.",
+    "solutions": ["studied"]
+  },
+  {
+    "id": "ap_2_21_main",
+    "type": 2,
+    "text": "If she played the answers, Tom ___ (speak).",
+    "solutions": ["would speak", "could speak"]
+  },
+  {
+    "id": "ap_2_40_if",
+    "type": 2,
+    "text": "If you ___ (buy), the teacher would watch homework.",
+    "solutions": ["bought"]
+  },
+  {
+    "id": "ap_2_47_main",
+    "type": 2,
+    "text": "If she bought English, Sarah ___ (do).",
+    "solutions": ["would do", "could do"]
+  },
+  {
+    "id": "ap_3_9_main",
+    "type": 3,
+    "text": "If Sarah had take English, Tom ___ (make).",
+    "solutions": ["would have made", "could have made"]
+  },
+  {
+    "id": "ap_1_39_if",
+    "type": 1,
+    "text": "If the teacher ___ (study), Tom will tell a cake.",
+    "solutions": ["studies"]
+  },
+  {
+    "id": "ap_1_39_main",
+    "type": 1,
+    "text": "If Tom cleans a letter, the teacher ___ (speak).",
+    "solutions": ["will speak", "can speak"]
+  },
+  {
+    "id": "ap_3_3_if",
+    "type": 3,
+    "text": "If I ___ (do), we would have meet some water.",
+    "solutions": ["had done"]
+  },
+  {
+    "id": "ap_1_38_if",
+    "type": 1,
+    "text": "If she ___ (read), he will study a letter.",
+    "solutions": ["reads"]
+  },
+  {
+    "id": "ap_3_2_main",
+    "type": 3,
+    "text": "If Sarah had cleaned homework, my friends ___ (make).",
+    "solutions": ["would have made", "could have made"]
+  },
+  {
+    "id": "ap_1_18_main",
+    "type": 1,
+    "text": "If I study English, Sarah ___ (go).",
+    "solutions": ["will go", "can go"]
+  },
+  {
+    "id": "ap_2_45_main",
+    "type": 2,
+    "text": "If she cleaned my parents, I ___ (take).",
+    "solutions": ["would take", "could take"]
+  },
+  {
+    "id": "ap_2_31_if",
+    "type": 2,
+    "text": "If Sarah ___ (tell), Tom would watch a book.",
+    "solutions": ["told"]
+  },
+  {
+    "id": "ap_3_39_if",
+    "type": 3,
+    "text": "If I ___ (speak), Sarah would have take English.",
+    "solutions": ["had spoken"]
+  },
+  {
+    "id": "ap_1_40_main",
+    "type": 1,
+    "text": "If Tom cleans a letter, the teacher ___ (speak).",
+    "solutions": ["will speak", "can speak"]
+  },
+  {
+    "id": "ap_2_16_if",
+    "type": 2,
+    "text": "If the teacher ___ (study), my friends would write English.",
+    "solutions": ["studied"]
+  },
+  {
+    "id": "ap_1_11_main",
+    "type": 1,
+    "text": "If I study English, Sarah ___ (go).",
+    "solutions": ["will go", "can go"]
+  },
+  {
+    "id": "ap_3_42_main",
+    "type": 3,
+    "text": "If Tom had cleaned a new car, my friends ___ (make).",
+    "solutions": ["would have made", "could have made"]
+  },
+  {
+    "id": "ap_3_28_if",
+    "type": 3,
+    "text": "If she ___ (visit), we would have meet the truth.",
+    "solutions": ["had visited"]
+  }
 ]
