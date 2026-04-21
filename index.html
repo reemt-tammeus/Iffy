@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Iffy - Conditional Trainer</title>
-    <link rel="stylesheet" href="style.css?v=1">
+    <title>Iffy - The If-Sentence Trainer</title>
+    <link rel="stylesheet" href="style.css?v=2">
 </head>
 <body>
     <div id="app-container">
@@ -19,7 +19,7 @@
             
             <section data-screen="menu" class="blueprint-screen active">
                 <div class="glass-box">
-                    <h1>The Ultimate Conditional Trainer</h1>
+                    <h1>Iffy - The If-Sentence Trainer</h1>
                     <h2>Wähle deine Kategorie</h2>
                     <div class="category-grid">
                         <button onclick="selectCategory(['1'])">Type I</button>
@@ -33,7 +33,7 @@
 
             <section data-screen="modes" class="blueprint-screen">
                 <div class="glass-box">
-                    <h1>The Ultimate Conditional Trainer</h1>
+                    <h1>Iffy - The If-Sentence Trainer</h1>
                     <h2>Wähle deinen Modus</h2>
                     <div class="mode-selection">
                         <button onclick="selectMode('quickie')">Five Gap Quickie</button>
@@ -43,7 +43,7 @@
             </section>
 
             <section data-screen="playing" class="blueprint-screen">
-                <div class="glass-box">
+                <div class="glass-box" id="playing-glass-box">
                     <div id="text-display">Lade Satz...</div>
                 </div>
             </section>
@@ -69,6 +69,6 @@
         <img src="loser.jpg" alt="Game Over" onerror="this.style.display='none'">
     </div>
 
-    <script src="app.js?v=1"></script>
+    <script src="app.js?v=2"></script>
 </body>
 </html>
