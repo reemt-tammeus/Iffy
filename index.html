@@ -7,25 +7,50 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <canvas id="blueprint-fireworks" class="blueprint-fireworks-canvas"></canvas>
+
     <div id="app-container">
-        <header id="stats-bar" class="hidden">
-            <div id="lives">❤️❤️❤️</div>
-            <div id="streak">🔥 0</div>
+        <header id="top-bar">
+            <div id="status-row">
+                <button id="btn-back" class="hidden" onclick="AppDirector.goBack()">⬅️</button>
+                <div id="lives">❤️❤️❤️</div>
+                <div class="blueprint-streak-badge">
+                    <span class="streak-icon">🔥</span>
+                    <span id="blueprint-streak-count">0</span>
+                </div>
+            </div>
+            <div class="blueprint-progress-track hidden" id="game-progress">
+                <div id="blueprint-progress-fill" class="blueprint-progress-fill"></div>
+            </div>
         </header>
 
         <main id="content-area">
-            <div id="start-screen">
-                <div class="start-ui-zone">
-                    <div class="mode-selection">
-                        <button onclick="startGame('quickie')">Five Gap Quickie</button>
-                        <button onclick="startGame('ap')">AP-Mode (Tippen)</button>
+            <section data-screen="menu" class="blueprint-screen active">
+                <div class="glass-box">
+                    <div class="category-grid">
+                        <button class="btn-cat" onclick="selectCategory('1')">Type I</button>
+                        <button class="btn-cat" onclick="selectCategory('2')">Type II</button>
+                        <button class="btn-cat" onclick="selectCategory('3')">Type III</button>
+                        <button class="btn-cat" onclick="selectCategory('12')">Mix I+II</button>
+                        <button class="btn-cat" onclick="selectCategory('123')">Mix I-III</button>
                     </div>
                 </div>
-            </div>
+            </section>
 
-            <div id="game-screen" class="hidden">
-                <div id="text-display">Lade Satz...</div>
-            </div>
+            <section data-screen="modes" class="blueprint-screen">
+                <div class="glass-box">
+                    <div class="mode-selection">
+                        <button class="btn-mode" onclick="selectMode('quickie')">Five Gap Quickie</button>
+                        <button class="btn-mode" onclick="selectMode('test')">Test-Mode</button>
+                    </div>
+                </div>
+            </section>
+
+            <section data-screen="playing" class="blueprint-screen">
+                <div id="game-ui">
+                    <div id="text-display">Lade...</div>
+                </div>
+            </section>
         </main>
 
         <footer id="thumb-zone" class="hidden">
@@ -33,7 +58,7 @@
             <div id="ap-controls" class="hidden">
                 <div id="ap-input-display"></div>
                 <div id="keyboard"></div>
-                <button id="ap-submit" onclick="checkAPAnswer()">Prüfen</button>
+                <button id="ap-submit" class="primary-btn" onclick="checkAnswer()">Prüfen</button>
             </div>
             <button id="next-btn" class="hidden" onclick="loadNext()">WEITER</button>
         </footer>
