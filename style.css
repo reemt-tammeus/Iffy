@@ -1,36 +1,80 @@
 :root {
-    --bg-color: #000; --text-color: #fff;
-    --green: #28a745; --orange: #fd7e14; --red: #dc3545;
+    --bg-color: #050505; /* Dunkler PC-Hintergrund außerhalb der App */
+    --text-color: #fff;
+    --green: #28a745; 
+    --orange: #fd7e14; 
+    --red: #dc3545;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
-body { background: var(--bg-color); color: var(--text-color); overflow: hidden; display: flex; justify-content: center; }
 
-/* === SANDWICH LAYOUT === */
-#app-container { 
-    width: 100%; max-width: 800px; height: 100dvh; 
-    display: flex; flex-direction: column; position: relative; background-color: #000;
+/* Zentriert das App-Korsett auf dem Bildschirm */
+body { 
+    background: var(--bg-color); 
+    color: var(--text-color); 
+    overflow: hidden; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    min-height: 100vh;
 }
 
-/* Dein Graffiti/Logo-Hintergrund */
-@media (min-width: 601px) { #app-container { background-image: url('logo.jpg'); background-size: contain; background-position: center; background-repeat: no-repeat; } }
-@media (max-width: 600px) { #app-container { background-image: url('logo.jpg'); background-size: 100% auto; background-position: bottom center; background-repeat: no-repeat; } }
+/* === DAS EISERNE SMARTPHONE-KORSETT === */
+#app-container { 
+    width: 100%; 
+    max-width: 450px; /* Hält die App auf PC/Tablet immer im Hochformat */
+    height: 100dvh; 
+    display: flex; 
+    flex-direction: column; 
+    position: relative; 
+    background-color: #000;
+    background-image: url('logo.jpg'); 
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat;
+    box-shadow: 0 0 30px rgba(0,0,0,0.8); /* Trennt die App optisch vom PC-Monitor */
+}
 
-#content-area { flex-grow: 1; position: relative; width: 100%; display: flex; justify-content: center; align-items: center; }
+#content-area { 
+    flex-grow: 1; 
+    position: relative; 
+    width: 100%; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+}
 
 .blueprint-screen { 
-    position: absolute; width: 100%; height: 100%; 
-    display: none; flex-direction: column; justify-content: center; align-items: center; 
+    position: absolute; 
+    width: 100%; 
+    height: 100%; 
+    display: none; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
 }
 .blueprint-screen.active { display: flex; }
 
-/* === DEIN DESIGN AUS BILD 1 === */
+/* === GLAS-DESIGN & AUFLEUCHTEN === */
 .glass-box { 
-    width: 90%; max-width: 400px; padding: 30px 20px; 
+    width: 90%; 
+    max-width: 400px; 
+    padding: 30px 20px; 
     background: rgba(0, 0, 0, 0.6); 
-    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); 
+    backdrop-filter: blur(10px); 
+    -webkit-backdrop-filter: blur(10px); 
     border: 1px solid rgba(255,255,255,0.3); 
-    border-radius: 20px; text-align: center;
+    border-radius: 20px; 
+    text-align: center;
+    transition: all 0.3s ease; /* Weicher Übergang für den grünen Blitz */
+}
+
+/* Der grüne Blitz für richtige Antworten! */
+.flash-success-box {
+    background: rgba(40, 167, 69, 0.85) !important;
+    box-shadow: 0 0 40px rgba(40, 167, 69, 1) !important;
+    border-color: #fff !important;
+    transform: scale(1.02); /* Kurzes, haptisches "Ploppen" */
 }
 
 h1 { font-size: 1.5rem; margin-bottom: 5px; color: #fff; }
@@ -42,7 +86,7 @@ h2 { font-size: 1rem; margin-bottom: 20px; font-weight: normal; color: #ccc; }
 
 .mode-selection { display: flex; flex-direction: column; gap: 10px; }
 
-/* Weiße, transparente Buttons (Dein Wunsch-Design) */
+/* Transparente Buttons mit iOS-Sicherung */
 button { 
     -webkit-appearance: none; appearance: none;
     width: 100%; padding: 15px; border-radius: 10px; 
@@ -57,7 +101,7 @@ button:active { background: #fff; color: #000; }
 #stats-bar { padding: 15px; display: flex; justify-content: space-between; align-items: center; width: 100%; background: rgba(0,0,0,0.5); z-index: 10; }
 #btn-back { width: auto; padding: 8px 15px; border: none; background: rgba(255,255,255,0.2); margin: 0; }
 
-/* === GAME CONTROLS (Tastatur etc.) === */
+/* === THUMB ZONE (Tastatur etc.) === */
 #thumb-zone {
     width: 100%; position: relative; z-index: 50; padding: 15px;
     background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
@@ -70,7 +114,7 @@ button:active { background: #fff; color: #000; }
 .keyboard-row { display: flex; gap: 4px; width: 100%; justify-content: center; }
 .key { flex: 1; max-width: 45px; padding: 14px 0; background: rgba(255,255,255,0.2); border-radius: 8px; text-align: center; font-weight: bold; border: 1px solid rgba(255,255,255,0.3); cursor: pointer; user-select: none; color: #fff;}
 .key-space { flex: 4; max-width: 180px; }
-.key-del { background: rgba(220, 53, 69, 0.5); }
+.key-del { background: rgba(220, 53, 69, 0.5); border-color: rgba(220, 53, 69, 0.8); }
 
 #ap-input-display { font-size: 1.5rem; text-align: center; color: white; margin-bottom: 10px; min-height: 30px; font-weight: bold; letter-spacing: 2px;}
 #text-display { font-size: 1.3rem; line-height: 1.5; }
@@ -79,8 +123,10 @@ button:active { background: #fff; color: #000; }
 .hidden { display: none !important; }
 .disabled { opacity: 0.3; pointer-events: none; }
 
-#feedback-flash { position: absolute; top: 30%; left: 50%; transform: translate(-50%, -50%); padding: 15px 30px; border-radius: 10px; font-weight: bold; z-index: 2000; color: white; font-size: 1.2rem; box-shadow: 0 4px 15px rgba(0,0,0,0.5); text-align: center; width: 80%; }
-.flash-red { background: var(--red); } .flash-green { background: var(--green); } .flash-orange { background: var(--orange); }
+/* Rotes Pop-Up (Nur noch für Fehler und Joker) */
+#feedback-flash { position: absolute; top: 30%; left: 50%; transform: translate(-50%, -50%); padding: 15px 30px; border-radius: 10px; font-weight: bold; z-index: 2000; color: white; font-size: 1.2rem; box-shadow: 0 4px 15px rgba(0,0,0,0.5); text-align: center; width: 80%; max-width: 350px;}
+.flash-red { background: var(--red); } 
+.flash-orange { background: var(--orange); }
 
 #game-over-screen { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10000; background: #000; }
 #game-over-screen img { width: 100%; height: 100%; object-fit: cover; }
