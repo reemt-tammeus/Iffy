@@ -16,7 +16,7 @@ const AppDirector = {
         const current = document.querySelector('.blueprint-screen.active').dataset.screen;
         if (current === 'modes') this.changeScreen('menu');
         else if (current === 'playing') {
-            if(confirm("Abbrechen?")) this.changeScreen('modes');
+            if(confirm("Abbrechen? Dein Fortschritt geht verloren.")) this.changeScreen('modes');
         }
     }
 };
@@ -36,11 +36,17 @@ async function selectMode(mode) {
     try {
         const response = await fetch(file);
         const all = await response.json();
+        
+        // Filtern und Mischen
         state.data = all.filter(d => state.category.includes(d.type.toString()));
-        state.data = state.data.sort(() => Math.random() - 0.5).slice(0, 20);
+        state.data = state.data.sort(() => Math.random() - 0.5).slice(0, 20); // 20 Fragen pro Runde
+        
         AppDirector.changeScreen('playing');
         loadNext(true);
-    } catch(e) { alert("JSON Dateien fehlen!"); }
+    } catch(e) { 
+        alert("JSON Dateien konnten nicht geladen werden! Läuft die App auf einem Server?"); 
+        console.error(e);
+    }
 }
 
 /* === GAME CORE === */
@@ -48,7 +54,8 @@ function loadNext(first = false) {
     if (!first) state.currentIdx++;
     if (state.currentIdx >= state.data.length) return finishGame();
 
-    state.jokerUsed = false; state.inputText = "";
+    state.jokerUsed = false; 
+    state.inputText = "";
     document.getElementById('next-btn').classList.add('hidden');
     document.getElementById('feedback-flash').classList.add('hidden');
     
@@ -60,20 +67,15 @@ function loadNext(first = false) {
     else renderTest(q);
 }
 
+// NEUE LOGIK: Zieht Distraktoren direkt aus der JSON
 function renderQuickie(q) {
     const cont = document.getElementById('quickie-controls');
     cont.classList.remove('hidden');
     document.getElementById('ap-controls').classList.add('hidden');
     cont.innerHTML = "";
 
-    // PÄDAGOGISCHE DISTRAKTOREN LOGIK
-    let pool = [];
-    if (state.category === '1') pool = ["stays", "stay", "will stay", "will stay", "can stay"];
-    else if (state.category === '2') pool = ["stayed", "would stay", "will stay", "stay"];
-    else pool = ["had stayed", "would have stayed", "stayed", "would stay", "will stay"];
-
-    let filtered = [...new Set(pool.filter(p => p !== q.solution))].sort(() => 0.5 - Math.random()).slice(0, 2);
-    let options = [q.solution, ...filtered].sort(() => 0.5 - Math.random());
+    // Fügt Lösung und Distraktoren zusammen und mischt sie
+    let options = [q.solution, ...q.distractors].sort(() => 0.5 - Math.random());
 
     options.forEach(opt => {
         const btn = document.createElement('button');
@@ -113,16 +115,40 @@ function renderTest() {
     });
 }
 
+// NEUE LOGIK: Loopt durch alle Lösungen für die Typo-Erkennung
 function checkAnswer() {
     const q = state.data[state.currentIdx];
     const input = WordValidator.sanitize(state.inputText);
-    const result = WordValidator.check(input, q.solutions[0]);
 
-    if (q.solutions.map(s => WordValidator.sanitize(s)).includes(input)) handleCorrect();
-    else if (result.status === 'typo' && !state.jokerUsed) {
+    // 1. Ist die Eingabe exakt in den Lösungen?
+    const sanitizedSolutions = q.solutions.map(s => WordValidator.sanitize(s));
+    if (sanitizedSolutions.includes(input)) {
+        return handleCorrect();
+    }
+
+    // 2. Prüfe auf Tippfehler gegen ALLE erlaubten Lösungen
+    let isTypo = false;
+    let targetForTypo = q.solutions[0]; // Fallback
+
+    for (let sol of q.solutions) {
+        const result = WordValidator.check(input, sol);
+        if (result.status === 'typo') {
+            isTypo = true;
+            targetForTypo = sol; // Merke das richtige Wort
+            break;
+        }
+    }
+
+    // 3. Auswertung
+    if (isTypo && !state.jokerUsed) {
         state.jokerUsed = true;
         showFlash("Tippfehler korrigiert!", "flash-orange");
-    } else handleWrong(input, null, q.solutions[0]);
+        state.inputText = targetForTypo;
+        document.getElementById('ap-input-display').textContent = state.inputText + "_";
+        setTimeout(handleCorrect, 1000); // Geht automatisch weiter
+    } else {
+        handleWrong(input, null, q.solutions[0]); // q.solutions[0] als Hauptlösung anzeigen
+    }
 }
 
 /* === FEEDBACK & GAMIFICATION === */
@@ -142,6 +168,7 @@ function handleWrong(val, btn, correct) {
     } else {
         state.lives--;
         updateStats();
+        state.streak = 0; // Streak bricht bei Fehler ab
         showFlash(`Falsch! Lösung: ${correct}`, "flash-red", 3000);
         if (state.lives <= 0) return gameOver();
         document.getElementById('next-btn').classList.remove('hidden');
@@ -181,7 +208,10 @@ function showFlash(m, c, d=1500) {
     f.textContent = m; f.className = c; f.classList.remove('hidden');
     if(d < 3000) setTimeout(() => f.classList.add('hidden'), d);
 }
-function finishGame() { AppDirector.changeScreen('menu'); alert("Fertig!"); }
-function gameOver() { document.getElementById('game-over-screen').classList.remove('hidden'); setTimeout(() => location.reload(), 3000); }
+function finishGame() { AppDirector.changeScreen('menu'); alert("Super! Training abgeschlossen."); }
+function gameOver() { 
+    document.getElementById('game-over-screen').classList.remove('hidden'); 
+    setTimeout(() => location.reload(), 3000); 
+}
 
 window.onload = () => { StreakManager.init(); FireworksEngine.init(); };
