@@ -32,19 +32,20 @@ async function selectMode(mode) {
     state.currentIdx = 0; state.lives = 3; state.streak = 0;
     updateStats();
     
+    // WICHTIG: Sucht nach data_ap.json! (Dateiname muss stimmen)
     const file = (mode === 'quickie') ? 'data_quickie.json' : 'data_ap.json';
     try {
-        const response = await fetch(file);
+        const cacheBusterUrl = file + '?v=' + new Date().getTime(); // Verhindert Cache-Probleme
+        const response = await fetch(cacheBusterUrl);
         const all = await response.json();
         
-        // Filtern und Mischen
         state.data = all.filter(d => state.category.includes(d.type.toString()));
-        state.data = state.data.sort(() => Math.random() - 0.5).slice(0, 20); // 20 Fragen pro Runde
+        state.data = state.data.sort(() => Math.random() - 0.5).slice(0, 20); 
         
         AppDirector.changeScreen('playing');
         loadNext(true);
     } catch(e) { 
-        alert("JSON Dateien konnten nicht geladen werden! Läuft die App auf einem Server?"); 
+        alert("JSON Dateien konnten nicht geladen werden! Überprüfe den Dateinamen auf GitHub."); 
         console.error(e);
     }
 }
@@ -67,15 +68,14 @@ function loadNext(first = false) {
     else renderTest(q);
 }
 
-// NEUE LOGIK: Zieht Distraktoren direkt aus der JSON
 function renderQuickie(q) {
     const cont = document.getElementById('quickie-controls');
     cont.classList.remove('hidden');
     document.getElementById('ap-controls').classList.add('hidden');
     cont.innerHTML = "";
 
-    // Fügt Lösung und Distraktoren zusammen und mischt sie
-    let options = [q.solution, ...q.distractors].sort(() => 0.5 - Math.random());
+    const safeDistractors = q.distractors || ["Fehler 1", "Fehler 2"];
+    let options = [q.solution, ...safeDistractors].sort(() => 0.5 - Math.random());
 
     options.forEach(opt => {
         const btn = document.createElement('button');
@@ -115,39 +115,31 @@ function renderTest() {
     });
 }
 
-// NEUE LOGIK: Loopt durch alle Lösungen für die Typo-Erkennung
 function checkAnswer() {
     const q = state.data[state.currentIdx];
     const input = WordValidator.sanitize(state.inputText);
 
-    // 1. Ist die Eingabe exakt in den Lösungen?
     const sanitizedSolutions = q.solutions.map(s => WordValidator.sanitize(s));
-    if (sanitizedSolutions.includes(input)) {
-        return handleCorrect();
-    }
+    if (sanitizedSolutions.includes(input)) return handleCorrect();
 
-    // 2. Prüfe auf Tippfehler gegen ALLE erlaubten Lösungen
     let isTypo = false;
-    let targetForTypo = q.solutions[0]; // Fallback
+    let targetForTypo = q.solutions[0];
 
     for (let sol of q.solutions) {
         const result = WordValidator.check(input, sol);
         if (result.status === 'typo') {
-            isTypo = true;
-            targetForTypo = sol; // Merke das richtige Wort
-            break;
+            isTypo = true; targetForTypo = sol; break;
         }
     }
 
-    // 3. Auswertung
     if (isTypo && !state.jokerUsed) {
         state.jokerUsed = true;
         showFlash("Tippfehler korrigiert!", "flash-orange");
         state.inputText = targetForTypo;
         document.getElementById('ap-input-display').textContent = state.inputText + "_";
-        setTimeout(handleCorrect, 1000); // Geht automatisch weiter
+        setTimeout(handleCorrect, 1000); 
     } else {
-        handleWrong(input, null, q.solutions[0]); // q.solutions[0] als Hauptlösung anzeigen
+        handleWrong(input, null, q.solutions[0]); 
     }
 }
 
@@ -168,7 +160,7 @@ function handleWrong(val, btn, correct) {
     } else {
         state.lives--;
         updateStats();
-        state.streak = 0; // Streak bricht bei Fehler ab
+        state.streak = 0; 
         showFlash(`Falsch! Lösung: ${correct}`, "flash-red", 3000);
         if (state.lives <= 0) return gameOver();
         document.getElementById('next-btn').classList.remove('hidden');
