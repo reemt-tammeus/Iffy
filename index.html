@@ -3,23 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Iffy - The If-Sentence Trainer</title>
-    <link rel="stylesheet" href="style.css?v=2">
+    <title>Iffy - Conditional Trainer</title>
+    <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
     <div id="app-container">
         
         <header id="stats-bar" class="hidden">
-            <button id="btn-back" class="hidden" onclick="AppDirector.goBack()">⬅️ Zurück</button>
+            <button id="btn-back" class="hidden" onclick="AppDirector.goBack()">⬅️</button>
             <div id="lives">❤️❤️❤️</div>
             <div id="streak">🔥 <span id="streak-count">0</span></div>
         </header>
 
         <main id="content-area">
             
-            <section data-screen="menu" class="blueprint-screen active">
+            <section data-screen="menu" class="blueprint-screen nav-mode active">
                 <div class="glass-box">
-                    <h1>Iffy - The If-Sentence Trainer</h1>
                     <h2>Wähle deine Kategorie</h2>
                     <div class="category-grid">
                         <button onclick="selectCategory(['1'])">Type I</button>
@@ -31,9 +30,8 @@
                 </div>
             </section>
 
-            <section data-screen="modes" class="blueprint-screen">
+            <section data-screen="modes" class="blueprint-screen nav-mode">
                 <div class="glass-box">
-                    <h1>Iffy - The If-Sentence Trainer</h1>
                     <h2>Wähle deinen Modus</h2>
                     <div class="mode-selection">
                         <button onclick="selectMode('quickie')">Five Gap Quickie</button>
@@ -42,7 +40,7 @@
                 </div>
             </section>
 
-            <section data-screen="playing" class="blueprint-screen">
+            <section data-screen="playing" class="blueprint-screen game-mode">
                 <div class="glass-box" id="playing-glass-box">
                     <div id="text-display">Lade Satz...</div>
                 </div>
@@ -69,6 +67,6 @@
         <img src="loser.jpg" alt="Game Over" onerror="this.style.display='none'">
     </div>
 
-    <script src="app.js?v=2"></script>
+    <script src="app.js?v=3"></script>
 </body>
 </html>
