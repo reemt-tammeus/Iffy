@@ -3,72 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>English Training</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Iffy - Conditional Trainer</title>
+    <link rel="stylesheet" href="style.css?v=1">
 </head>
 <body>
-    <canvas id="blueprint-fireworks" class="blueprint-fireworks-canvas"></canvas>
-
     <div id="app-container">
         
-        <header id="top-bar">
-            <div id="status-row">
-                <button id="btn-back" class="hidden" onclick="AppDirector.goBack()">🔙 Zurück</button>
-                <div id="lives">❤️❤️❤️</div>
-                <div class="blueprint-streak-badge">🔥 <span id="blueprint-streak-count">0</span></div>
-            </div>
-            <div id="game-progress" class="hidden">
-                <div class="blueprint-progress-track">
-                    <div id="blueprint-progress-fill" class="blueprint-progress-fill"></div>
-                </div>
-            </div>
+        <header id="stats-bar" class="hidden">
+            <button id="btn-back" class="hidden" onclick="AppDirector.goBack()">⬅️ Zurück</button>
+            <div id="lives">❤️❤️❤️</div>
+            <div id="streak">🔥 <span id="streak-count">0</span></div>
         </header>
 
         <main id="content-area">
+            
             <section data-screen="menu" class="blueprint-screen active">
                 <div class="glass-box">
-                    <h2 style="text-align:center; margin-bottom: 15px;">Kategorie</h2>
+                    <h1>The Ultimate Conditional Trainer</h1>
+                    <h2>Wähle deine Kategorie</h2>
                     <div class="category-grid">
-                        <button class="primary-btn" onclick="selectCategory(['1'])">Type I</button>
-                        <button class="primary-btn" onclick="selectCategory(['2'])">Type II</button>
-                        <button class="primary-btn" onclick="selectCategory(['3'])">Type III</button>
-                        <button class="primary-btn" onclick="selectCategory(['1','2','3'])">Alle Mix</button>
+                        <button onclick="selectCategory(['1'])">Type I</button>
+                        <button onclick="selectCategory(['2'])">Type II</button>
+                        <button class="center-btn" onclick="selectCategory(['3'])">Type III</button>
+                        <button onclick="selectCategory(['1','2'])">Mix I + II</button>
+                        <button onclick="selectCategory(['1','2','3'])">Mix I - III</button>
                     </div>
                 </div>
             </section>
 
             <section data-screen="modes" class="blueprint-screen">
                 <div class="glass-box">
-                    <h2 style="text-align:center; margin-bottom: 15px;">Modus</h2>
-                    <button onclick="selectMode('quickie')" class="primary-btn">⚡ 5-Gap Quickie</button>
-                    <button onclick="selectMode('test')" class="primary-btn">🎓 Test Mode</button>
+                    <h1>The Ultimate Conditional Trainer</h1>
+                    <h2>Wähle deinen Modus</h2>
+                    <div class="mode-selection">
+                        <button onclick="selectMode('quickie')">Five Gap Quickie</button>
+                        <button onclick="selectMode('test')">Test-Mode (Tippen)</button>
+                    </div>
                 </div>
             </section>
 
             <section data-screen="playing" class="blueprint-screen">
                 <div class="glass-box">
-                    <div id="text-display" style="font-size: 1.2rem; text-align: center;">Satz wird geladen...</div>
+                    <div id="text-display">Lade Satz...</div>
                 </div>
             </section>
+
         </main>
 
         <footer id="thumb-zone" class="hidden">
             <div id="quickie-controls" class="hidden"></div>
             
-            <div id=\"ap-controls\" class=\"hidden\">
-                <div id="ap-input-display" style="font-size: 1.5rem; text-align: center; color: white; margin-bottom: 10px; height: 30px;">_</div>
+            <div id="ap-controls" class="hidden">
+                <div id="ap-input-display">_</div>
                 <div id="keyboard"></div>
-                <button class="primary-btn" style="margin-top: 10px;" onclick="checkAnswer()">Prüfen</button>
+                <button id="ap-submit" class="action-btn" onclick="checkAnswer()">Prüfen</button>
             </div>
             
-            <button id="next-btn" class="hidden primary-btn" onclick="loadNext()">Weiter ➡️</button>
+            <button id="next-btn" class="hidden action-btn" onclick="loadNext()">WEITER ➡️</button>
         </footer>
 
     </div>
 
     <div id="feedback-flash" class="hidden"></div>
-    <div id="game-over-screen" class="hidden"><h1 style="color:white;">Game Over!</h1></div>
+    <div id="game-over-screen" class="hidden">
+        <img src="loser.jpg" alt="Game Over" onerror="this.style.display='none'">
+    </div>
 
-    <script src="app.js"></script>
+    <script src="app.js?v=1"></script>
 </body>
 </html>
