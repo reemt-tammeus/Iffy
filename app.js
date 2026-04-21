@@ -1,41 +1,76 @@
 /* === STATE === */
-let state = { category: null, mode: null, data: [], currentIdx: 0, lives: 3, streak: 0, jokerUsed: false, inputText: "" };
+let state = { 
+    category: null, mode: null, rawPool: [], activeQueue: [], 
+    currentIdx: 0, blockCounter: 0, blockLimit: 5,
+    lives: 3, maxLives: 3, streak: 0, jokerUsed: false, inputText: "" 
+};
 
 const AppDirector = {
     changeScreen(screen) {
         document.querySelectorAll('.blueprint-screen').forEach(s => s.classList.remove('active'));
         document.querySelector(`[data-screen="${screen}"]`).classList.add('active');
         document.getElementById('stats-bar').classList.toggle('hidden', screen === 'menu');
-        document.getElementById('btn-back').classList.toggle('hidden', screen === 'playing');
+        document.getElementById('btn-back').classList.toggle('hidden', screen === 'playing' || screen === 'continue');
         document.getElementById('thumb-zone').classList.toggle('hidden', screen !== 'playing');
     },
-    goBack() { this.changeScreen('menu'); }
+    goBack() { 
+        state.streak = 0; // Streak verfällt beim Verlassen des Spiels
+        this.changeScreen('menu'); 
+    },
+    continueGame() {
+        state.blockCounter = 0;
+        state.lives = state.maxLives; // Herzen auffüllen
+        updateStats();
+        this.changeScreen('playing');
+        loadNext();
+    }
 };
 
-/* === CORE LOGIC === */
 function selectCategory(cat) { state.category = cat; AppDirector.changeScreen('modes'); }
 
 async function selectMode(mode) {
-    state.mode = mode; state.currentIdx = 0; state.lives = 3; state.streak = 0;
+    state.mode = mode;
+    state.maxLives = (mode === 'quickie') ? 2 : 3;
+    state.blockLimit = (mode === 'quickie') ? 5 : 10;
+    state.lives = state.maxLives;
+    state.blockCounter = 0;
+    state.streak = 0;
     updateStats();
+
     const file = (mode === 'quickie') ? 'data_quickie.json' : 'data_ap.json';
     try {
         const response = await fetch(file + '?v=' + new Date().getTime());
         const all = await response.json();
-        state.data = all.filter(d => state.category.includes(d.type.toString())).sort(() => 0.5 - Math.random()).slice(0, 20);
+        state.rawPool = all.filter(d => state.category.includes(d.type.toString()));
+        reshuffle();
         AppDirector.changeScreen('playing');
-        loadNext(true);
-    } catch(e) { console.error(e); }
+        loadNext();
+    } catch(e) { alert("Fehler beim Laden!"); }
 }
 
-function loadNext(first = false) {
-    if (!first) state.currentIdx++;
-    if (state.currentIdx >= state.data.length) return finishGame();
+function reshuffle() {
+    state.activeQueue = [...state.rawPool].sort(() => 0.5 - Math.random());
+    state.currentIdx = 0;
+}
+
+function loadNext() {
+    // Falls Pool leer ist, neu mischen (Endlos-Loop)
+    if (state.activeQueue.length === 0) reshuffle();
+    
+    // Prüfen ob Block zu Ende ist
+    if (state.blockCounter >= state.blockLimit) {
+        return AppDirector.changeScreen('continue');
+    }
+
     state.jokerUsed = false; state.inputText = "";
     document.getElementById('next-btn').classList.add('hidden');
     document.getElementById('feedback-flash').classList.add('hidden');
-    const q = state.data[state.currentIdx];
+    
+    const q = state.activeQueue.shift();
+    state.currentQuestion = q;
     document.getElementById('text-display').innerHTML = q.text;
+    updateProgress();
+
     if (state.mode === 'quickie') renderQuickie(q); else renderTest(q);
 }
 
@@ -75,11 +110,10 @@ function renderTest() {
 
 /* === FEEDBACK === */
 function checkAnswer() {
-    const q = state.data[state.currentIdx];
+    const q = state.currentQuestion;
     const input = state.inputText.toLowerCase().trim().replace(/[’´`‘]/g, "'");
     if (q.solutions.map(s => s.toLowerCase().trim()).includes(input)) return handleCorrect();
     
-    // Typo Joker Logik
     let isTypo = false;
     for (let sol of q.solutions) {
         let s = sol.toLowerCase().trim();
@@ -87,40 +121,65 @@ function checkAnswer() {
     }
 
     if (isTypo && !state.jokerUsed) {
-        state.jokerUsed = true; showFlash("Tippfehler erkannt!", "flash-orange");
+        state.jokerUsed = true; showFlash("Tippfehler!", "flash-orange");
     } else handleWrong(input, null, q.solutions[0]);
 }
 
 function handleCorrect() {
     const box = document.getElementById('playing-glass-box');
-    box.classList.add('success-flash'); // Der Grüne Blitz
+    box.classList.add('success-flash');
     state.streak++;
-    StreakManager.update();
+    state.blockCounter++;
+    updateStats();
     setTimeout(() => { box.classList.remove('success-flash'); loadNext(); }, 600);
 }
 
 function handleWrong(val, btn, correct) {
-    if (!state.jokerUsed && state.mode === 'quickie') {
-        state.jokerUsed = true; if(btn) btn.style.opacity = "0.3"; showFlash("Joker genutzt!", "flash-orange");
+    if (state.mode === 'quickie') {
+        processFatalError(btn, correct);
     } else {
-        state.lives--; updateStats(); state.streak = 0;
-        showFlash(`Falsch!\nLösung: ${correct}`, "flash-red", 3000);
-        if (state.lives <= 0) return gameOver();
-        document.getElementById('next-btn').classList.remove('hidden');
+        if (!state.jokerUsed) {
+            state.jokerUsed = true; showFlash("Joker genutzt!", "flash-orange");
+        } else {
+            processFatalError(null, correct);
+        }
     }
 }
 
+function processFatalError(btn, correct) {
+    state.lives--;
+    state.streak = 0; // Gnadenloser Reset
+    state.blockCounter++;
+    updateStats();
+    if(btn) btn.style.opacity = "0.3";
+    showFlash(`Falsch!\nLösung: ${correct}`, "flash-red", 3000);
+    if (state.lives <= 0) return gameOver();
+    document.getElementById('next-btn').classList.remove('hidden');
+}
+
 /* === UTILS === */
-function updateStats() { document.getElementById('lives').textContent = "❤️".repeat(state.lives); }
-const StreakManager = {
-    update() { document.getElementById('streak-count').textContent = state.streak; }
-};
+function updateStats() { 
+    document.getElementById('lives').textContent = "❤️".repeat(state.lives); 
+    const sc = document.getElementById('streak-count');
+    const sd = document.getElementById('streak-display');
+    sc.textContent = state.streak;
+    sd.classList.toggle('streak-gray', state.streak === 0);
+}
+
+function updateProgress() {
+    const p = (state.blockCounter / state.blockLimit) * 100;
+    document.getElementById('progress-bar').style.width = p + "%";
+}
+
 function showFlash(m, c, d=1500) {
     const f = document.getElementById('feedback-flash');
     f.innerText = m; f.className = c; f.classList.remove('hidden');
     if(d<3000) setTimeout(() => f.classList.add('hidden'), d);
 }
-function finishGame() { alert("Training beendet!"); AppDirector.goBack(); }
-function gameOver() { document.getElementById('game-over-screen').classList.remove('hidden'); setTimeout(()=>location.reload(), 3000); }
 
-window.onload = () => { StreakManager.update(); };
+function gameOver() { 
+    document.getElementById('game-over-screen').classList.remove('hidden'); 
+    setTimeout(()=>location.reload(), 3000); 
+}
+
+window.onload = () => { updateStats(); };
