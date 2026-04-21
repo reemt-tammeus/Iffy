@@ -8,20 +8,17 @@ const AppDirector = {
     changeScreen(screen) {
         document.querySelectorAll('.blueprint-screen').forEach(s => s.classList.remove('active'));
         document.querySelector(`[data-screen="${screen}"]`).classList.add('active');
-        document.getElementById('btn-back').classList.toggle('hidden', screen === 'menu');
+        
+        document.getElementById('stats-bar').classList.toggle('hidden', screen === 'menu');
+        document.getElementById('btn-back').classList.toggle('hidden', screen === 'menu' || screen === 'playing');
         document.getElementById('thumb-zone').classList.toggle('hidden', screen !== 'playing');
-        document.getElementById('game-progress').classList.toggle('hidden', screen !== 'playing');
     },
     goBack() {
-        const current = document.querySelector('.blueprint-screen.active').dataset.screen;
-        if (current === 'modes') this.changeScreen('menu');
-        else if (current === 'playing') {
-            if(confirm("Abbrechen? Dein Fortschritt geht verloren.")) this.changeScreen('modes');
-        }
+        this.changeScreen('menu');
+        state.category = null;
     }
 };
 
-/* === DATA LOADING === */
 function selectCategory(cat) {
     state.category = cat;
     AppDirector.changeScreen('modes');
@@ -32,10 +29,9 @@ async function selectMode(mode) {
     state.currentIdx = 0; state.lives = 3; state.streak = 0;
     updateStats();
     
-    // WICHTIG: Sucht nach data_ap.json! (Dateiname muss stimmen)
     const file = (mode === 'quickie') ? 'data_quickie.json' : 'data_ap.json';
     try {
-        const cacheBusterUrl = file + '?v=' + new Date().getTime(); // Verhindert Cache-Probleme
+        const cacheBusterUrl = file + '?v=' + new Date().getTime(); 
         const response = await fetch(cacheBusterUrl);
         const all = await response.json();
         
@@ -45,7 +41,7 @@ async function selectMode(mode) {
         AppDirector.changeScreen('playing');
         loadNext(true);
     } catch(e) { 
-        alert("JSON Dateien konnten nicht geladen werden! Überprüfe den Dateinamen auf GitHub."); 
+        alert("Fehler beim Laden der Fragen. Überprüfe den Dateinamen data_ap.json auf GitHub!"); 
         console.error(e);
     }
 }
@@ -62,7 +58,6 @@ function loadNext(first = false) {
     
     const q = state.data[state.currentIdx];
     document.getElementById('text-display').innerHTML = q.text;
-    updateProgress();
 
     if (state.mode === 'quickie') renderQuickie(q);
     else renderTest(q);
@@ -74,7 +69,7 @@ function renderQuickie(q) {
     document.getElementById('ap-controls').classList.add('hidden');
     cont.innerHTML = "";
 
-    const safeDistractors = q.distractors || ["Fehler 1", "Fehler 2"];
+    const safeDistractors = q.distractors || ["Fehler: Keine Distraktoren", "Bitte Cache leeren"];
     let options = [q.solution, ...safeDistractors].sort(() => 0.5 - Math.random());
 
     options.forEach(opt => {
@@ -143,11 +138,10 @@ function checkAnswer() {
     }
 }
 
-/* === FEEDBACK & GAMIFICATION === */
+/* === FEEDBACK === */
 function handleCorrect() {
     showFlash("RICHTIG!", "flash-green");
     state.streak++;
-    if (state.streak >= 3) FireworksEngine.launch();
     StreakManager.add();
     setTimeout(loadNext, 800);
 }
@@ -161,7 +155,7 @@ function handleWrong(val, btn, correct) {
         state.lives--;
         updateStats();
         state.streak = 0; 
-        showFlash(`Falsch! Lösung: ${correct}`, "flash-red", 3000);
+        showFlash(`Falsch! Lösung:\n${correct}`, "flash-red", 3000);
         if (state.lives <= 0) return gameOver();
         document.getElementById('next-btn').classList.remove('hidden');
     }
@@ -176,7 +170,7 @@ const WordValidator = {
 };
 
 const StreakManager = {
-    init() { document.getElementById('blueprint-streak-count').textContent = localStorage.getItem('iffy_streak') || 0; },
+    init() { document.getElementById('streak-count').textContent = localStorage.getItem('iffy_streak') || 0; },
     add() { 
         let s = (parseInt(localStorage.getItem('iffy_streak')) || 0) + 1;
         localStorage.setItem('iffy_streak', s);
@@ -184,26 +178,16 @@ const StreakManager = {
     }
 };
 
-const FireworksEngine = {
-    init() { this.canvas = document.getElementById('blueprint-fireworks'); this.ctx = this.canvas.getContext('2d'); },
-    launch() { 
-        this.canvas.width = window.innerWidth; this.canvas.height = window.innerHeight;
-        this.ctx.fillStyle = "yellow"; this.ctx.fillRect(Math.random()*this.canvas.width, 100, 50, 50);
-        setTimeout(() => this.ctx.clearRect(0,0,9999,9999), 600);
-    }
-};
-
 function updateStats() { document.getElementById('lives').textContent = "❤️".repeat(state.lives); }
-function updateProgress() { document.getElementById('blueprint-progress-fill').style.width = `${((state.currentIdx+1)/state.data.length)*100}%`; }
 function showFlash(m, c, d=1500) {
     const f = document.getElementById('feedback-flash');
     f.textContent = m; f.className = c; f.classList.remove('hidden');
     if(d < 3000) setTimeout(() => f.classList.add('hidden'), d);
 }
-function finishGame() { AppDirector.changeScreen('menu'); alert("Super! Training abgeschlossen."); }
+function finishGame() { alert("Super! Training abgeschlossen."); AppDirector.changeScreen('menu'); }
 function gameOver() { 
     document.getElementById('game-over-screen').classList.remove('hidden'); 
     setTimeout(() => location.reload(), 3000); 
 }
 
-window.onload = () => { StreakManager.init(); FireworksEngine.init(); };
+window.onload = () => { StreakManager.init(); };
