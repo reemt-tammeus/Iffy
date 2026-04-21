@@ -1,132 +1,95 @@
 :root {
-    --bg-color: #050505; /* Dunkler PC-Hintergrund außerhalb der App */
-    --text-color: #fff;
-    --green: #28a745; 
-    --orange: #fd7e14; 
+    --bg-color: #000;
+    --green: #28a745;
     --red: #dc3545;
+    --orange: #fd7e14;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
+body { background: #050505; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
 
-/* Zentriert das App-Korsett auf dem Bildschirm */
-body { 
-    background: var(--bg-color); 
-    color: var(--text-color); 
-    overflow: hidden; 
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    min-height: 100vh;
-}
-
-/* === DAS EISERNE SMARTPHONE-KORSETT === */
+/* === DAS EISERNE KORSETT === */
 #app-container { 
     width: 100%; 
-    max-width: 450px; /* Hält die App auf PC/Tablet immer im Hochformat */
+    max-width: 450px; /* Perfekt für Handy & Tablet-Hochformat */
     height: 100dvh; 
     display: flex; 
     flex-direction: column; 
     position: relative; 
     background-color: #000;
+    /* Hintergrund-Fix: Unten bündig, oben abschneiden */
     background-image: url('logo.jpg'); 
     background-size: cover; 
-    background-position: center; 
+    background-position: center bottom; 
     background-repeat: no-repeat;
-    box-shadow: 0 0 30px rgba(0,0,0,0.8); /* Trennt die App optisch vom PC-Monitor */
 }
 
-#content-area { 
-    flex-grow: 1; 
-    position: relative; 
-    width: 100%; 
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-}
+#content-area { flex-grow: 1; position: relative; width: 100%; }
 
 .blueprint-screen { 
-    position: absolute; 
-    width: 100%; 
-    height: 100%; 
-    display: none; 
-    flex-direction: column; 
-    justify-content: center; 
-    align-items: center; 
+    position: absolute; width: 100%; height: 100%; 
+    display: none; flex-direction: column; align-items: center; 
 }
 .blueprint-screen.active { display: flex; }
 
-/* === GLAS-DESIGN & AUFLEUCHTEN === */
+/* === FAHRSTUHL-LOGIK === */
+.nav-mode { justify-content: flex-end; padding-bottom: 8vh; } /* Box unten in Navigation */
+.game-mode { justify-content: flex-start; padding-top: 5vh; } /* Box oben während Spiel */
+
+/* === GLAS-DESIGN & ERFOLGS-BLITZ === */
 .glass-box { 
-    width: 90%; 
-    max-width: 400px; 
-    padding: 30px 20px; 
-    background: rgba(0, 0, 0, 0.6); 
-    backdrop-filter: blur(10px); 
-    -webkit-backdrop-filter: blur(10px); 
-    border: 1px solid rgba(255,255,255,0.3); 
-    border-radius: 20px; 
-    text-align: center;
-    transition: all 0.3s ease; /* Weicher Übergang für den grünen Blitz */
+    width: 92%; padding: 25px 15px; 
+    background: rgba(0, 0, 0, 0.65); 
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); 
+    border: 1.5px solid rgba(255,255,255,0.3); 
+    border-radius: 24px; text-align: center;
+    transition: background 0.3s ease, transform 0.2s ease;
 }
 
-/* Der grüne Blitz für richtige Antworten! */
-.flash-success-box {
-    background: rgba(40, 167, 69, 0.85) !important;
-    box-shadow: 0 0 40px rgba(40, 167, 69, 1) !important;
-    border-color: #fff !important;
-    transform: scale(1.02); /* Kurzes, haptisches "Ploppen" */
+/* Der Grüne Blitz (Klasse wird per JS kurzzeitig vergeben) */
+.success-flash { 
+    background: rgba(40, 167, 69, 0.8) !important; 
+    border-color: #fff !important; 
+    transform: scale(1.03);
 }
 
-h1 { font-size: 1.5rem; margin-bottom: 5px; color: #fff; }
-h2 { font-size: 1rem; margin-bottom: 20px; font-weight: normal; color: #ccc; }
+h2 { font-size: 1.1rem; margin-bottom: 20px; font-weight: normal; color: #eee; text-transform: uppercase; letter-spacing: 1px; }
 
-/* 2-1-2 Grid Layout */
-.category-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.center-btn { grid-column: span 2; width: 60%; justify-self: center; }
+/* Buttons & Grids */
+.category-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.center-btn { grid-column: span 2; width: 70%; justify-self: center; }
+.mode-selection { display: flex; flex-direction: column; gap: 12px; }
 
-.mode-selection { display: flex; flex-direction: column; gap: 10px; }
-
-/* Transparente Buttons mit iOS-Sicherung */
 button { 
     -webkit-appearance: none; appearance: none;
-    width: 100%; padding: 15px; border-radius: 10px; 
+    width: 100%; padding: 16px; border-radius: 12px; 
     border: 2px solid #fff; background: transparent; 
     color: #fff; font-weight: bold; font-size: 1rem; cursor: pointer; 
-    transition: all 0.2s;
 }
 button:active { background: #fff; color: #000; }
-.action-btn { background: rgba(255,255,255,0.2); }
 
-/* Header & Back Button */
-#stats-bar { padding: 15px; display: flex; justify-content: space-between; align-items: center; width: 100%; background: rgba(0,0,0,0.5); z-index: 10; }
-#btn-back { width: auto; padding: 8px 15px; border: none; background: rgba(255,255,255,0.2); margin: 0; }
+/* Header & Thumbing Zone */
+#stats-bar { padding: 15px; display: flex; justify-content: space-between; align-items: center; width: 100%; z-index: 10; }
+#btn-back { width: auto; padding: 5px 12px; border: none; background: rgba(255,255,255,0.2); font-size: 1.2rem; }
 
-/* === THUMB ZONE (Tastatur etc.) === */
 #thumb-zone {
-    width: 100%; position: relative; z-index: 50; padding: 15px;
-    background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    width: 100%; padding: 20px 15px; background: rgba(0,0,0,0.8); 
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255,255,255,0.1);
 }
 
-#quickie-controls { display: flex; flex-direction: column; gap: 10px; }
+/* Tastatur */
+#keyboard { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+.keyboard-row { display: flex; gap: 4px; justify-content: center; }
+.key { flex: 1; max-width: 42px; padding: 14px 0; background: rgba(255,255,255,0.15); border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); color: #fff; text-align: center; font-weight: bold; }
+.key-space { flex: 4; max-width: 160px; }
+.key-del { background: rgba(220, 53, 69, 0.4); }
 
-#keyboard { display: flex; flex-direction: column; gap: 6px; align-items: center; width: 100%; margin-bottom: 10px;}
-.keyboard-row { display: flex; gap: 4px; width: 100%; justify-content: center; }
-.key { flex: 1; max-width: 45px; padding: 14px 0; background: rgba(255,255,255,0.2); border-radius: 8px; text-align: center; font-weight: bold; border: 1px solid rgba(255,255,255,0.3); cursor: pointer; user-select: none; color: #fff;}
-.key-space { flex: 4; max-width: 180px; }
-.key-del { background: rgba(220, 53, 69, 0.5); border-color: rgba(220, 53, 69, 0.8); }
+#ap-input-display { font-size: 1.6rem; color: #fff; margin-bottom: 15px; min-height: 35px; border-bottom: 2px solid var(--orange); }
+#text-display { font-size: 1.25rem; line-height: 1.6; }
 
-#ap-input-display { font-size: 1.5rem; text-align: center; color: white; margin-bottom: 10px; min-height: 30px; font-weight: bold; letter-spacing: 2px;}
-#text-display { font-size: 1.3rem; line-height: 1.5; }
-
-/* === UTILS & FEEDBACK === */
-.hidden { display: none !important; }
-.disabled { opacity: 0.3; pointer-events: none; }
-
-/* Rotes Pop-Up (Nur noch für Fehler und Joker) */
-#feedback-flash { position: absolute; top: 30%; left: 50%; transform: translate(-50%, -50%); padding: 15px 30px; border-radius: 10px; font-weight: bold; z-index: 2000; color: white; font-size: 1.2rem; box-shadow: 0 4px 15px rgba(0,0,0,0.5); text-align: center; width: 80%; max-width: 350px;}
-.flash-red { background: var(--red); } 
+/* Pop-ups */
+#feedback-flash { position: absolute; top: 35%; left: 50%; transform: translate(-50%, -50%); padding: 20px; border-radius: 15px; z-index: 2000; color: white; text-align: center; width: 85%; font-weight: bold; }
+.flash-red { background: var(--red); box-shadow: 0 0 20px rgba(0,0,0,0.5); }
 .flash-orange { background: var(--orange); }
-
-#game-over-screen { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10000; background: #000; }
-#game-over-screen img { width: 100%; height: 100%; object-fit: cover; }
+.hidden { display: none !important; }
