@@ -41,7 +41,7 @@ async function selectMode(mode) {
         AppDirector.changeScreen('playing');
         loadNext(true);
     } catch(e) { 
-        alert("Fehler beim Laden der Fragen. Überprüfe den Dateinamen data_ap.json auf GitHub!"); 
+        alert("Fehler beim Laden der Fragen. Überprüfe den Dateinamen auf GitHub!"); 
         console.error(e);
     }
 }
@@ -132,18 +132,28 @@ function checkAnswer() {
         showFlash("Tippfehler korrigiert!", "flash-orange");
         state.inputText = targetForTypo;
         document.getElementById('ap-input-display').textContent = state.inputText + "_";
-        setTimeout(handleCorrect, 1000); 
+        setTimeout(handleCorrect, 1200); 
     } else {
         handleWrong(input, null, q.solutions[0]); 
     }
 }
 
-/* === FEEDBACK === */
+/* === FEEDBACK LOGIC === */
 function handleCorrect() {
-    showFlash("RICHTIG!", "flash-green");
+    // Der neue grüne Blitz auf der Glas-Box!
+    const glassBox = document.getElementById('playing-glass-box');
+    glassBox.classList.add('flash-success-box');
+    
+    // Nach 500ms das Grün wieder wegnehmen
+    setTimeout(() => {
+        glassBox.classList.remove('flash-success-box');
+    }, 500);
+
     state.streak++;
     StreakManager.add();
-    setTimeout(loadNext, 800);
+    
+    // Nach 1 Sekunde automatisch zum nächsten Satz
+    setTimeout(loadNext, 1000);
 }
 
 function handleWrong(val, btn, correct) {
