@@ -1,95 +1,71 @@
 :root {
-    --bg-color: #000;
+    --bg-color: #050505;
     --green: #28a745;
     --red: #dc3545;
     --orange: #fd7e14;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
-body { background: #050505; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+body { background: var(--bg-color); display: flex; justify-content: center; align-items: center; min-height: 100vh; }
 
-/* === DAS EISERNE KORSETT === */
 #app-container { 
-    width: 100%; 
-    max-width: 450px; /* Perfekt für Handy & Tablet-Hochformat */
-    height: 100dvh; 
-    display: flex; 
-    flex-direction: column; 
-    position: relative; 
-    background-color: #000;
-    /* Hintergrund-Fix: Unten bündig, oben abschneiden */
-    background-image: url('logo.jpg'); 
-    background-size: cover; 
-    background-position: center bottom; 
-    background-repeat: no-repeat;
+    width: 100%; max-width: 450px; height: 100dvh; 
+    display: flex; flex-direction: column; position: relative; background-color: #000;
+    background-image: url('logo.jpg'); background-size: cover; 
+    background-position: center bottom; background-repeat: no-repeat;
+    box-shadow: 0 0 40px rgba(0,0,0,0.9);
 }
 
 #content-area { flex-grow: 1; position: relative; width: 100%; }
-
-.blueprint-screen { 
-    position: absolute; width: 100%; height: 100%; 
-    display: none; flex-direction: column; align-items: center; 
-}
+.blueprint-screen { position: absolute; width: 100%; height: 100%; display: none; flex-direction: column; align-items: center; }
 .blueprint-screen.active { display: flex; }
 
-/* === FAHRSTUHL-LOGIK === */
-.nav-mode { justify-content: flex-end; padding-bottom: 8vh; } /* Box unten in Navigation */
-.game-mode { justify-content: flex-start; padding-top: 5vh; } /* Box oben während Spiel */
+/* Fahrstuhl-Logik */
+.nav-mode { justify-content: flex-end; padding-bottom: 10vh; }
+.game-mode { justify-content: flex-start; padding-top: 6vh; }
 
-/* === GLAS-DESIGN & ERFOLGS-BLITZ === */
 .glass-box { 
-    width: 92%; padding: 25px 15px; 
-    background: rgba(0, 0, 0, 0.65); 
+    width: 92%; padding: 25px 15px; background: rgba(0, 0, 0, 0.65); 
     backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); 
-    border: 1.5px solid rgba(255,255,255,0.3); 
-    border-radius: 24px; text-align: center;
-    transition: background 0.3s ease, transform 0.2s ease;
+    border: 1.5px solid rgba(255,255,255,0.3); border-radius: 24px; 
+    text-align: center; transition: all 0.3s ease; position: relative; overflow: hidden;
 }
 
-/* Der Grüne Blitz (Klasse wird per JS kurzzeitig vergeben) */
-.success-flash { 
-    background: rgba(40, 167, 69, 0.8) !important; 
-    border-color: #fff !important; 
-    transform: scale(1.03);
-}
+/* Fortschrittsleiste */
+#progress-bar { position: absolute; top: 0; left: 0; height: 3px; background: #fff; width: 0%; transition: width 0.3s ease; }
 
-h2 { font-size: 1.1rem; margin-bottom: 20px; font-weight: normal; color: #eee; text-transform: uppercase; letter-spacing: 1px; }
+.success-flash { background: rgba(40, 167, 69, 0.8) !important; transform: scale(1.03); }
 
-/* Buttons & Grids */
+h2 { font-size: 1rem; margin-bottom: 20px; font-weight: normal; color: #ccc; text-transform: uppercase; letter-spacing: 1px; }
+
 .category-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .center-btn { grid-column: span 2; width: 70%; justify-self: center; }
 .mode-selection { display: flex; flex-direction: column; gap: 12px; }
 
-button { 
-    -webkit-appearance: none; appearance: none;
-    width: 100%; padding: 16px; border-radius: 12px; 
-    border: 2px solid #fff; background: transparent; 
-    color: #fff; font-weight: bold; font-size: 1rem; cursor: pointer; 
-}
+button { -webkit-appearance: none; width: 100%; padding: 16px; border-radius: 12px; border: 2px solid #fff; background: transparent; color: #fff; font-weight: bold; font-size: 1rem; }
 button:active { background: #fff; color: #000; }
 
-/* Header & Thumbing Zone */
 #stats-bar { padding: 15px; display: flex; justify-content: space-between; align-items: center; width: 100%; z-index: 10; }
 #btn-back { width: auto; padding: 5px 12px; border: none; background: rgba(255,255,255,0.2); font-size: 1.2rem; }
 
-#thumb-zone {
-    width: 100%; padding: 20px 15px; background: rgba(0,0,0,0.8); 
-    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-    border-top: 1px solid rgba(255,255,255,0.1);
-}
+/* Streak Flamme ausgrauen wenn 0 */
+#streak-count { font-weight: bold; }
+.streak-gray { filter: grayscale(1); opacity: 0.5; }
 
-/* Tastatur */
+#thumb-zone { width: 100%; padding: 20px 15px; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); border-top: 1px solid rgba(255,255,255,0.1); }
 #keyboard { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
 .keyboard-row { display: flex; gap: 4px; justify-content: center; }
-.key { flex: 1; max-width: 42px; padding: 14px 0; background: rgba(255,255,255,0.15); border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); color: #fff; text-align: center; font-weight: bold; }
+.key { flex: 1; max-width: 42px; padding: 14px 0; background: rgba(255,255,255,0.1); border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); color: #fff; text-align: center; font-weight: bold; }
 .key-space { flex: 4; max-width: 160px; }
 .key-del { background: rgba(220, 53, 69, 0.4); }
 
 #ap-input-display { font-size: 1.6rem; color: #fff; margin-bottom: 15px; min-height: 35px; border-bottom: 2px solid var(--orange); }
 #text-display { font-size: 1.25rem; line-height: 1.6; }
 
-/* Pop-ups */
 #feedback-flash { position: absolute; top: 35%; left: 50%; transform: translate(-50%, -50%); padding: 20px; border-radius: 15px; z-index: 2000; color: white; text-align: center; width: 85%; font-weight: bold; }
-.flash-red { background: var(--red); box-shadow: 0 0 20px rgba(0,0,0,0.5); }
+.flash-red { background: var(--red); }
 .flash-orange { background: var(--orange); }
 .hidden { display: none !important; }
+
+#game-over-screen { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10000; background: #000; display: flex; align-items: center; justify-content: center; }
+#game-over-screen img { width: 100%; height: 100%; object-fit: cover; }
