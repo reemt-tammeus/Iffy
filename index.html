@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Iffy - Conditional Trainer</title>
-    <link rel="stylesheet" href="style.css?v=3">
+    <title>Iffy - Der If-Trainer</title>
+    <link rel="stylesheet" href="style.css?v=4">
 </head>
 <body>
     <div id="app-container">
         
         <header id="stats-bar" class="hidden">
             <button id="btn-back" class="hidden" onclick="AppDirector.goBack()">⬅️</button>
-            <div id="lives">❤️❤️❤️</div>
-            <div id="streak">🔥 <span id="streak-count">0</span></div>
+            <div id="lives"></div>
+            <div id="streak-display">🔥 <span id="streak-count">0</span></div>
         </header>
 
         <main id="content-area">
@@ -42,7 +42,18 @@
 
             <section data-screen="playing" class="blueprint-screen game-mode">
                 <div class="glass-box" id="playing-glass-box">
+                    <div id="progress-bar"></div>
                     <div id="text-display">Lade Satz...</div>
+                </div>
+            </section>
+
+            <section data-screen="continue" class="blueprint-screen nav-mode">
+                <div class="glass-box">
+                    <h2 id="block-done-title">Block geschafft!</h2>
+                    <div class="mode-selection">
+                        <button onclick="AppDirector.continueGame()">Weiterspielen</button>
+                        <button onclick="AppDirector.goBack()">Hauptmenü</button>
+                    </div>
                 </div>
             </section>
 
@@ -50,13 +61,11 @@
 
         <footer id="thumb-zone" class="hidden">
             <div id="quickie-controls" class="hidden"></div>
-            
             <div id="ap-controls" class="hidden">
                 <div id="ap-input-display">_</div>
                 <div id="keyboard"></div>
                 <button id="ap-submit" class="action-btn" onclick="checkAnswer()">Prüfen</button>
             </div>
-            
             <button id="next-btn" class="hidden action-btn" onclick="loadNext()">WEITER ➡️</button>
         </footer>
 
@@ -64,9 +73,9 @@
 
     <div id="feedback-flash" class="hidden"></div>
     <div id="game-over-screen" class="hidden">
-        <img src="loser.jpg" alt="Game Over" onerror="this.style.display='none'">
+        <img src="loser.jpg" alt="Game Over">
     </div>
 
-    <script src="app.js?v=3"></script>
+    <script src="app.js?v=4"></script>
 </body>
 </html>
