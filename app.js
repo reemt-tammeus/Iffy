@@ -1,163 +1,139 @@
 let allData = { ap: [], quickie: [] };
-let gameState = {
-    selectedTypes: [],
-    mode: '', // 'quickie' oder 'test'
-    currentPool: [],
-    currentIndex: 0,
+let state = {
+    pool: [],
+    index: 0,
     score: 0,
-    streak: 0
+    lives: 3,
+    isHardcore: false,
+    mode: '' // 'quickie' oder 'test'
 };
 
-// 1. Initialisierung
-async function initApp() {
+// AppDirector gemäß index.html
+const AppDirector = {
+    goBack: () => location.reload(),
+    continueGame: () => location.reload()
+};
+
+async function init() {
     try {
-        const [resAp, resQuick] = await Promise.all([
-            fetch('data_ap.json'),
-            fetch('data_quickie.json')
-        ]);
+        const [resAp, resQ] = await Promise.all([fetch('data_ap.json'), fetch('data_quickie.json')]);
         allData.ap = await resAp.json();
-        allData.quickie = await resQuick.json();
-        console.log("Iffy-Daten geladen.");
-    } catch (err) {
-        console.error("Ladefehler:", err);
-    }
+        allData.quickie = await resQ.json();
+    } catch(e) { console.error("Datenfehler!"); }
 }
 
-// 2. Kategorie-Wahl (Typ I, II, III oder Mix)
 function selectCategory(types) {
-    gameState.selectedTypes = types;
-    // Hardcore-Check für Mix I-III
-    if (types.length === 3) {
-        document.body.classList.add('hardcore');
-    } else {
-        document.body.classList.remove('hardcore');
-    }
-    showScreen('modes');
+    state.selectedTypes = types;
+    state.isHardcore = (types.length === 3); // MIX I-III = Hardcore
+    
+    document.body.className = state.isHardcore ? 'hardcore' : '';
+    switchScreen('modes');
 }
 
-// 3. Modus-Wahl & Spielstart
 function selectMode(mode) {
-    gameState.mode = mode;
-    const poolSource = (mode === 'test') ? allData.ap : allData.quickie;
+    state.mode = mode;
+    const source = (mode === 'test') ? allData.ap : allData.quickie;
     
-    // Filter-Logik (Pädagogische Firewall)
-    gameState.currentPool = poolSource.filter(q => {
+    // DIE PÄDAGOGISCHE FIREWALL
+    state.pool = source.filter(q => {
         const t = q.type.toString();
-        if (!gameState.selectedTypes.includes(t)) return false;
+        if (!state.selectedTypes.includes(t)) return false;
 
-        // Spezialregel: Mix I-III (Hardcore) nutzt bei Typ 1 NUR Master-Sätze
-        if (gameState.selectedTypes.length === 3 && q.type === 1) {
-            return q.isMaster;
-        }
+        // Regel: Im Hardcore-Mix nur Master-Sätze für Typ 1
+        if (state.isHardcore && q.type === 1) return q.isMaster;
         
-        // Standard-Regel: Typ 1 Einzeltraining nutzt NUR Standard-Sätze
-        if (gameState.selectedTypes.length === 1 && q.type === 1) {
-            return q.isStandard;
-        }
+        // Regel: Im Standard-Typ-1-Training nur Standard-Sätze
+        if (state.selectedTypes.length === 1 && q.type === 1) return q.isStandard;
 
-        return true; // Typ 2 und 3 sind immer dabei
-    });
+        return true; 
+    }).sort(() => 0.5 - Math.random()).slice(0, 10);
 
-    // Mischen und auf 10 begrenzen
-    gameState.currentPool = gameState.currentPool.sort(() => 0.5 - Math.random()).slice(0, 10);
-    gameState.currentIndex = 0;
-    gameState.score = 0;
+    startSession();
+}
 
-    showScreen('playing');
+function startSession() {
+    state.index = 0; state.score = 0; state.lives = 3;
+    updateStats();
+    switchScreen('playing');
     renderQuestion();
 }
 
-// 4. Frage rendern
 function renderQuestion() {
-    const q = gameState.currentPool[gameState.currentIndex];
-    const textDisplay = document.getElementById('text-display');
-    const thumbZone = document.getElementById('thumb-zone');
-    const quickieControls = document.getElementById('quickie-controls');
-    const apControls = document.getElementById('ap-controls');
+    const q = state.pool[state.index];
+    document.getElementById('text-display').innerText = q.text;
+    document.getElementById('thumb-zone').classList.remove('hidden');
 
-    textDisplay.innerText = q.text;
-    thumbZone.classList.remove('hidden');
+    const quickieBox = document.getElementById('quickie-controls');
+    const apBox = document.getElementById('ap-controls');
 
-    if (gameState.mode === 'quickie') {
-        quickieControls.classList.remove('hidden');
-        apControls.classList.add('hidden');
-        
-        // Multiple Choice Buttons
-        const opts = [q.solution, ...q.distractors].sort(() => 0.5 - Math.random());
-        quickieControls.innerHTML = '';
-        opts.forEach(opt => {
-            const btn = document.createElement('button');
-            btn.className = 'option-btn';
-            btn.innerText = opt;
-            btn.onclick = () => checkAnswer(opt);
-            quickieControls.appendChild(btn);
-        });
+    if (state.mode === 'quickie') {
+        quickieBox.classList.remove('hidden');
+        apBox.classList.add('hidden');
+        renderQuickie(q);
     } else {
-        apControls.classList.remove('hidden');
-        quickieControls.classList.add('hidden');
-        // Hier müsste dein Tastatur-Code/Input-Code für den Test-Mode rein
+        apBox.classList.remove('hidden');
+        quickieBox.classList.add('hidden');
         document.getElementById('ap-input-display').innerText = '_';
     }
 }
 
-// 5. Antwort-Check
-function checkAnswer(answer) {
-    const q = gameState.currentPool[gameState.currentIndex];
-    let correct = false;
+function renderQuickie(q) {
+    const box = document.getElementById('quickie-controls');
+    box.innerHTML = '';
+    // Distraktoren-Logik
+    const opts = [q.solution, ...q.distractors].sort(() => 0.5 - Math.random());
+    opts.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.innerText = opt;
+        btn.onclick = () => checkAnswer(opt);
+        box.appendChild(btn);
+    });
+}
 
-    if (gameState.mode === 'quickie') {
-        correct = (answer === q.solution);
-    } else {
-        // Logik für Test-Mode (Eingabe-Feld)
-        const input = document.getElementById('ap-input-display').innerText; // Beispielhaft
-        correct = q.solutions.some(s => s.toLowerCase() === answer.toLowerCase());
-    }
+function checkAnswer(val) {
+    const q = state.pool[state.index];
+    // In einer echten App hier die Logik für AP-Mode vervollständigen
+    const correct = (state.mode === 'quickie') ? (val === q.solution) : false;
 
     if (correct) {
-        gameState.score++;
-        gameState.streak++;
-        showFeedback("Richtig! 🔥", "correct");
+        state.score++;
+        showFlash("Korrekt! 🔥", "success");
+        next();
     } else {
-        gameState.streak = 0;
-        const solution = (gameState.mode === 'quickie') ? q.solution : q.solutions[0];
-        showFeedback(`Falsch! Richtig: ${solution}`, "wrong");
-    }
-
-    document.getElementById('streak-count').innerText = gameState.streak;
-    setTimeout(nextQuestion, 1500);
-}
-
-function nextQuestion() {
-    gameState.currentIndex++;
-    if (gameState.currentIndex < 10) {
-        renderQuestion();
-    } else {
-        showScreen('continue');
+        state.lives--;
+        updateStats();
+        if (state.lives <= 0 && state.isHardcore) {
+            document.getElementById('game-over-screen').classList.remove('hidden');
+        } else {
+            showFlash(`Falsch! Lösung: ${q.solution}`, "error");
+            next();
+        }
     }
 }
 
-// Hilfsfunktionen
-function showScreen(screenId) {
+function next() {
+    state.index++;
+    if (state.index < 10) setTimeout(renderQuestion, 1500);
+    else switchScreen('continue');
+}
+
+function updateStats() {
+    document.getElementById('stats-bar').classList.remove('hidden');
+    document.getElementById('lives').innerText = "❤️".repeat(state.lives);
+    document.getElementById('streak-count').innerText = state.score;
+}
+
+function switchScreen(id) {
     document.querySelectorAll('.blueprint-screen').forEach(s => s.classList.remove('active'));
-    document.querySelector(`[data-screen="${screenId}"]`).classList.add('active');
-    
-    // Stats Bar Handling
-    const statsBar = document.getElementById('stats-bar');
-    (screenId === 'playing') ? statsBar.classList.remove('hidden') : statsBar.classList.add('hidden');
+    document.querySelector(`[data-screen="${id}"]`).classList.add('active');
 }
 
-function showFeedback(text, type) {
+function showFlash(m, c) {
     const f = document.getElementById('feedback-flash');
-    f.innerText = text;
-    f.className = `feedback ${type}`;
+    f.innerText = m;
+    f.className = `feedback ${c}`;
     f.classList.remove('hidden');
     setTimeout(() => f.classList.add('hidden'), 1400);
 }
 
-// AppDirector Mockup für deine Buttons
-const AppDirector = {
-    goBack: () => showScreen('menu'),
-    continueGame: () => showScreen('menu')
-};
-
-window.onload = initApp;
+window.onload = init;
