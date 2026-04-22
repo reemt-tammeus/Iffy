@@ -32,20 +32,34 @@ async function selectMode(mode) {
     state.maxLives = (mode === 'quickie') ? 2 : 3;
     state.blockLimit = (mode === 'quickie') ? 5 : 10;
     state.lives = state.maxLives;
+    state.streak = 0;
+    state.blockCounter = 0;
+
     const file = (mode === 'quickie') ? 'data_quickie.json' : 'data_ap.json';
     try {
         const response = await fetch(file);
         const data = await response.json();
-        // FIREWALL LOGIK
+
+        // PÄDAGOGISCHE FIREWALL
         state.rawPool = data.filter(q => {
-            const t = q.type.toString();
-            if (!state.category.includes(t)) return false;
-            if (state.category.length === 3 && q.type === 1) return q.isMaster;
-            if (state.category.includes("1") && q.type === 1) return q.isStandard;
+            const tStr = q.type.toString();
+            if (!state.category.includes(tStr)) return false;
+
+            if (state.category.length === 3) {
+                if (q.type === 1) return q.isMaster === true;
+                return true; 
+            }
+            if (state.category.includes("1")) {
+                if (q.type === 1) return q.isStandard === true;
+                return true;
+            }
             return true;
         });
-        reshuffle(); updateStats();
-        AppDirector.changeScreen('playing'); loadNext();
+
+        reshuffle();
+        updateStats();
+        AppDirector.changeScreen('playing');
+        loadNext();
     } catch(e) { console.error("Ladefehler!"); }
 }
 
@@ -54,13 +68,16 @@ function reshuffle() { state.activeQueue = [...state.rawPool].sort(() => 0.5 - M
 function loadNext() {
     if (state.activeQueue.length === 0) reshuffle();
     if (state.blockCounter >= state.blockLimit) return AppDirector.changeScreen('continue');
+
     state.jokerUsed = false; state.inputText = "";
     document.getElementById('next-btn').classList.add('hidden');
     document.getElementById('feedback-flash').classList.add('hidden');
+    
     const q = state.activeQueue.shift();
     state.currentQuestion = q;
     document.getElementById('text-display').innerText = q.text;
     updateProgress();
+
     if (state.mode === 'quickie') renderQuickie(q); else renderTest();
 }
 
@@ -100,20 +117,28 @@ function checkAnswer() {
     const q = state.currentQuestion;
     const input = state.inputText.toLowerCase().trim().replace(/[’´`‘]/g, "'");
     if (q.solutions.map(s => s.toLowerCase().trim()).includes(input)) return handleCorrect();
+    
     let isTypo = q.solutions.some(sol => {
         let s = sol.toLowerCase().trim();
         return input.length > 3 && Math.abs(input.length - s.length) <= 1;
     });
-    if (isTypo && !state.jokerUsed) { state.jokerUsed = true; showFlash("Tippfehler!", "flash-orange"); }
-    else handleWrong(input, null, q.solutions[0]);
+
+    if (isTypo && !state.jokerUsed) {
+        state.jokerUsed = true; showFlash("Tippfehler!", "flash-orange");
+    } else handleWrong(input, null, q.solutions[0]);
 }
 
 function handleCorrect() {
     const box = document.getElementById('playing-glass-box');
     if (box) box.classList.add('success-flash');
+
     state.streak++; state.blockCounter++; updateStats();
     showFlash("Richtig! 🌟", "flash-green");
-    setTimeout(() => { if (box) box.classList.remove('success-flash'); loadNext(); }, 1200);
+    
+    setTimeout(() => { 
+        if (box) box.classList.remove('success-flash');
+        loadNext(); 
+    }, 1200);
 }
 
 function handleWrong(val, btn, correct) {
@@ -130,11 +155,16 @@ function updateStats() {
     document.getElementById('streak-display').classList.toggle('streak-gray', state.streak === 0);
 }
 
-function updateProgress() { document.getElementById('progress-bar').style.width = (state.blockCounter / state.blockLimit) * 100 + "%"; }
+function updateProgress() {
+    document.getElementById('progress-bar').style.width = (state.blockCounter / state.blockLimit) * 100 + "%";
+}
 
 function showFlash(m, c, d=1500) {
     const f = document.getElementById('feedback-flash');
-    f.innerText = m; f.className = `feedback ${c}`; f.classList.remove('hidden');
+    f.innerText = m;
+    // Saubere Klassen-Zuweisung
+    f.className = 'feedback ' + c; 
+    f.classList.remove('hidden');
     if(d < 3000) setTimeout(() => f.classList.add('hidden'), d);
 }
 
