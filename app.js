@@ -14,12 +14,12 @@ const AppDirector = {
         document.getElementById('thumb-zone').classList.toggle('hidden', screen !== 'playing');
     },
     goBack() { 
-        state.streak = 0; // Streak verfällt beim Verlassen des Spiels
+        state.streak = 0;
         this.changeScreen('menu'); 
     },
     continueGame() {
         state.blockCounter = 0;
-        state.lives = state.maxLives; // Herzen auffüllen
+        state.lives = state.maxLives;
         updateStats();
         this.changeScreen('playing');
         loadNext();
@@ -28,10 +28,8 @@ const AppDirector = {
 
 function selectCategory(cat) { 
     state.category = cat; 
-    // HARDCORE CSS-SWITCH
     if (cat.length === 3) document.body.classList.add('hardcore');
     else document.body.classList.remove('hardcore');
-    
     AppDirector.changeScreen('modes'); 
 }
 
@@ -40,52 +38,44 @@ async function selectMode(mode) {
     state.maxLives = (mode === 'quickie') ? 2 : 3;
     state.blockLimit = (mode === 'quickie') ? 5 : 10;
     state.lives = state.maxLives;
-    state.blockCounter = 0;
     state.streak = 0;
-    updateStats();
+    state.blockCounter = 0;
 
     const file = (mode === 'quickie') ? 'data_quickie.json' : 'data_ap.json';
     try {
-        const response = await fetch(file + '?v=' + new Date().getTime());
-        const all = await response.json();
-        
-        // PÄDAGOGISCHE FIREWALL 
-        state.rawPool = all.filter(d => {
-            const typeStr = d.type.toString();
-            // Gehört der Satz zur generellen Typ-Auswahl?
-            if (!state.category.includes(typeStr)) return false;
-            
-            // Hardcore Mix I-III: Nur Master-Sätze bei Typ 1
-            if (state.category.length === 3 && d.type === 1) {
-                return d.isMaster === true;
+        const response = await fetch(file);
+        const data = await response.json();
+
+        // PÄDAGOGISCHE FIREWALL
+        state.rawPool = data.filter(q => {
+            const tStr = q.type.toString();
+            if (!state.category.includes(tStr)) return false;
+
+            if (state.category.length === 3) {
+                if (q.type === 1) return q.isMaster === true;
+                return true; 
             }
-            // Typ 1 Einzeltraining: Nur Standard-Sätze bei Typ 1
-            if (state.category.length < 3 && state.category.includes('1') && d.type === 1) {
-                return d.isStandard === true;
+            if (state.category.includes("1")) {
+                if (q.type === 1) return q.isStandard === true;
+                return true;
             }
-            
             return true;
         });
 
         reshuffle();
+        updateStats();
         AppDirector.changeScreen('playing');
         loadNext();
-    } catch(e) { alert("Fehler beim Laden!"); }
+    } catch(e) { console.error("Ladefehler!"); }
 }
 
 function reshuffle() {
     state.activeQueue = [...state.rawPool].sort(() => 0.5 - Math.random());
-    state.currentIdx = 0;
 }
 
 function loadNext() {
-    // Falls Pool leer ist, neu mischen (Endlos-Loop)
     if (state.activeQueue.length === 0) reshuffle();
-    
-    // Prüfen ob Block zu Ende ist
-    if (state.blockCounter >= state.blockLimit) {
-        return AppDirector.changeScreen('continue');
-    }
+    if (state.blockCounter >= state.blockLimit) return AppDirector.changeScreen('continue');
 
     state.jokerUsed = false; state.inputText = "";
     document.getElementById('next-btn').classList.add('hidden');
@@ -93,57 +83,53 @@ function loadNext() {
     
     const q = state.activeQueue.shift();
     state.currentQuestion = q;
-    document.getElementById('text-display').innerHTML = q.text;
+    document.getElementById('text-display').innerText = q.text;
     updateProgress();
 
     if (state.mode === 'quickie') renderQuickie(q); else renderTest();
 }
 
-/* === INTERFACE === */
 function renderQuickie(q) {
-    const cont = document.getElementById('quickie-controls');
-    cont.classList.remove('hidden'); document.getElementById('ap-controls').classList.add('hidden');
-    cont.innerHTML = "";
-    let opts = [q.solution, ...q.distractors].sort(() => 0.5 - Math.random());
-    opts.forEach(opt => {
-        const b = document.createElement('button'); b.textContent = opt;
-        b.onclick = () => (opt === q.solution) ? handleCorrect() : handleWrong(opt, b, q.solution);
-        cont.appendChild(b);
+    const box = document.getElementById('quickie-controls');
+    box.classList.remove('hidden'); document.getElementById('ap-controls').classList.add('hidden');
+    box.innerHTML = "";
+    const opts = [q.solution, ...q.distractors].sort(() => 0.5 - Math.random());
+    opts.forEach(o => {
+        const b = document.createElement('button'); b.textContent = o;
+        b.onclick = () => (o === q.solution) ? handleCorrect() : handleWrong(o, b, q.solution);
+        box.appendChild(b);
     });
 }
 
 function renderTest() {
-    const cont = document.getElementById('ap-controls');
-    cont.classList.remove('hidden'); document.getElementById('quickie-controls').classList.add('hidden');
-    document.getElementById('ap-input-display').textContent = "_";
+    const box = document.getElementById('ap-controls');
+    box.classList.remove('hidden'); document.getElementById('quickie-controls').classList.add('hidden');
     const kb = document.getElementById('keyboard'); kb.innerHTML = "";
-    const rows = [['q','w','e','r','t','y','u','i','o','p'],['a','s','d','f','g','h','j','k','l'],['z','x','c','v','b','n','m',"'"],['SPACE','DEL']];
-    rows.forEach(r => {
-        const row = document.createElement('div'); row.className = 'keyboard-row';
-        r.forEach(key => {
+    const layout = [['q','w','e','r','t','y','u','i','o','p'],['a','s','d','f','g','h','j','k','l'],['z','x','c','v','b','n','m',"'"],['SPACE','DEL']];
+    layout.forEach(row => {
+        const rDiv = document.createElement('div'); rDiv.className = 'keyboard-row';
+        row.forEach(key => {
             const k = document.createElement('div'); k.className = `key ${key==='SPACE'?'key-space':''} ${key==='DEL'?'key-del':''}`;
-            k.textContent = (key==='DEL')?'⌫':key;
+            k.textContent = (key==='DEL') ? '⌫' : key.toUpperCase();
             k.onclick = () => {
                 if(key==='SPACE') state.inputText += " "; else if(key==='DEL') state.inputText = state.inputText.slice(0, -1); else state.inputText += key;
                 document.getElementById('ap-input-display').textContent = state.inputText + "_";
             };
-            row.appendChild(k);
+            rDiv.appendChild(k);
         });
-        kb.appendChild(row);
+        kb.appendChild(rDiv);
     });
 }
 
-/* === FEEDBACK === */
 function checkAnswer() {
     const q = state.currentQuestion;
     const input = state.inputText.toLowerCase().trim().replace(/[’´`‘]/g, "'");
     if (q.solutions.map(s => s.toLowerCase().trim()).includes(input)) return handleCorrect();
     
-    let isTypo = false;
-    for (let sol of q.solutions) {
+    let isTypo = q.solutions.some(sol => {
         let s = sol.toLowerCase().trim();
-        if (input.length > 3 && Math.abs(input.length - s.length) <= 1) { isTypo = true; break; }
-    }
+        return input.length > 3 && Math.abs(input.length - s.length) <= 1;
+    });
 
     if (isTypo && !state.jokerUsed) {
         state.jokerUsed = true; showFlash("Tippfehler!", "flash-orange");
@@ -151,60 +137,36 @@ function checkAnswer() {
 }
 
 function handleCorrect() {
-    const box = document.getElementById('playing-glass-box');
-    box.classList.add('success-flash');
-    state.streak++;
-    state.blockCounter++;
-    updateStats();
-    setTimeout(() => { box.classList.remove('success-flash'); loadNext(); }, 600);
+    state.streak++; state.blockCounter++; updateStats();
+    showFlash("Richtig! 🌟", "flash-green");
+    setTimeout(loadNext, 1200);
 }
 
 function handleWrong(val, btn, correct) {
-    if (state.mode === 'quickie') {
-        processFatalError(btn, correct);
-    } else {
-        if (!state.jokerUsed) {
-            state.jokerUsed = true; showFlash("Joker genutzt!", "flash-orange");
-        } else {
-            processFatalError(null, correct);
-        }
-    }
-}
-
-function processFatalError(btn, correct) {
-    state.lives--;
-    state.streak = 0; // Gnadenloser Reset
-    state.blockCounter++;
-    updateStats();
+    state.lives--; state.streak = 0; state.blockCounter++; updateStats();
     if(btn) btn.style.opacity = "0.3";
     showFlash(`Falsch!\nLösung: ${correct}`, "flash-red", 3000);
     if (state.lives <= 0) return gameOver();
     document.getElementById('next-btn').classList.remove('hidden');
 }
 
-/* === UTILS === */
 function updateStats() { 
     document.getElementById('lives').textContent = "❤️".repeat(state.lives); 
-    const sc = document.getElementById('streak-count');
-    const sd = document.getElementById('streak-display');
-    sc.textContent = state.streak;
-    sd.classList.toggle('streak-gray', state.streak === 0);
+    document.getElementById('streak-count').textContent = state.streak;
+    document.getElementById('streak-display').classList.toggle('streak-gray', state.streak === 0);
 }
 
 function updateProgress() {
-    const p = (state.blockCounter / state.blockLimit) * 100;
-    document.getElementById('progress-bar').style.width = p + "%";
+    document.getElementById('progress-bar').style.width = (state.blockCounter / state.blockLimit) * 100 + "%";
 }
 
 function showFlash(m, c, d=1500) {
     const f = document.getElementById('feedback-flash');
-    f.innerText = m; f.className = c; f.classList.remove('hidden');
-    if(d<3000) setTimeout(() => f.classList.add('hidden'), d);
+    f.innerText = m; f.className = `feedback ${c}`; f.classList.remove('hidden');
+    if(d < 3000) setTimeout(() => f.classList.add('hidden'), d);
 }
 
 function gameOver() { 
     document.getElementById('game-over-screen').classList.remove('hidden'); 
-    setTimeout(()=>location.reload(), 3000); 
+    setTimeout(()=>location.reload(), 3500); 
 }
-
-window.onload = () => { updateStats(); };
