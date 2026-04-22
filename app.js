@@ -26,7 +26,14 @@ const AppDirector = {
     }
 };
 
-function selectCategory(cat) { state.category = cat; AppDirector.changeScreen('modes'); }
+function selectCategory(cat) { 
+    state.category = cat; 
+    // HARDCORE CSS-SWITCH
+    if (cat.length === 3) document.body.classList.add('hardcore');
+    else document.body.classList.remove('hardcore');
+    
+    AppDirector.changeScreen('modes'); 
+}
 
 async function selectMode(mode) {
     state.mode = mode;
@@ -41,7 +48,25 @@ async function selectMode(mode) {
     try {
         const response = await fetch(file + '?v=' + new Date().getTime());
         const all = await response.json();
-        state.rawPool = all.filter(d => state.category.includes(d.type.toString()));
+        
+        // PÄDAGOGISCHE FIREWALL 
+        state.rawPool = all.filter(d => {
+            const typeStr = d.type.toString();
+            // Gehört der Satz zur generellen Typ-Auswahl?
+            if (!state.category.includes(typeStr)) return false;
+            
+            // Hardcore Mix I-III: Nur Master-Sätze bei Typ 1
+            if (state.category.length === 3 && d.type === 1) {
+                return d.isMaster === true;
+            }
+            // Typ 1 Einzeltraining: Nur Standard-Sätze bei Typ 1
+            if (state.category.length < 3 && state.category.includes('1') && d.type === 1) {
+                return d.isStandard === true;
+            }
+            
+            return true;
+        });
+
         reshuffle();
         AppDirector.changeScreen('playing');
         loadNext();
@@ -71,7 +96,7 @@ function loadNext() {
     document.getElementById('text-display').innerHTML = q.text;
     updateProgress();
 
-    if (state.mode === 'quickie') renderQuickie(q); else renderTest(q);
+    if (state.mode === 'quickie') renderQuickie(q); else renderTest();
 }
 
 /* === INTERFACE === */
