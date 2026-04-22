@@ -6,7 +6,7 @@
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
-body { background: var(--bg-color); display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+body { background: var(--bg-color); display: flex; justify-content: center; align-items: center; min-height: 100vh; transition: background 0.5s ease; }
 
 #app-container { 
     width: 100%; max-width: 450px; height: 100dvh; 
@@ -14,6 +14,20 @@ body { background: var(--bg-color); display: flex; justify-content: center; alig
     background-image: url('logo.jpg'); background-size: cover; 
     background-position: center bottom; background-repeat: no-repeat;
     box-shadow: 0 0 40px rgba(0,0,0,0.9);
+    transition: all 0.5s ease;
+}
+
+/* HARDCORE-MODUS ÄSTHETIK */
+body.hardcore #app-container {
+    background-color: #1a0000; 
+    box-shadow: 0 0 50px rgba(220, 53, 69, 0.4);
+}
+body.hardcore .glass-box {
+    background: rgba(20, 0, 0, 0.85); 
+    border: 1.5px solid rgba(220, 53, 69, 0.4);
+}
+body.hardcore button {
+    border-color: var(--red);
 }
 
 #content-area { flex-grow: 1; position: relative; width: 100%; }
@@ -29,6 +43,7 @@ body { background: var(--bg-color); display: flex; justify-content: center; alig
     backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); 
     border: 1.5px solid rgba(255,255,255,0.3); border-radius: 24px; 
     text-align: center; transition: all 0.3s ease; position: relative; overflow: hidden;
+    color: #fff; /* FIX: Weiße Schrift für die Box */
 }
 
 /* Fortschrittsleiste */
@@ -42,8 +57,10 @@ h2 { font-size: 1rem; margin-bottom: 20px; font-weight: normal; color: #ccc; tex
 .center-btn { grid-column: span 2; width: 70%; justify-self: center; }
 .mode-selection { display: flex; flex-direction: column; gap: 12px; }
 
-button { -webkit-appearance: none; width: 100%; padding: 16px; border-radius: 12px; border: 2px solid #fff; background: transparent; color: #fff; font-weight: bold; font-size: 1rem; }
+button { -webkit-appearance: none; width: 100%; padding: 16px; border-radius: 12px; border: 2px solid #fff; background: transparent; color: #fff; font-weight: bold; font-size: 1rem; transition: background 0.2s, color 0.2s; }
 button:active { background: #fff; color: #000; }
+
+body.hardcore button:active { background: var(--red); color: #fff; }
 
 #stats-bar { padding: 15px; display: flex; justify-content: space-between; align-items: center; width: 100%; z-index: 10; }
 #btn-back { width: auto; padding: 5px 12px; border: none; background: rgba(255,255,255,0.2); font-size: 1.2rem; }
@@ -55,12 +72,13 @@ button:active { background: #fff; color: #000; }
 #thumb-zone { width: 100%; padding: 20px 15px; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); border-top: 1px solid rgba(255,255,255,0.1); }
 #keyboard { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
 .keyboard-row { display: flex; gap: 4px; justify-content: center; }
-.key { flex: 1; max-width: 42px; padding: 14px 0; background: rgba(255,255,255,0.1); border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); color: #fff; text-align: center; font-weight: bold; }
+.key { flex: 1; max-width: 42px; padding: 14px 0; background: rgba(255,255,255,0.1); border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); color: #fff; text-align: center; font-weight: bold; cursor: pointer; }
 .key-space { flex: 4; max-width: 160px; }
 .key-del { background: rgba(220, 53, 69, 0.4); }
+.key:active { background: rgba(255,255,255,0.3); }
 
 #ap-input-display { font-size: 1.6rem; color: #fff; margin-bottom: 15px; min-height: 35px; border-bottom: 2px solid var(--orange); }
-#text-display { font-size: 1.25rem; line-height: 1.6; }
+#text-display { font-size: 1.25rem; line-height: 1.6; color: #fff; /* FIX: Weiße Schrift für den Satz */ }
 
 #feedback-flash { position: absolute; top: 35%; left: 50%; transform: translate(-50%, -50%); padding: 20px; border-radius: 15px; z-index: 2000; color: white; text-align: center; width: 85%; font-weight: bold; }
 .flash-red { background: var(--red); }
