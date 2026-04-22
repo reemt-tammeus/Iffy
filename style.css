@@ -14,19 +14,17 @@ body { background: var(--bg-color); display: flex; justify-content: center; alig
     background-image: url('logo.jpg'); background-size: cover; 
     background-position: center bottom; background-repeat: no-repeat;
     box-shadow: 0 0 40px rgba(0,0,0,0.9);
-    transition: all 0.5s ease;
 }
 
 /* HARDCORE-MODUS THEME */
 body.hardcore #app-container { background-color: #1a0000; box-shadow: 0 0 50px rgba(220, 53, 69, 0.4); }
 body.hardcore .glass-box { background: rgba(20, 0, 0, 0.85); border: 1.5px solid rgba(220, 53, 69, 0.4); }
-body.hardcore button { border-color: var(--red); }
 
 #content-area { flex-grow: 1; position: relative; width: 100%; }
 .blueprint-screen { position: absolute; width: 100%; height: 100%; display: none; flex-direction: column; align-items: center; }
 .blueprint-screen.active { display: flex; }
 
-/* Fahrstuhl-Logik & Thumbing Zone */
+/* Fahrstuhl-Logik */
 .nav-mode { justify-content: flex-end; padding-bottom: 10vh; }
 .game-mode { justify-content: flex-start; padding-top: 6vh; }
 
@@ -38,19 +36,37 @@ body.hardcore button { border-color: var(--red); }
     color: #ffffff;
 }
 
-/* Grüner Blitz Animation */
-.success-flash { background: rgba(40, 167, 69, 0.9) !important; transform: scale(1.03); border-color: #fff !important; }
-
-#stats-bar { 
-    padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; 
-    width: 100%; z-index: 100; background: rgba(0, 0, 0, 0.5); 
-    backdrop-filter: blur(8px); border-bottom: 1px solid rgba(255, 255, 255, 0.1); color: #fff;
+/* DER GRÜNE BLITZ (Erfolgs-Animation) */
+.success-flash { 
+    background: rgba(40, 167, 69, 0.95) !important; 
+    transform: scale(1.05); 
+    border-color: #ffffff !important;
 }
 
+/* STATS-BAR MIT BALKEN (grafik.jpg Inspiration) */
+#stats-bar { 
+    padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; 
+    width: 100%; z-index: 100; background: rgba(0, 0, 0, 0.6); 
+    backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255, 255, 255, 0.1); color: #fff;
+}
+
+#btn-back { width: auto; padding: 5px 12px; border: none; background: rgba(255,255,255,0.2); font-size: 1.2rem; }
 #lives { font-size: 1.3rem; letter-spacing: 3px; }
 .streak-gray { filter: grayscale(1); opacity: 0.5; }
-#progress-bar { position: absolute; top: 0; left: 0; height: 3px; background: #fff; width: 0%; transition: width 0.3s ease; }
 
+/* FEEDBACK-FLASH (Der "falsch-Balken") */
+#feedback-flash { 
+    position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%); 
+    padding: 20px; border-radius: 15px; z-index: 2000; color: white; 
+    text-align: center; width: 85%; font-weight: bold; font-size: 1.1rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    transition: opacity 0.2s;
+}
+.flash-green { background: var(--green) !important; }
+.flash-red { background: var(--red) !important; }
+.flash-orange { background: var(--orange) !important; }
+
+#progress-bar { position: absolute; top: 0; left: 0; height: 3px; background: #fff; width: 0%; transition: width 0.3s ease; }
 .category-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .center-btn { grid-column: span 2; width: 70%; justify-self: center; }
 
@@ -67,14 +83,7 @@ button:active { background: #fff; color: #000; }
 #ap-input-display { font-size: 1.6rem; color: #fff; margin-bottom: 15px; min-height: 35px; border-bottom: 2px solid var(--orange); text-align: center; }
 #text-display { font-size: 1.25rem; line-height: 1.5; color: #ffffff; }
 
-#feedback-flash { position: absolute; top: 35%; left: 50%; transform: translate(-50%, -50%); padding: 20px; border-radius: 15px; z-index: 2000; color: white; text-align: center; width: 85%; font-weight: bold; }
-.hidden { display: none !important; }
-
-/* FIX: Korrekte Skalierung für loser.jpg */
 #game-over-screen { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10000; background: #000; display: flex; align-items: center; justify-content: center; }
-#game-over-screen img { 
-    width: 100%; 
-    height: 100%; 
-    object-fit: contain; /* Zeigt das komplette Bild ohne Beschnitt */
-    background-color: #000; 
-}
+#game-over-screen img { width: 100%; height: 100%; object-fit: contain; background-color: #000; }
+
+.hidden { display: none !important; }
