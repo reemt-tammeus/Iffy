@@ -2,7 +2,8 @@
 let state = { 
     category: null, mode: null, rawPool: [], activeQueue: [], 
     currentIdx: 0, blockCounter: 0, blockLimit: 5,
-    lives: 3, maxLives: 3, streak: 0, jokerUsed: false, inputText: "" 
+    lives: 3, maxLives: 3, streak: 0, jokerUsed: false, inputText: "",
+    locked: false // NEU: Sperrt Eingaben nach einer Antwort
 };
 
 const AppDirector = {
@@ -40,26 +41,16 @@ async function selectMode(mode) {
         const response = await fetch(file);
         const data = await response.json();
 
-        // PÄDAGOGISCHE FIREWALL
         state.rawPool = data.filter(q => {
-            const tStr = q.type.toString();
-            if (!state.category.includes(tStr)) return false;
-
-            if (state.category.length === 3) {
-                if (q.type === 1) return q.isMaster === true;
-                return true; 
-            }
-            if (state.category.includes("1")) {
-                if (q.type === 1) return q.isStandard === true;
-                return true;
-            }
+            const t = q.type.toString();
+            if (!state.category.includes(t)) return false;
+            if (state.category.length === 3 && q.type === 1) return q.isMaster;
+            if (state.category.includes("1") && q.type === 1) return q.isStandard;
             return true;
         });
 
-        reshuffle();
-        updateStats();
-        AppDirector.changeScreen('playing');
-        loadNext();
+        reshuffle(); updateStats();
+        AppDirector.changeScreen('playing'); loadNext();
     } catch(e) { console.error("Ladefehler!"); }
 }
 
@@ -69,8 +60,11 @@ function loadNext() {
     if (state.activeQueue.length === 0) reshuffle();
     if (state.blockCounter >= state.blockLimit) return AppDirector.changeScreen('continue');
 
-    state.jokerUsed = false; state.inputText = "";
-    document.getElementById('next-btn').classList.add('hidden');
+    // Entsperren für die neue Frage
+    state.locked = false; 
+    state.jokerUsed = false; 
+    state.inputText = "";
+    
     document.getElementById('feedback-flash').classList.add('hidden');
     
     const q = state.activeQueue.shift();
@@ -114,6 +108,7 @@ function renderTest() {
 }
 
 function checkAnswer() {
+    if (state.locked) return;
     const q = state.currentQuestion;
     const input = state.inputText.toLowerCase().trim().replace(/[’´`‘]/g, "'");
     if (q.solutions.map(s => s.toLowerCase().trim()).includes(input)) return handleCorrect();
@@ -124,16 +119,23 @@ function checkAnswer() {
     });
 
     if (isTypo && !state.jokerUsed) {
-        state.jokerUsed = true; showFlash("Tippfehler!", "flash-orange");
-    } else handleWrong(input, null, q.solutions[0]);
+        state.jokerUsed = true; 
+        showFlash("Tippfehler! 🃏", "flash-orange", 1500);
+        // Joker sperrt nicht, man darf weiter tippen!
+    } else {
+        handleWrong(input, null, q.solutions[0]);
+    }
 }
 
 function handleCorrect() {
+    if (state.locked) return;
+    state.locked = true; // Sperren!
+
     const box = document.getElementById('playing-glass-box');
     if (box) box.classList.add('success-flash');
 
     state.streak++; state.blockCounter++; updateStats();
-    showFlash("Richtig! 🌟", "flash-green");
+    showFlash("Richtig! 🌟", "flash-green", 1200);
     
     setTimeout(() => { 
         if (box) box.classList.remove('success-flash');
@@ -142,11 +144,23 @@ function handleCorrect() {
 }
 
 function handleWrong(val, btn, correct) {
+    if (state.locked) return;
+    state.locked = true; // Sperren! Absoluter Schutz vor Doppelklicks.
+
     state.lives--; state.streak = 0; state.blockCounter++; updateStats();
     if(btn) btn.style.opacity = "0.3";
-    showFlash(`Falsch!\nLösung: ${correct}`, "flash-red", 3000);
-    if (state.lives <= 0) return gameOver();
-    document.getElementById('next-btn').classList.remove('hidden');
+    
+    // Roter Balken wird für exakt 2.8 Sekunden gezeigt
+    showFlash(`Falsch!\nLösung: ${correct}`, "flash-red", 2800);
+    
+    if (state.lives <= 0) {
+        return gameOver();
+    }
+    
+    // Auto-Advance: Automatisches Weiterladen nach 2.8 Sekunden
+    setTimeout(() => {
+        loadNext();
+    }, 2800);
 }
 
 function updateStats() { 
@@ -162,13 +176,22 @@ function updateProgress() {
 function showFlash(m, c, d=1500) {
     const f = document.getElementById('feedback-flash');
     f.innerText = m;
-    // Saubere Klassen-Zuweisung
-    f.className = 'feedback ' + c; 
+    f.className = c; // Direkte Farbzuweisung
     f.classList.remove('hidden');
-    if(d < 3000) setTimeout(() => f.classList.add('hidden'), d);
+    
+    if (f.timeoutId) clearTimeout(f.timeoutId);
+    if (d > 0) {
+        f.timeoutId = setTimeout(() => { f.classList.add('hidden'); }, d);
+    }
 }
 
 function gameOver() { 
-    document.getElementById('game-over-screen').classList.remove('hidden'); 
-    setTimeout(()=>location.reload(), 3500); 
+    // Wartet 2.8 Sekunden (bis man den Balken gelesen hat), zeigt dann das Bild!
+    setTimeout(() => {
+        document.getElementById('feedback-flash').classList.add('hidden');
+        document.getElementById('game-over-screen').classList.remove('hidden'); 
+        setTimeout(() => location.reload(), 3500); 
+    }, 2800); 
 }
+
+window.onload = () => { updateStats(); };
