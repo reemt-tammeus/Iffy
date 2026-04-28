@@ -30,7 +30,6 @@ function selectCategory(cat) {
 
 async function selectMode(mode) {
     state.mode = mode;
-    // FIX: Fest auf 3 Leben und 10er Blöcke, wie im Manifest verlangt
     state.maxLives = 3; 
     state.blockLimit = 10; 
     state.lives = state.maxLives;
@@ -57,7 +56,6 @@ async function selectMode(mode) {
 
 function reshuffle() { state.activeQueue = [...state.rawPool].sort(() => 0.5 - Math.random()); }
 
-// Wird vom WEITER-Button aufgerufen
 function loadNext() {
     if (state.activeQueue.length === 0) reshuffle();
     if (state.blockCounter >= state.blockLimit) return AppDirector.changeScreen('continue');
@@ -67,7 +65,7 @@ function loadNext() {
     state.inputText = "";
     
     document.getElementById('feedback-flash').classList.add('hidden');
-    document.getElementById('next-btn').classList.add('hidden'); // WEITER-Button verstecken
+    document.getElementById('next-btn').classList.add('hidden'); 
     
     const q = state.activeQueue.shift();
     state.currentQuestion = q;
@@ -92,13 +90,11 @@ function renderQuickie(q) {
                 handleCorrect();
             } else {
                 if (!state.jokerUsed) {
-                    // FIX: JOKER LOGIK FÜR DEN QUICKIE-MODE
                     state.jokerUsed = true;
                     b.style.opacity = "0.3";
                     b.style.pointerEvents = "none";
                     showFlash("Joker! 🃏\nVersuch's nochmal.", "flash-orange", 2000);
                 } else {
-                    // FATALER FEHLER (Zweiter Klick)
                     handleWrong(o, b, q.solution);
                 }
             }
@@ -111,26 +107,74 @@ function renderTest() {
     const box = document.getElementById('ap-controls');
     box.classList.remove('hidden'); document.getElementById('quickie-controls').classList.add('hidden');
     const kb = document.getElementById('keyboard'); kb.innerHTML = "";
-    const layout = [['q','w','e','r','t','y','u','i','o','p'],['a','s','d','f','g','h','j','k','l'],['z','x','c','v','b','n','m',"'"],['SPACE','DEL']];
+    
+    // FIX: Auf deutsches QWERTZ-Layout umgestellt
+    const layout = [
+        ['q','w','e','r','t','z','u','i','o','p'],
+        ['a','s','d','f','g','h','j','k','l'],
+        ['y','x','c','v','b','n','m',"'"],
+        ['SPACE','DEL']
+    ];
+    
     layout.forEach(row => {
         const rDiv = document.createElement('div'); rDiv.className = 'keyboard-row';
         row.forEach(key => {
             const k = document.createElement('div'); k.className = `key ${key==='SPACE'?'key-space':''} ${key==='DEL'?'key-del':''}`;
             k.textContent = (key==='DEL') ? '⌫' : key.toUpperCase();
             k.onclick = () => {
-                if(key==='SPACE') state.inputText += " "; else if(key==='DEL') state.inputText = state.inputText.slice(0, -1); else state.inputText += key;
+                if (state.locked) return;
+                if(key==='SPACE') state.inputText += " "; 
+                else if(key==='DEL') state.inputText = state.inputText.slice(0, -1); 
+                else state.inputText += key;
                 document.getElementById('ap-input-display').textContent = state.inputText + "_";
             };
             rDiv.appendChild(k);
         });
         kb.appendChild(rDiv);
     });
+    
+    // Reset Display beim Laden
+    document.getElementById('ap-input-display').textContent = "_";
 }
 
+/* === HARDWARE KEYBOARD SUPPORT === */
+document.addEventListener('keydown', (e) => {
+    // Nur aktiv, wenn wir im Spiel sind, im AP-Modus, und das Spiel nicht gesperrt ist
+    const apControlsHidden = document.getElementById('ap-controls').classList.contains('hidden');
+    if (apControlsHidden || state.locked) return;
+
+    // Verhindere Scrollen bei Leertaste und Seite-Zurück bei Backspace
+    if (e.key === ' ' || e.key === 'Backspace') {
+        e.preventDefault();
+    }
+
+    if (e.key === 'Enter') {
+        checkAnswer();
+        return;
+    }
+
+    if (e.key === 'Backspace') {
+        state.inputText = state.inputText.slice(0, -1);
+    } else if (e.key === ' ') {
+        state.inputText += " ";
+    } else if (/^[a-zA-Z']$/.test(e.key)) { // Nur Buchstaben und Apostroph erlauben
+        state.inputText += e.key.toLowerCase();
+    } else {
+        return; // Ignoriere Zahlen, Shift, Strg, etc.
+    }
+
+    document.getElementById('ap-input-display').textContent = state.inputText + "_";
+});
+
+/* === VALIDATION & FEEDBACK === */
 function checkAnswer() {
     if (state.locked) return;
     const q = state.currentQuestion;
     const input = state.inputText.toLowerCase().trim().replace(/[’´`‘]/g, "'");
+    
+    // Leere Eingabe ignorieren
+    if (input === "") return;
+
     if (q.solutions.map(s => s.toLowerCase().trim()).includes(input)) return handleCorrect();
     
     let isTypo = q.solutions.some(sol => {
@@ -156,7 +200,6 @@ function handleCorrect() {
     state.streak++; state.blockCounter++; updateStats();
     showFlash("Richtig! 🌟", "flash-green", 1200);
     
-    // Auto-Advance nur bei richtig (Flüssiges Spielgefühl)
     setTimeout(() => { 
         if (box) box.classList.remove('success-flash');
         loadNext(); 
@@ -169,18 +212,15 @@ function handleWrong(val, btn, correct) {
 
     state.lives--; state.streak = 0; state.blockCounter++; updateStats();
     
-    // FIX: Optionen rigoros ausblenden, damit der Text frei bleibt
     document.getElementById('quickie-controls').classList.add('hidden');
     document.getElementById('ap-controls').classList.add('hidden');
     
-    // Roter Balken wird gezeigt und verschwindet nach 2.5 Sekunden
     showFlash(`Falsch!\nLösung: ${correct}`, "flash-red", 2500);
     
     if (state.lives <= 0) {
         return gameOver();
     }
     
-    // FIX: WEITER-Button einblenden für ungestörtes Lesen
     document.getElementById('next-btn').classList.remove('hidden');
 }
 
@@ -207,7 +247,6 @@ function showFlash(m, c, d=1500) {
 }
 
 function gameOver() { 
-    // Wartet 2.5 Sekunden, zeigt dann das Bild!
     setTimeout(() => {
         document.getElementById('feedback-flash').classList.add('hidden');
         document.getElementById('next-btn').classList.add('hidden');
