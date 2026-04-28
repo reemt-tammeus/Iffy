@@ -1,9 +1,6 @@
-/* === STATE === */
-let state = { 
-    category: null, mode: null, rawPool: [], activeQueue: [], 
-    currentIdx: 0, blockCounter: 0, blockLimit: 5,
-    lives: 3, maxLives: 3, streak: 0, jokerUsed: false, inputText: "",
-    locked: false // NEU: Sperrt Eingaben nach einer Antwort
+let state = {
+    pool: [], activeBlock: [], currentIndex: 0,
+    lives: 3, streak: 0, locked: false, userInput: ""
 };
 
 const AppDirector = {
@@ -11,187 +8,187 @@ const AppDirector = {
         document.querySelectorAll('.blueprint-screen').forEach(s => s.classList.remove('active'));
         document.querySelector(`[data-screen="${screen}"]`).classList.add('active');
         document.getElementById('stats-bar').classList.toggle('hidden', screen === 'menu');
-        document.getElementById('btn-back').classList.toggle('hidden', screen === 'playing' || screen === 'continue');
         document.getElementById('thumb-zone').classList.toggle('hidden', screen !== 'playing');
     },
-    goBack() { state.streak = 0; this.changeScreen('menu'); },
-    continueGame() {
-        state.blockCounter = 0; state.lives = state.maxLives;
-        updateStats(); this.changeScreen('playing'); loadNext();
-    }
+    goBack() { location.reload(); }
 };
 
-function selectCategory(cat) { 
-    state.category = cat; 
-    if (cat.length === 3) document.body.classList.add('hardcore');
-    else document.body.classList.remove('hardcore');
-    AppDirector.changeScreen('modes'); 
-}
-
-async function selectMode(mode) {
-    state.mode = mode;
-    state.maxLives = (mode === 'quickie') ? 2 : 3;
-    state.blockLimit = (mode === 'quickie') ? 5 : 10;
-    state.lives = state.maxLives;
-    state.streak = 0;
-    state.blockCounter = 0;
-
-    const file = (mode === 'quickie') ? 'data_quickie.json' : 'data_ap.json';
+document.addEventListener('DOMContentLoaded', async () => {
+    document.getElementById('menu-box').classList.add('startup-fade');
+    buildKeyboard();
+    setupHardwareKeyboard();
+    FireworksEngine.init();
     try {
-        const response = await fetch(file);
-        const data = await response.json();
+        const res = await fetch('data.json');
+        state.pool = await res.json();
+    } catch (e) { console.error("Data load failed", e); }
+});
 
-        state.rawPool = data.filter(q => {
-            const t = q.type.toString();
-            if (!state.category.includes(t)) return false;
-            if (state.category.length === 3 && q.type === 1) return q.isMaster;
-            if (state.category.includes("1") && q.type === 1) return q.isStandard;
-            return true;
-        });
-
-        reshuffle(); updateStats();
-        AppDirector.changeScreen('playing'); loadNext();
-    } catch(e) { console.error("Ladefehler!"); }
+function startBlock() {
+    if(state.pool.length < 5) return;
+    let shuffled = [...state.pool].sort(() => Math.random() - 0.5);
+    state.activeBlock = shuffled.slice(0, 5);
+    state.currentIndex = 0;
+    state.lives = 3;
+    updateStats();
+    AppDirector.changeScreen('playing');
+    loadTask();
 }
 
-function reshuffle() { state.activeQueue = [...state.rawPool].sort(() => 0.5 - Math.random()); }
-
-function loadNext() {
-    if (state.activeQueue.length === 0) reshuffle();
-    if (state.blockCounter >= state.blockLimit) return AppDirector.changeScreen('continue');
-
-    // Entsperren für die neue Frage
-    state.locked = false; 
-    state.jokerUsed = false; 
-    state.inputText = "";
-    
-    document.getElementById('feedback-flash').classList.add('hidden');
-    
-    const q = state.activeQueue.shift();
-    state.currentQuestion = q;
-    document.getElementById('text-display').innerText = q.text;
-    updateProgress();
-
-    if (state.mode === 'quickie') renderQuickie(q); else renderTest();
+function loadTask() {
+    state.userInput = ""; state.locked = false;
+    const task = state.activeBlock[state.currentIndex];
+    document.getElementById('task-orig').innerText = `"${task.orig}"`;
+    document.getElementById('task-key').innerText = task.key;
+    document.getElementById('task-pre').innerText = task.pre;
+    document.getElementById('task-suf').innerText = task.suf;
+    document.getElementById('progress').innerText = `${state.currentIndex + 1} / 5`;
+    updateInputDisplay();
 }
 
-function renderQuickie(q) {
-    const box = document.getElementById('quickie-controls');
-    box.classList.remove('hidden'); document.getElementById('ap-controls').classList.add('hidden');
-    box.innerHTML = "";
-    const opts = [q.solution, ...q.distractors].sort(() => 0.5 - Math.random());
-    opts.forEach(o => {
-        const b = document.createElement('button'); b.textContent = o;
-        b.onclick = () => (o === q.solution) ? handleCorrect() : handleWrong(o, b, q.solution);
-        box.appendChild(b);
-    });
-}
-
-function renderTest() {
-    const box = document.getElementById('ap-controls');
-    box.classList.remove('hidden'); document.getElementById('quickie-controls').classList.add('hidden');
-    const kb = document.getElementById('keyboard'); kb.innerHTML = "";
-    const layout = [['q','w','e','r','t','y','u','i','o','p'],['a','s','d','f','g','h','j','k','l'],['z','x','c','v','b','n','m',"'"],['SPACE','DEL']];
-    layout.forEach(row => {
-        const rDiv = document.createElement('div'); rDiv.className = 'keyboard-row';
-        row.forEach(key => {
-            const k = document.createElement('div'); k.className = `key ${key==='SPACE'?'key-space':''} ${key==='DEL'?'key-del':''}`;
-            k.textContent = (key==='DEL') ? '⌫' : key.toUpperCase();
-            k.onclick = () => {
-                if(key==='SPACE') state.inputText += " "; else if(key==='DEL') state.inputText = state.inputText.slice(0, -1); else state.inputText += key;
-                document.getElementById('ap-input-display').textContent = state.inputText + "_";
-            };
-            rDiv.appendChild(k);
-        });
-        kb.appendChild(rDiv);
-    });
+function updateInputDisplay() {
+    const display = document.getElementById('user-input-display');
+    display.innerText = state.userInput === "" ? "..." : state.userInput;
 }
 
 function checkAnswer() {
-    if (state.locked) return;
-    const q = state.currentQuestion;
-    const input = state.inputText.toLowerCase().trim().replace(/[’´`‘]/g, "'");
-    if (q.solutions.map(s => s.toLowerCase().trim()).includes(input)) return handleCorrect();
-    
-    let isTypo = q.solutions.some(sol => {
-        let s = sol.toLowerCase().trim();
-        return input.length > 3 && Math.abs(input.length - s.length) <= 1;
-    });
+    if (state.locked || state.userInput.trim() === "") return;
+    state.locked = true;
+    const task = state.activeBlock[state.currentIndex];
+    const val = state.userInput.trim().toLowerCase().replace(/[.!?;]$/, "");
+    const correct = task.ideal.some(a => a.toLowerCase().replace(/[.!?;]$/, "") === val);
 
-    if (isTypo && !state.jokerUsed) {
-        state.jokerUsed = true; 
-        showFlash("Tippfehler! 🃏", "flash-orange", 1500);
-        // Joker sperrt nicht, man darf weiter tippen!
+    if (correct) {
+        state.streak++; updateStats();
+        document.getElementById('playing-glass-box').classList.add('glow-green');
+        setTimeout(() => {
+            document.getElementById('playing-glass-box').classList.remove('glow-green');
+            advance();
+        }, 1200);
     } else {
-        handleWrong(input, null, q.solutions[0]);
+        triggerFail(task.ideal[0]);
     }
 }
 
-function handleCorrect() {
-    if (state.locked) return;
-    state.locked = true; // Sperren!
-
-    const box = document.getElementById('playing-glass-box');
-    if (box) box.classList.add('success-flash');
-
-    state.streak++; state.blockCounter++; updateStats();
-    showFlash("Richtig! 🌟", "flash-green", 1200);
-    
-    setTimeout(() => { 
-        if (box) box.classList.remove('success-flash');
-        loadNext(); 
-    }, 1200);
-}
-
-function handleWrong(val, btn, correct) {
-    if (state.locked) return;
-    state.locked = true; // Sperren! Absoluter Schutz vor Doppelklicks.
-
-    state.lives--; state.streak = 0; state.blockCounter++; updateStats();
-    if(btn) btn.style.opacity = "0.3";
-    
-    // Roter Balken wird für exakt 2.8 Sekunden gezeigt
-    showFlash(`Falsch!\nLösung: ${correct}`, "flash-red", 2800);
-    
-    if (state.lives <= 0) {
-        return gameOver();
-    }
-    
-    // Auto-Advance: Automatisches Weiterladen nach 2.8 Sekunden
-    setTimeout(() => {
-        loadNext();
-    }, 2800);
-}
-
-function updateStats() { 
-    document.getElementById('lives').textContent = "❤️".repeat(state.lives); 
-    document.getElementById('streak-count').textContent = state.streak;
-    document.getElementById('streak-display').classList.toggle('streak-gray', state.streak === 0);
-}
-
-function updateProgress() {
-    document.getElementById('progress-bar').style.width = (state.blockCounter / state.blockLimit) * 100 + "%";
-}
-
-function showFlash(m, c, d=1500) {
+function triggerFail(sol) {
+    state.lives--; state.streak = 0; updateStats();
     const f = document.getElementById('feedback-flash');
-    f.innerText = m;
-    f.className = c; // Direkte Farbzuweisung
+    f.innerHTML = `FALSCH!<br><small style="margin-top:15px; display:block;">Lösung: ${sol}</small>`;
     f.classList.remove('hidden');
     
-    if (f.timeoutId) clearTimeout(f.timeoutId);
-    if (d > 0) {
-        f.timeoutId = setTimeout(() => { f.classList.add('hidden'); }, d);
+    if (state.lives <= 0) {
+        setTimeout(() => {
+            f.classList.add('hidden');
+            document.getElementById('game-over-screen').classList.remove('hidden');
+            setTimeout(() => location.reload(), 3000);
+        }, 4000);
+    } else {
+        setTimeout(() => { f.classList.add('hidden'); advance(); }, 4000);
     }
 }
 
-function gameOver() { 
-    // Wartet 2.8 Sekunden (bis man den Balken gelesen hat), zeigt dann das Bild!
-    setTimeout(() => {
-        document.getElementById('feedback-flash').classList.add('hidden');
-        document.getElementById('game-over-screen').classList.remove('hidden'); 
-        setTimeout(() => location.reload(), 3500); 
-    }, 2800); 
+function advance() {
+    state.currentIndex++;
+    if (state.currentIndex >= 5) {
+        FireworksEngine.launch(true);
+        setTimeout(() => {
+            document.getElementById('final-streak').innerText = state.streak;
+            AppDirector.changeScreen('continue');
+        }, 2000);
+    } else { loadTask(); }
 }
 
-window.onload = () => { updateStats(); };
+function updateStats() {
+    document.getElementById('lives').textContent = "❤️".repeat(Math.max(0, state.lives));
+    document.getElementById('streak-count').textContent = state.streak;
+}
+
+function buildKeyboard() {
+    const layout = [
+        ["q","w","e","r","t","z","u","i","o","p"],
+        ["a","s","d","f","g","h","j","k","l"],
+        ["y","x","c","v","b","n","m","'", "ENTER"],
+        ["SPACE", "BACKSPACE"]
+    ];
+    const kb = document.getElementById('keyboard');
+    kb.innerHTML = '';
+    layout.forEach((row, i) => {
+        const div = document.createElement('div');
+        div.className = `kb-row row-${i+1}`;
+        row.forEach(key => {
+            const btn = document.createElement('div');
+            btn.className = 'kb-key'; btn.dataset.key = key.toLowerCase();
+            if(key === 'BACKSPACE') { btn.innerHTML = '⌫'; btn.classList.add('kb-backspace'); }
+            else if(key === 'ENTER') { btn.innerHTML = '↵'; btn.classList.add('kb-check'); }
+            else if(key === 'SPACE') { btn.innerHTML = 'SPACE'; btn.classList.add('kb-space'); }
+            else btn.innerHTML = key;
+            
+            const press = () => { handleInput(key === 'SPACE' ? ' ' : key); btn.classList.add('active-hardware'); };
+            const release = () => btn.classList.remove('active-hardware');
+            btn.addEventListener('mousedown', press); btn.addEventListener('mouseup', release);
+            btn.addEventListener('touchstart', (e) => { e.preventDefault(); press(); });
+            btn.addEventListener('touchend', release);
+            div.appendChild(btn);
+        });
+        kb.appendChild(div);
+    });
+}
+
+function handleInput(k) {
+    if (state.locked) return;
+    if (k === 'BACKSPACE') state.userInput = state.userInput.slice(0, -1);
+    else if (k === 'ENTER') checkAnswer();
+    else if (state.userInput.length < 60) state.userInput += k;
+    updateInputDisplay();
+}
+
+function setupHardwareKeyboard() {
+    window.addEventListener('keydown', (e) => {
+        if(state.locked) return;
+        let k = e.key;
+        if (k === '´' || k === '`' || k === 'Dead') k = "'"; // Windows Patch
+        if (k === 'Backspace') handleInput('BACKSPACE');
+        else if (k === 'Enter') handleInput('ENTER');
+        else if (k.match(/^[a-zA-Z' ]$/)) handleInput(k);
+        
+        const visualKey = k === ' ' ? 'space' : k.toLowerCase();
+        const btn = document.querySelector(`[data-key="${visualKey}"]`);
+        if(btn) { btn.classList.add('active-hardware'); setTimeout(() => btn.classList.remove('active-hardware'), 100); }
+    });
+}
+
+const FireworksEngine = {
+    canvasId: 'blueprint-fireworks', ctx: null, particles: [],
+    init() {
+        const c = document.getElementById(this.canvasId);
+        this.ctx = c.getContext('2d');
+        this.resize();
+        window.addEventListener('resize', () => this.resize());
+    },
+    resize() {
+        const c = document.getElementById(this.canvasId);
+        c.width = window.innerWidth; c.height = window.innerHeight;
+    },
+    launch(big) {
+        for (let i = 0; i < (big ? 100 : 30); i++) {
+            this.particles.push({
+                x: window.innerWidth/2, y: window.innerHeight/2,
+                vX: (Math.random()-0.5)*15, vY: (Math.random()-0.5)*15,
+                alpha: 1, color: `hsl(${Math.random()*360},100%,60%)`, size: Math.random()*3+2
+            });
+        }
+        if (!this.anim) this.animate();
+    },
+    animate() {
+        this.ctx.clearRect(0,0,window.innerWidth,window.innerHeight);
+        this.particles.forEach(p => {
+            p.x+=p.vX; p.y+=p.vY; p.vY+=0.15; p.alpha-=0.015;
+            this.ctx.globalAlpha = Math.max(0, p.alpha);
+            this.ctx.fillStyle = p.color;
+            this.ctx.beginPath(); this.ctx.arc(p.x, p.y, p.size, 0, Math.PI*2); this.ctx.fill();
+        });
+        this.particles = this.particles.filter(p => p.alpha > 0);
+        if(this.particles.length > 0) this.anim = requestAnimationFrame(() => this.animate());
+        else this.anim = null;
+    }
+};
