@@ -2,80 +2,62 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Iffy - Der If-Trainer</title>
-    <link rel="stylesheet" href="style.css?v=4">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>AP Keyword Transformation Simulator</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div id="app-container">
-        
         <header id="stats-bar" class="hidden">
-            <button id="btn-back" class="hidden" onclick="AppDirector.goBack()">⬅️</button>
-            <div id="lives"></div>
+            <div id="progress">1 / 5</div>
+            <div id="lives">❤️❤️❤️</div>
             <div id="streak-display">🔥 <span id="streak-count">0</span></div>
         </header>
 
         <main id="content-area">
-            
-            <section data-screen="menu" class="blueprint-screen nav-mode active">
-                <div class="glass-box">
-                    <h2>Wähle deine Kategorie</h2>
-                    <div class="category-grid">
-                        <button onclick="selectCategory(['1'])">Type I</button>
-                        <button onclick="selectCategory(['2'])">Type II</button>
-                        <button class="center-btn" onclick="selectCategory(['3'])">Type III</button>
-                        <button onclick="selectCategory(['1','2'])">Mix I + II</button>
-                        <button onclick="selectCategory(['1','2','3'])">Mix I - III</button>
+            <section data-screen="menu" class="blueprint-screen active">
+                <div class="glass-box" id="menu-box">
+                    <h2 id="menu-title">Keyword Transformation</h2>
+                    <p style="margin-bottom: 20px; font-size: 0.9rem;">AP English Drill</p>
+                    <button class="action-btn" onclick="startBlock()">START DRILL</button>
+                    <div class="branding-note">created by Mr. T. and Master E.</div>
+                </div>
+            </section>
+
+            <section data-screen="playing" class="blueprint-screen">
+                <div id="playing-glass-box" class="glass-box">
+                    <div id="task-orig" class="task-text"></div>
+                    <div id="task-key" class="keyword-box"></div>
+                    <div class="input-area">
+                        <span id="task-pre"></span>
+                        <span id="user-input-display" class="typing-placeholder">...</span>
+                        <span id="task-suf"></span>
                     </div>
                 </div>
             </section>
 
-            <section data-screen="modes" class="blueprint-screen nav-mode">
+            <section data-screen="continue" class="blueprint-screen">
                 <div class="glass-box">
-                    <h2>Wähle deinen Modus</h2>
-                    <div class="mode-selection">
-                        <button onclick="selectMode('quickie')">Five Gap Quickie</button>
-                        <button onclick="selectMode('test')">Test-Mode (Tippen)</button>
-                    </div>
+                    <h2>Block geschafft! 🎯</h2>
+                    <p style="margin-bottom: 20px;">Dein Streak: 🔥 <span id="final-streak"></span></p>
+                    <button class="action-btn" onclick="startBlock()">NÄCHSTE 5 (SHUFFLE)</button>
+                    <button class="action-btn secondary" onclick="AppDirector.goBack()">BEENDEN</button>
                 </div>
             </section>
-
-            <section data-screen="playing" class="blueprint-screen game-mode">
-                <div class="glass-box" id="playing-glass-box">
-                    <div id="progress-bar"></div>
-                    <div id="text-display">Lade Satz...</div>
-                </div>
-            </section>
-
-            <section data-screen="continue" class="blueprint-screen nav-mode">
-                <div class="glass-box">
-                    <h2 id="block-done-title">Block geschafft!</h2>
-                    <div class="mode-selection">
-                        <button onclick="AppDirector.continueGame()">Weiterspielen</button>
-                        <button onclick="AppDirector.goBack()">Hauptmenü</button>
-                    </div>
-                </div>
-            </section>
-
         </main>
 
         <footer id="thumb-zone" class="hidden">
-            <div id="quickie-controls" class="hidden"></div>
-            <div id="ap-controls" class="hidden">
-                <div id="ap-input-display">_</div>
-                <div id="keyboard"></div>
-                <button id="ap-submit" class="action-btn" onclick="checkAnswer()">Prüfen</button>
-            </div>
-            <button id="next-btn" class="hidden action-btn" onclick="loadNext()">WEITER ➡️</button>
+            <div id="keyboard"></div>
         </footer>
 
+        <div id="game-over-screen" class="hidden">
+            <img src="loser.jpg" alt="Game Over">
+        </div>
     </div>
 
     <div id="feedback-flash" class="hidden"></div>
-    <div id="game-over-screen" class="hidden">
-        <img src="loser.jpg" alt="Game Over">
-    </div>
+    <canvas id="blueprint-fireworks" class="blueprint-fireworks-canvas"></canvas>
 
-    <script src="app.js?v=4"></script>
+    <script src="app.js"></script>
 </body>
 </html>
